@@ -1,0 +1,56 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper: Check if user is logged in as moderator
+    function isModerator() {
+      return request.auth != null;
+    }
+
+    // Helper: Validate image content types
+    function isValidImageType() {
+      return request.resource.contentType.matches('image/.*') 
+             && (request.resource.contentType == 'image/jpeg' 
+                 || request.resource.contentType == 'image/png' 
+                 || request.resource.contentType == 'image/webp' 
+                 || request.resource.contentType == 'image/gif');
+    }
+
+    // Helper: Validate prompt content types (.txt or .md)
+    function isValidPromptType() {
+      return request.resource.contentType == 'text/plain' 
+             || request.resource.contentType == 'text/markdown'
+             || request.resource.contentType == 'application/octet-stream'; // Some browsers upload text files as octet-stream
+    }
+
+    // Rules for event image uploads
+    match /events/{allPaths=**} {
+      allow read: if true;
+      // Anyone can upload an image up to 5MB under validation rules
+      allow create: if request.resource.size < 5 * 1024 * 1024 
+                    && isValidImageType();
+      // Only moderators can update or delete
+      allow update, delete: if isModerator();
+    }
+
+    // Rules for project image uploads
+    match /projects/{allPaths=**} {
+      allow read: if true;
+      // Anyone can upload an image up to 5MB under validation rules
+      allow create: if request.resource.size < 5 * 1024 * 1024 
+                    && isValidImageType();
+      // Only moderators can update or delete
+      allow update, delete: if isModerator();
+    }
+
+    // Rules for prompt file uploads
+    match /prompts/{allPaths=**} {
+      allow read: if true;
+      // Anyone can upload a prompt file up to 2MB (md or txt)
+      allow create: if request.resource.size < 2 * 1024 * 1024 
+                    && isValidPromptType();
+      // Only moderators can update or delete
+      allow update, delete: if isModerator();
+    }
+  }
+}

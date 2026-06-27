@@ -1,0 +1,173 @@
+[
+  {
+    "ad": "Oyun Tasarımı — EğitiJAM",
+    "kisaKod": "oyun-tasarimi-egitijam",
+    "kategori": "Yazılım & Tasarım",
+    "renk": "#e63946",
+    "ikon": "gamepad",
+    "aciklama": "Gençlerin oyun tasarımı süreçlerini deneyimlediği ve geliştirdiği tema.",
+    "aktif": true
+  },
+  {
+    "ad": "G2S — Genç Sektör Buluşmaları",
+    "kisaKod": "g2s-genc-sektor-bulusmalari",
+    "kategori": "Girişimcilik & Sektör",
+    "renk": "#ef233c",
+    "ikon": "users",
+    "aciklama": "Gençlerin sektör temsilcileri ile buluştuğu ve deneyim paylaştığı etkinlikler.",
+    "aktif": true
+  },
+  {
+    "ad": "Ritim a.i. — Yapay Zeka Araçları",
+    "kisaKod": "ritim-ai-yapay-zeka-araclari",
+    "kategori": "Yapay Zeka",
+    "renk": "#d90429",
+    "ikon": "music",
+    "aciklama": "Yapay zeka araçlarının müzik, ritim ve ses üretiminde kullanımı.",
+    "aktif": true
+  },
+  {
+    "ad": "Dijital Sanatlar",
+    "kisaKod": "dijital-sanatlar",
+    "kategori": "Tasarım & Sanat",
+    "renk": "#f15bb5",
+    "ikon": "palette",
+    "aciklama": "Piksel sanatı, 3D modelleme ve dijital çizim gibi yaratıcı süreçler.",
+    "aktif": true
+  },
+  {
+    "ad": "Bilişim Hukuku ve Güvenli İnternet",
+    "kisaKod": "bilisim-hukuku-ve-guvenli-internet",
+    "kategori": "Hukuk & Güvenlik",
+    "renk": "#2b2d42",
+    "ikon": "shield",
+    "aciklama": "Güvenli internet kullanımı, etik kurallar ve bilişim hukuku farkındalığı.",
+    "aktif": true
+  },
+  {
+    "ad": "Tek Maraton",
+    "kisaKod": "tek-maraton",
+    "kategori": "Yazılım & Tasarım",
+    "renk": "#8d99ae",
+    "ikon": "flag",
+    "aciklama": "Kısıtlı sürede yenilikçi fikir ve yazılım prototipleri geliştirme yarışı.",
+    "aktif": true
+  },
+  {
+    "ad": "Robot İşletim Sistemi",
+    "kisaKod": "robot-isletim-sistemi",
+    "kategori": "Robotik & Donanım",
+    "renk": "#ef476f",
+    "ikon": "cpu",
+    "aciklama": "ROS (Robot Operating System) tabanlı robot kontrolü ve otonom sistemler.",
+    "aktif": true
+  },
+  {
+    "ad": "Espor",
+    "kisaKod": "espor",
+    "kategori": "Spor & Eğlence",
+    "renk": "#ffd166",
+    "ikon": "trophy",
+    "aciklama": "Rekabetçi dijital oyun turnuvaları ve espor ekosistemi.",
+    "aktif": true
+  },
+  {
+    "ad": "Robot Futbol Ligi",
+    "kisaKod": "robot-futbol-ligi",
+    "kategori": "Robotik & Donanım",
+    "renk": "#06d6a0",
+    "ikon": "activity",
+    "aciklama": "Otonom robotların futbol maçı yaptığı heyecan verici mühendislik teması.",
+    "aktif": true
+  },
+  {
+    "ad": "İHA — İnsansız Hava Araçları",
+    "kisaKod": "iha-insansiz-hava-araclari",
+    "kategori": "Havacılık & Uzay",
+    "renk": "#118ab2",
+    "ikon": "plane",
+    "aciklama": "İnsansız hava araçlarının tasarımı, kodlanması ve uçuş algoritmaları.",
+    "aktif": true
+  },
+  {
+    "ad": "Açık Kaynak",
+    "kisaKod": "acik-kaynak",
+    "kategori": "Yazılım & Tasarım",
+    "renk": "#073b4c",
+    "ikon": "code",
+    "aciklama": "Açık kaynaklı yazılım projelerine katkı sunma ve topluluk geliştirme kültürü.",
+    "aktif": true
+  },
+  {
+    "ad": "E-Ticaret ve E-İhracat",
+    "kisaKod": "e-ticaret-ve-e-ihracat",
+    "kategori": "Girişimcilik & Sektör",
+    "renk": "#8338ec",
+    "ikon": "shopping-cart",
+    "aciklama": "Dijital pazar yerleri kurma, e-ticaret stratejileri ve küresel ihracat.",
+    "aktif": true
+  },
+  {
+    "ad": "Yapay Zeka",
+    "kisaKod": "yapay-zeka",
+    "kategori": "Yapay Zeka",
+    "renk": "#3a86ff",
+    "ikon": "brain",
+    "aciklama": "Makine öğrenimi, derin öğrenme ve üretken yapay zeka projeleri.",
+    "aktif": true
+  },
+  {
+    "ad": "Master Tek",
+    "kisaKod": "master-tek",
+    "kategori": "İleri Teknoloji",
+    "renk": "#ff006e",
+    "ikon": "award",
+    "aciklama": "İleri seviye teknolojik yetkinlikler ve liderlik geliştirme programları.",
+    "aktif": true
+  },
+  {
+    "ad": "Dijital Yürüyüş STEM",
+    "kisaKod": "dijital-yuruyus-stem",
+    "kategori": "Eğitim & STEM",
+    "renk": "#38b000",
+    "ikon": "footprints",
+    "aciklama": "STEM disiplinlerini doğa ve dijital etkinliklerle birleştiren yürüyüşler.",
+    "aktif": true
+  },
+  {
+    "ad": "Dijital Bağımlılıklara Sosyal Fiziksel Alternatif",
+    "kisaKod": "dijital-bagimliliklara-sosyal-fiziksel-alternatif",
+    "kategori": "Sağlık & Yaşam",
+    "renk": "#70e000",
+    "ikon": "heart",
+    "aciklama": "Ekran bağımlılığına karşı fiziksel, sosyal ve yaratıcı alternatif aktiviteler.",
+    "aktif": true
+  },
+  {
+    "ad": "CTF — Bayrağı Yakala",
+    "kisaKod": "ctf-bayragi-yakala",
+    "kategori": "Hukuk & Güvenlik",
+    "renk": "#d00000",
+    "ikon": "target",
+    "aciklama": "Siber güvenlik alanında bayrağı yakalama (Capture The Flag) yarışmaları.",
+    "aktif": true
+  },
+  {
+    "ad": "Vibe Coding",
+    "kisaKod": "vibe-coding",
+    "kategori": "Yazılım & Tasarım",
+    "renk": "#9d4edd",
+    "ikon": "terminal",
+    "aciklama": "Yapay zekanın kodlama ortağı olduğu, fikirlerin hızla hayata geçirildiği tema.",
+    "aktif": true
+  },
+  {
+    "ad": "Robotik Kodlama",
+    "kisaKod": "robotik-kodlama",
+    "kategori": "Robotik & Donanım",
+    "renk": "#02c39a",
+    "ikon": "cpu",
+    "aciklama": "Mikrodenetleyiciler, otonom robotlar ve temel kodlama prensipleriyle projeler geliştirme.",
+    "aktif": true
+  }
+]

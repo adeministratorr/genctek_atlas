@@ -1,0 +1,3104 @@
+{
+  "ALTIEYLÜL": [
+    {
+      "ad": "100. Yıl Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://balikesir100yil.meb.k12.tr/"
+    },
+    {
+      "ad": "15 Temmuz Şehitler Anadolu Lisesi",
+      "website": "https://15temmuzsehitleranadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Ahmet Karatoprak İmam Hatip Ortaokulu",
+      "website": "https://karatoprakiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Altıeylül Bilim ve Sanat Merkezi",
+      "website": "https://altieylulbilsem.meb.k12.tr/"
+    },
+    {
+      "ad": "Altıeylül Fen Lisesi",
+      "website": "https://altieylulfenlisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Altıeylül Halk Eğitimi Merkezi",
+      "website": "https://alhem.meb.k12.tr/"
+    },
+    {
+      "ad": "Altıeylül Ortaokulu",
+      "website": "https://balikesiraltieylulortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Altıeylül Rehberlik ve Araştırma Merkezi",
+      "website": "https://altieylulram.meb.k12.tr/"
+    },
+    {
+      "ad": "Aslıhantepecik İlkokulu",
+      "website": "https://aslihantepecikio.meb.k12.tr/"
+    },
+    {
+      "ad": "Aslıhantepecik Ortaokulu",
+      "website": "https://aslihantepecikoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Atköy İlkokulu",
+      "website": "https://atkoyio.meb.k12.tr/"
+    },
+    {
+      "ad": "Atköy Ortaokulu",
+      "website": "https://atkoyoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayşebacı Köyü Şehit İsa Yavaş İlkokulu",
+      "website": "https://aysebacisehitisayavasilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayşebacı Köyü Şehit İsa Yavaş Ortaokulu",
+      "website": "https://aysebaciokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Atatürk Şehir Hastanesi Anaokulu",
+      "website": "https://ataturksehirhastanesianaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıklı İlkokulu",
+      "website": "https://balikliokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıklı Ortaokulu",
+      "website": "https://blkbalikliortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Bengi Anaokulu",
+      "website": "https://bengi.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhan Erdayı İlkokulu",
+      "website": "https://burhanerdayiilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhan Erdayı Ortaokulu",
+      "website": "https://burhanerdayiortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Büyük Bostancı İlkokulu",
+      "website": "https://buyukbostanci.meb.k12.tr/"
+    },
+    {
+      "ad": "Cumhuriyet İlkokulu",
+      "website": "https://balikesircumhuriyet.meb.k12.tr/"
+    },
+    {
+      "ad": "Cumhuriyet Ortaokulu",
+      "website": "https://balikesircumhuriyetortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çandır İlkokulu",
+      "website": "https://candirilk.meb.k12.tr/"
+    },
+    {
+      "ad": "Çandır Ortaokulu",
+      "website": "https://candirorta.meb.k12.tr/"
+    },
+    {
+      "ad": "Ermişler Cumhuriyet Anadolu Lisesi",
+      "website": "https://balikesirecal.meb.k12.tr/"
+    },
+    {
+      "ad": "Fahri Kiraz Kız Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://fahrikirazmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Fevzi Çakmak İlkokulu",
+      "website": "https://fevzicakmak10.meb.k12.tr/"
+    },
+    {
+      "ad": "Gaziosmanpaşa İlkokulu",
+      "website": "https://gop10.meb.k12.tr/"
+    },
+    {
+      "ad": "General Kemal Balıkesir Ortaokulu",
+      "website": "https://generalkemalbalikesirortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gökköy İlkokulu",
+      "website": "https://gokkoyilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gülser-Mehmet Bolluk Anadolu Lisesi",
+      "website": "https://bolluk.meb.k12.tr/"
+    },
+    {
+      "ad": "Halalca İlkokulu",
+      "website": "https://halalcailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Halalca Ortaokulu",
+      "website": "https://halalcaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hasan Basri Çantay İlkokulu",
+      "website": "https://hasanbasricantayilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hatice Fahriye Eğinlioğlu İlkokulu",
+      "website": "https://hfeilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hüma Hatun Kız Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://balikesirkml.meb.k12.tr/"
+    },
+    {
+      "ad": "Kabaklı İlkokulu",
+      "website": "https://balikesirkabakli.meb.k12.tr/"
+    },
+    {
+      "ad": "Kadriye Kemal Gürel İlkokulu",
+      "website": "https://kadriyekemalgurelilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Karamanköy Mehmetcik İlkokulu",
+      "website": "https://karamankoymehmetcikilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Karamanköy Mehmetcik Ortaokulu",
+      "website": "https://karamankoymehmetcikortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Karamanlar İlkokulu",
+      "website": "https://karamanlarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Karamanlar Ortaokulu",
+      "website": "https://karamanlarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kesirven Şehit Mehmet Eren İlkokulu",
+      "website": "https://kesirvenilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kesirven Şehit Mehmet Eren ortaokulu",
+      "website": "https://kesirven.meb.k12.tr/"
+    },
+    {
+      "ad": "Konakpınar Köyü Şehit Jandarma Başçavuş Erbu Serpan İlkokulu",
+      "website": "https://konakpinarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Konakpınar Köyü Şehit Jandarma Başçavuş Erbu Serpan Ortaokulu",
+      "website": "https://konakpinarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Köseler İlkokulu",
+      "website": "https://koselerilkokulu10.meb.k12.tr/"
+    },
+    {
+      "ad": "Köylüköy İlkokulu",
+      "website": "https://koylukoyio.meb.k12.tr/"
+    },
+    {
+      "ad": "Köylüköy Ortaokulu",
+      "website": "https://koylukoyoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Macarlar İlkokulu",
+      "website": "https://macarlario.meb.k12.tr/"
+    },
+    {
+      "ad": "Macarlar Ortaokulu",
+      "website": "https://macarlaro.meb.k12.tr/"
+    },
+    {
+      "ad": "Makbule Efe Anaokulu",
+      "website": "https://makbulefeanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Ağa Safarov Anadolu Lisesi",
+      "website": "https://blkmasal.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Akif Ersoy İlkokulu",
+      "website": "https://blkmakifilk.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Akif Ersoy Ortaokulu",
+      "website": "https://blkmakifort.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Vehbi Bolak Ticaret Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://mvehbibolaktml.meb.k12.tr/"
+    },
+    {
+      "ad": "Mimar Sinan Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://balikesireml.meb.k12.tr/"
+    },
+    {
+      "ad": "Mithatpaşa Anaokulu",
+      "website": "https://mpao.meb.k12.tr/"
+    },
+    {
+      "ad": "Naim Süleymanoğlu İlkokulu",
+      "website": "https://naimsuleymanogluilkokulu10.meb.k12.tr/"
+    },
+    {
+      "ad": "Namık Kemal İlkokulu",
+      "website": "https://namikkemalio10.meb.k12.tr/"
+    },
+    {
+      "ad": "Nergiz İlkokulu",
+      "website": "https://nergizilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Nuran Oğuz Özel Eğitim Anaokulu",
+      "website": "https://nuranoguzozelegitim.meb.k12.tr/"
+    },
+    {
+      "ad": "Organize Sanayi Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://bostemel.meb.k12.tr/"
+    },
+    {
+      "ad": "Ortamandıra Şehit Gürel Alagöz İlkokulu",
+      "website": "https://ortamandirasgai.meb.k12.tr/"
+    },
+    {
+      "ad": "Ortamandıra Şehit Gürel Alagöz Ortaokulu",
+      "website": "https://ortamandirasgaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ovaköy İlkokulu",
+      "website": "https://ovakoyio.meb.k12.tr/"
+    },
+    {
+      "ad": "Ovaköy Ortaokulu",
+      "website": "https://ovakoyoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Pamukçu İlkokulu",
+      "website": "https://pamukcuilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Pamukçu İmam Hatip Ortaokulu",
+      "website": "https://pamukcuiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Pamukçu Ortaokulu",
+      "website": "https://pamukcuortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Plevne İlkokulu",
+      "website": "https://blkplevneio.meb.k12.tr/"
+    },
+    {
+      "ad": "Sabiha Gökçen Anaokulu",
+      "website": "https://sgao.meb.k12.tr/"
+    },
+    {
+      "ad": "Sevgi Özel Eğitim Uygulama Okulu I. Kademe",
+      "website": "https://sevgiozelegitimuygulamaokulu1kad.meb.k12.tr/"
+    },
+    {
+      "ad": "Sevgi Özel Eğitim Uygulama Okulu II. Kademe",
+      "website": "https://sevgiozelegitimuygulamaokulu2kad.meb.k12.tr/"
+    },
+    {
+      "ad": "Sultan Abdulhamit Han İlkokulu",
+      "website": "https://776444.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Jandarma Uzman Çavuş Okan Dinçer Ortaokulu",
+      "website": "https://sehitokandincer.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Ömer Faruk Bol İmam Hatip Ortaokulu",
+      "website": "https://sehitomerfarukboliho.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Süleyman Özoğlu Ortaokulu",
+      "website": "https://776445.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Uzman Çavuş Davut Armağan Keskin Özel Eğitim Anaokulu",
+      "website": "https://davutarmagankozelegitimanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yakup Mihriye Akdeniz Anadolu İmam Hatip Lisesi",
+      "website": "https://akdenizihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Yakupköy İlkokulu",
+      "website": "https://yakupkoyilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yakupköy Ortaokulu",
+      "website": "https://yakupkoyortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yarış Ortaokulu",
+      "website": "https://yarisortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yunus Emre Ortaokulu",
+      "website": "https://balikesiryunusemreoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Zağnospaşa Ortaokulu",
+      "website": "https://zagnospasaortaokulu.meb.k12.tr/"
+    }
+  ],
+  "AYVALIK": [
+    {
+      "ad": "15 Eylül Ortaokulu",
+      "website": "https://onbeseylulortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Abdülvahit Sağlam İlkokulu",
+      "website": "https://abdulvahitsaglam.meb.k12.tr/"
+    },
+    {
+      "ad": "Akçapınar İlkokulu",
+      "website": "https://akcapinarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Akçapınar Ortaokulu",
+      "website": "https://akcapinarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ali Çetinkaya İlkokulu",
+      "website": "https://alicetinkayailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ali Çetinkaya Ortaokulu",
+      "website": "https://alicetinkayaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınova Anaokulu",
+      "website": "https://altinovaanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınova Atatürk İlkokulu",
+      "website": "https://altinovaataturkilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınova Merkez İlkokulu",
+      "website": "https://merkezilkokul.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınova Ondört Eylül İlkokulu",
+      "website": "https://altinova14eylul.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk İlkokulu",
+      "website": "https://ayvalikataturk.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Anadolu Lisesi",
+      "website": "https://ayvalikanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Anaokulu",
+      "website": "https://ayvalikanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Atatürk Anadolu Lisesi",
+      "website": "https://ayvalikatal.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Halk Eğitimi Merkezi",
+      "website": "https://ayvalikhem.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Mesleki Eğitim Merkezi",
+      "website": "https://aymesem.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Öğretmenevi ve Akşam Sanat Okulu",
+      "website": "https://ayvalikogretmenevi.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Rahim Usta Anadolu Lisesi",
+      "website": "https://rual.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Rehberlik ve Araştırma Merkezi",
+      "website": "https://ayvalikram.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Sakarya Türkiye Odalar ve Borsalar Birliği Ortaokulu",
+      "website": "https://sakarya.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Zeynep Perkit Fen Lisesi",
+      "website": "https://ayvalikzeynepperkitfenlisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Ayvalık Zübeyde Hanım Kız Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://ayvzubeydehanimktml.meb.k12.tr/"
+    },
+    {
+      "ad": "Bağyüzü İlkokulu",
+      "website": "https://bagyuzuilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Bağyüzü Ortaokulu",
+      "website": "https://bagyuzuortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Cihan Yorgun Ortaokulu",
+      "website": "https://cihanyorgunortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Cunda Turizm Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://ayvalikotml.meb.k12.tr/"
+    },
+    {
+      "ad": "Çakmak İlkokulu",
+      "website": "https://cakmakilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çakmak Ortaokulu",
+      "website": "https://ayvalikcakmakortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çamoba İlkokulu",
+      "website": "https://camobailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "İstiklal İlkokulu",
+      "website": "https://istiklal10.meb.k12.tr/"
+    },
+    {
+      "ad": "Kıvanç Sarlıcalı İlkokulu",
+      "website": "https://kivancsarlicaliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mecit Ataklı İlkokulu",
+      "website": "https://mecitatakli.meb.k12.tr/"
+    },
+    {
+      "ad": "Mecit Ataklı Ortaokulu",
+      "website": "https://mecitatakliortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Akif Ersoy Ortaokulu",
+      "website": "https://ayvalikmehmetakifersoy.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Can Övünür Anaokulu",
+      "website": "https://mcovunuranaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Necmi Komili İlkokulu",
+      "website": "https://nki.meb.k12.tr/"
+    },
+    {
+      "ad": "Necmi Komili Ortaokulu",
+      "website": "https://nko.meb.k12.tr/"
+    },
+    {
+      "ad": "Nuri Zarplı İlkokulu",
+      "website": "https://nzi.meb.k12.tr/"
+    },
+    {
+      "ad": "Nuri Zarplı Ortaokulu",
+      "website": "https://nurizarpliortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Pakmaya Kenan Kaptan Denizcilik Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://pakmayadenizcilik.meb.k12.tr/"
+    },
+    {
+      "ad": "Sakarya İlkokulu",
+      "website": "https://aysa1.meb.k12.tr/"
+    },
+    {
+      "ad": "Sebahat-Cihan Şişman Güzel Sanatlar Lisesi",
+      "website": "https://ayvalikgsl.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Abdullah Tayyip Olçok Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://atoeml.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Ömer Halisdemir Çok Programlı Anadolu Lisesi",
+      "website": "https://sehitomerhalisdemircpal.meb.k12.tr/"
+    },
+    {
+      "ad": "Ustalı Anadolu İmam Hatip Lisesi",
+      "website": "https://ustaliihl.meb.k12.tr/"
+    }
+  ],
+  "BALYA": [
+    {
+      "ad": "ALİDEMİRCİ İLKOKULU",
+      "website": "https://alidemirciilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Balya Atatürk Çok Programlı Anadolu Lisesi",
+      "website": "https://balyacpl.meb.k12.tr/"
+    },
+    {
+      "ad": "Balya Halk Eğitimi Merkezi",
+      "website": "https://balyahem.meb.k12.tr/"
+    },
+    {
+      "ad": "Balya Zübeyde Hanım Anaokulu",
+      "website": "https://balyazhanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "ÇAMAVŞAR İLKOKULU",
+      "website": "https://camavsarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "ÇAMAVŞAR ORTAOKULU",
+      "website": "https://camavsarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "ÇAMUCU İLKOKULU",
+      "website": "https://camucuio.meb.k12.tr/"
+    },
+    {
+      "ad": "DEREKÖY İLKOKULU",
+      "website": "https://derekoyilkokulu1.meb.k12.tr/"
+    },
+    {
+      "ad": "HACIHÜSEYİN İLKOKULU",
+      "website": "https://hacihuseyinilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "ILICA ŞEHİT NECMİ GÜRGEN İLKOKULU",
+      "website": "https://isngi.meb.k12.tr/"
+    },
+    {
+      "ad": "ILICA ŞEHİT NECMİ GÜRGEN ORTAOKULU",
+      "website": "https://isngo.meb.k12.tr/"
+    },
+    {
+      "ad": "KOYUNERİ İLKOKULU",
+      "website": "https://koyuneriilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "KOYUNERİ ORTAOKULU",
+      "website": "https://koyuneriortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "ŞAMİLE ALTINTAŞ İLKOKULU",
+      "website": "https://sai.meb.k12.tr/"
+    },
+    {
+      "ad": "YENİKAVAK İLKOKULU",
+      "website": "https://yenikavakilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Zübeyde Hanım Yatılı Bölge Ortaokulu",
+      "website": "https://balyazubeydehanimybo.meb.k12.tr/"
+    }
+  ],
+  "BANDIRMA": [
+    {
+      "ad": "100. Yıl İlkokulu",
+      "website": "https://100yililko.meb.k12.tr/"
+    },
+    {
+      "ad": "15 Temmuz Şehit Ramazan Konuş İmam Hatip Ortaokulu",
+      "website": "https://bnd15temmuziho.meb.k12.tr/"
+    },
+    {
+      "ad": "17 Eylül İlkokulu",
+      "website": "https://17eylulilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "600 Evler Anaokulu",
+      "website": "https://600evleranaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ahmet Baş Anaokulu",
+      "website": "https://ahmetbasanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ahmet Obalı Anaokulu",
+      "website": "https://ahmetobalianaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Aksakal İlkokulu",
+      "website": "https://aksakalilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Aksakal Umut Akkaya Ortaokulu",
+      "website": "https://aksakalumutakkayaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Akşemsettin Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://bandirmaasml.meb.k12.tr/"
+    },
+    {
+      "ad": "Ali Fahri İşeri İlkokulu",
+      "website": "https://alifahriilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ali Öztaylan Anadolu İmam Hatip Lisesi",
+      "website": "https://alioztaylanaihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Adalet Mesleki Eğitim Merkezi",
+      "website": "https://banadaletmesem.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Anadolu İmam Hatip Lisesi",
+      "website": "https://bandirmaihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Anadolu Lisesi",
+      "website": "https://bbal.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Atatürk Özel Eğitim İlkokulu",
+      "website": "https://ataturkoei.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Atatürk Özel Eğitim Ortaokulu",
+      "website": "https://ataturkoeo.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Bilim ve Sanat Merkezi",
+      "website": "https://bandirmabilsem.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Fatih İlkokulu",
+      "website": "https://banfatihilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Halk Eğitimi Merkezi",
+      "website": "https://bandirmahem.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma İmam Hatip Ortaokulu",
+      "website": "https://biho.meb.k12.tr/"
+    },
+    {
+      "ad": "BANDIRMA KAYACIK ANAOKULU",
+      "website": "https://bankayacikanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Mesleki Eğitim Merkezi",
+      "website": "https://banmesem.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://bmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Ortaokulu",
+      "website": "https://bandirma.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Rehberlik ve Araştırma Merkezi",
+      "website": "https://bandirmaram.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Türkiye Odalar ve Borsalar Birliği Anaokulu",
+      "website": "https://bantobbanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Bandırma Yavuz Sultan Selim Anadolu Lisesi",
+      "website": "https://yassal.meb.k12.tr/"
+    },
+    {
+      "ad": "BANDIRMA YAVUZ SULTAN SELİM İLKOKULU",
+      "website": "https://banyssilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Borsa İstanbul Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://bist.meb.k12.tr/"
+    },
+    {
+      "ad": "Cumhuriyet İlkokulu",
+      "website": "https://bandirmacumhuriyetilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çalışkanlar İlkokulu",
+      "website": "https://bandirmacaliskanlarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çınarlı Özel Eğitim Anaokulu",
+      "website": "https://cinarliozelegitimanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Edincik İlkokulu",
+      "website": "https://edincikilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Edincik Onsekizeylül İlkokulu",
+      "website": "https://edincik18eylul.meb.k12.tr/"
+    },
+    {
+      "ad": "Edincik Ortaokulu",
+      "website": "https://edincikortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Edincik Recep Gencer Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://rgmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Enerjisa Bandırma Fen Lisesi",
+      "website": "https://ebfl.meb.k12.tr/"
+    },
+    {
+      "ad": "Erikli İlkokulu",
+      "website": "https://erikli.meb.k12.tr/"
+    },
+    {
+      "ad": "Esnaf Sanatkarları Ortaokulu",
+      "website": "https://eso.meb.k12.tr/"
+    },
+    {
+      "ad": "Eti Maden Ortaokulu",
+      "website": "https://etiorta.meb.k12.tr/"
+    },
+    {
+      "ad": "Fatih Ortaokulu",
+      "website": "https://banfatihortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hafsa Sultan Kız Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://kizteknik.meb.k12.tr/"
+    },
+    {
+      "ad": "Hasan Atlı İlkokulu",
+      "website": "https://hasanatliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Haydar Çavuş Ticaret Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://bandirmatml.meb.k12.tr/"
+    },
+    {
+      "ad": "Hicri Ercili Özel Eğitim Meslek Okulu",
+      "website": "https://hicriercilioemo.meb.k12.tr/"
+    },
+    {
+      "ad": "Hicri Ercili Özel Eğitim Uygulama Okulu I. Kademe",
+      "website": "https://hicriercilioeuo1.meb.k12.tr/"
+    },
+    {
+      "ad": "Hicri Ercili Özel Eğitim Uygulama Okulu II. Kademe",
+      "website": "https://hicriercilioeuo2.meb.k12.tr/"
+    },
+    {
+      "ad": "Hicri Ercili Özel Eğitim Uygulama Okulu III. Kademe",
+      "website": "https://hicriercilioeuo3.meb.k12.tr/"
+    },
+    {
+      "ad": "Hürriyet İlkokulu",
+      "website": "https://banhiok.meb.k12.tr/"
+    },
+    {
+      "ad": "Kemal Pireci Anadolu Lisesi",
+      "website": "https://kemalpirecianadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Kemal Pireci Ortaokulu",
+      "website": "https://kemalpireciortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Korgeneral Enver Akoğlu Ortaokulu",
+      "website": "https://bkea.meb.k12.tr/"
+    },
+    {
+      "ad": "Marmara İlkokulu",
+      "website": "https://MARMARAO.meb.k12.tr/"
+    },
+    {
+      "ad": "Öğretmenevi ve Akşam Sanat Okulu",
+      "website": "https://bandirmaogretmenevi.meb.k12.tr/"
+    },
+    {
+      "ad": "Sahil Yenice İlkokulu",
+      "website": "https://sahilyeniceilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Bedir Karabıyık Ortaokulu",
+      "website": "https://sbkoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Mehmet Günenç Anadolu Lisesi",
+      "website": "https://smg.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Öğretmen Mustafa Boz İlkokulu",
+      "website": "https://sombi.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Pilot Üsteğmen Cemil Kaya İlkokulu",
+      "website": "https://cemilkayailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Pilot Üsteğmen Cemil Kaya Ortaokulu",
+      "website": "https://cemilkayaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Süleymanbey İlkokulu",
+      "website": "https://ssbeyio.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Süleymanbey Ortaokulu",
+      "website": "https://ssbeyoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Teğmen Doğuş Uran Anaokulu",
+      "website": "https://dogusurananaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ticaret Borsası İlkokulu",
+      "website": "https://bantiborio.meb.k12.tr/"
+    },
+    {
+      "ad": "Ticaret Borsası Ortaokulu",
+      "website": "https://bantiboroo.meb.k12.tr/"
+    },
+    {
+      "ad": "Ticaret Odası İlkokulu",
+      "website": "https://ticaretodasiio.meb.k12.tr/"
+    },
+    {
+      "ad": "Ticaret Odası Ortaokulu",
+      "website": "https://ticaretodasioo.meb.k12.tr/"
+    },
+    {
+      "ad": "Yaman Egeli Ortaokulu",
+      "website": "https://yamanegeliortao.meb.k12.tr/"
+    },
+    {
+      "ad": "Yeniyenice İlkokulu",
+      "website": "https://yeniyeniceilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Zübeyde Hanım Anaokulu",
+      "website": "https://bandirmazubeydehanimanaokulu.meb.k12.tr/"
+    }
+  ],
+  "BİGADİÇ": [
+    {
+      "ad": "75. Yıl Eti Holding İlkokulu",
+      "website": "https://75eti.meb.k12.tr/"
+    },
+    {
+      "ad": "Akyar İlkokulu",
+      "website": "https://akyarilkokulu10.meb.k12.tr/"
+    },
+    {
+      "ad": "Akyar Ortaokulu",
+      "website": "https://akyarortaokulu10.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk İlkokulu",
+      "website": "https://bigadicataturk.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk Ortaokulu",
+      "website": "https://bigadicataturkoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Başçeşme İlkokulu",
+      "website": "https://bascesme.meb.k12.tr/"
+    },
+    {
+      "ad": "Bigadiç Anadolu İmam Hatip Lisesi",
+      "website": "https://bigadicihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Bigadiç Anadolu Lisesi",
+      "website": "https://bigadicanadolu.meb.k12.tr/"
+    },
+    {
+      "ad": "Bigadiç Dörteylül Şehit Mustafa Çiğdem Anaokulu",
+      "website": "https://4eylulanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Bigadiç Eti Maden Özel Eğitim Uygulama Okulu I. Kademe",
+      "website": "https://764394.meb.k12.tr/"
+    },
+    {
+      "ad": "Bigadiç Eti Maden Özel Eğitim Uygulama Okulu II. Kademe",
+      "website": "https://bigadicozelegitim2.meb.k12.tr/"
+    },
+    {
+      "ad": "Bigadiç Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://bigadicmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Bigadiç Muzaffer Emiroğlu Halk Eğitimi Merkezi",
+      "website": "https://bigadichem.meb.k12.tr/"
+    },
+    {
+      "ad": "Cumhuriyet İlkokulu",
+      "website": "https://bigadiccio.meb.k12.tr/"
+    },
+    {
+      "ad": "Cumhuriyet Ortaokulu",
+      "website": "https://bigadiccumhuriyetoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Çağış İlkokulu",
+      "website": "https://cagisilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çağış Ortaokulu",
+      "website": "https://cagisortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çayüstü İlkokulu",
+      "website": "https://cayustu.meb.k12.tr/"
+    },
+    {
+      "ad": "Dörteylül Ortaokulu",
+      "website": "https://dorteylulortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Dörteylül Sıtkı Sinan İlkokulu",
+      "website": "https://dorteylulilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Elyapan İlkokulu",
+      "website": "https://elyapan.meb.k12.tr/"
+    },
+    {
+      "ad": "Emirler İlkokulu",
+      "website": "https://emirler.meb.k12.tr/"
+    },
+    {
+      "ad": "Eti Maden Işıklar Ortaokulu",
+      "website": "https://isiklarortaokulu10.meb.k12.tr/"
+    },
+    {
+      "ad": "Eti Maden İmam Hatip Ortaokulu",
+      "website": "https://bigadicetimadeniho.meb.k12.tr/"
+    },
+    {
+      "ad": "Fatih İlkokulu",
+      "website": "https://bigadicfatih.meb.k12.tr/"
+    },
+    {
+      "ad": "Güvemçetmi İlkokulu",
+      "website": "https://guvemcetmiilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Güvemçetmi Ortaokulu",
+      "website": "https://guvemcetmioo.meb.k12.tr/"
+    },
+    {
+      "ad": "Hamidiye İlkokulu",
+      "website": "https://bigadichamidiye.meb.k12.tr/"
+    },
+    {
+      "ad": "HATİCE KOÇ KIZILAY ANAOKULU",
+      "website": "https://767961.meb.k12.tr/"
+    },
+    {
+      "ad": "Işıklar İlkokulu",
+      "website": "https://bigadicisiklarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "İlyaslar Şehit Niyazi Elçin İlkokulu",
+      "website": "https://ilyaslarsnei.meb.k12.tr/"
+    },
+    {
+      "ad": "İlyaslar Şehit Niyazi Elçin Ortaokulu",
+      "website": "https://ilyaslarsneo.meb.k12.tr/"
+    },
+    {
+      "ad": "İskele İlkokulu",
+      "website": "https://iskeleio.meb.k12.tr/"
+    },
+    {
+      "ad": "İskele Ortaokulu",
+      "website": "https://iskeleoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Kargın İlkokulu",
+      "website": "https://kargin.meb.k12.tr/"
+    },
+    {
+      "ad": "Kayırlar Şehit Mustafa Ergin İlkokulu",
+      "website": "https://kayirlar.meb.k12.tr/"
+    },
+    {
+      "ad": "Kozpınar İlkokulu",
+      "website": "https://kozpnarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kozpınar Ortaokulu",
+      "website": "https://kozpnarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kuvayi Milliye Anadolu Lisesi",
+      "website": "https://bikmal.meb.k12.tr/"
+    },
+    {
+      "ad": "Mecidiye Şehitler İlkokulu",
+      "website": "https://mecidiyes.meb.k12.tr/"
+    },
+    {
+      "ad": "Mecidiye Şehitler Ortaokulu",
+      "website": "https://mecidiyesoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Turfullar Şehit Ahmet Kurt İlkokulu",
+      "website": "https://turfullar.meb.k12.tr/"
+    },
+    {
+      "ad": "Yeşildere İlkokulu",
+      "website": "https://bigadicyesildere.meb.k12.tr/"
+    }
+  ],
+  "BURHANİYE": [
+    {
+      "ad": "Ayşe Akpınar Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://ayseakpinarkml.meb.k12.tr/"
+    },
+    {
+      "ad": "Bahadınlı İlkokulu",
+      "website": "https://bahadinliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Bahadınlı Ortaokulu",
+      "website": "https://bahadinlioo.meb.k12.tr/"
+    },
+    {
+      "ad": "Berna Kundakçı Anaokulu",
+      "website": "https://bernakundakcianaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Börezli İlkokulu",
+      "website": "https://borezliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Atatürk Mesleki Eğitim Merkezi",
+      "website": "https://burhaniyemesem.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Atatürk Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://burhaniyeasml.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Bilim ve Sanat Merkezi",
+      "website": "https://burhaniyebilsem.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Hacı Mehmet Fevzi Köylü Anadolu İmam Hatip Lisesi",
+      "website": "https://burhaniyeihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Kuvâ-yı Milliye Fen Lisesi",
+      "website": "https://burhaniyekuvayimilliyefenlisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Mehmet Akif Ersoy İlkokulu",
+      "website": "https://burhaniyemae.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Öğretmenevi ve Akşam Sanat Okulu",
+      "website": "https://brhogretmenevi.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Şehit Hasan Çoban Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://burhaniyeteml.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Şehit İlyas Arslan Halk Eğitimi Merkezi",
+      "website": "https://burhaniyehem.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Ticaret Odası Özel Eğitim Uygulama Okulu I. Kademe",
+      "website": "https://btoegitimuygulama.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Ticaret Odası Özel Eğitim Uygulama Okulu II. Kademe",
+      "website": "https://btoozelegitimuygulama2.meb.k12.tr/"
+    },
+    {
+      "ad": "Burhaniye Ticaret Odası Özel Eğitim Uygulama Okulu III. Kademe",
+      "website": "https://btoozelegitimuygulama3.meb.k12.tr/"
+    },
+    {
+      "ad": "Celal Toraman Anadolu Lisesi",
+      "website": "https://ctal.meb.k12.tr/"
+    },
+    {
+      "ad": "Cumhuriyet İlkokulu",
+      "website": "https://burhaniyecumhuriyetio.meb.k12.tr/"
+    },
+    {
+      "ad": "Dutluca İlkokulu",
+      "website": "https://Dutlucailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Emine Akel Anaokulu",
+      "website": "https://emineakelanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Faruk Kızıklı İlkokulu",
+      "website": "https://farukkizikliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gazi İlkokulu",
+      "website": "https://burhaniyegaziilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hacı Mustafa Müdüroğlu Ortaokulu",
+      "website": "https://burhaniyehmmoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Hasan Akın Anadolu Lisesi",
+      "website": "https://hasanakinanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Karadere İlkokulu",
+      "website": "https://burhaniyekaradereio.meb.k12.tr/"
+    },
+    {
+      "ad": "Kızıklı İlkokulu",
+      "website": "https://kizikliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kızıklı Ortaokulu",
+      "website": "https://kizikliortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kuyumcu İlkokulu",
+      "website": "https://iokuyumcu.meb.k12.tr/"
+    },
+    {
+      "ad": "Müjde Babuşcuoğlu Anaokulu",
+      "website": "https://mujdebabuscuoglu.meb.k12.tr/"
+    },
+    {
+      "ad": "Nadir Tolun Ortaokulu",
+      "website": "https://nadirtolunortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ören Yüzüncü Yıl İlkokulu",
+      "website": "https://orenyuzuncuyililkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Pelitköy Halit Selçuk İlkokulu",
+      "website": "https://pelithalitilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Pelitköy Halit Selçuk Ortaokulu",
+      "website": "https://pelitkoyortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Sekizeylül İlkokulu",
+      "website": "https://burhaniyesekizeylulio.meb.k12.tr/"
+    },
+    {
+      "ad": "Şarköy İlkokulu",
+      "website": "https://burhaniyesarkoyio.meb.k12.tr/"
+    },
+    {
+      "ad": "Şarköy Ortaokulu",
+      "website": "https://burhaniyesarkoyoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Ahmet Çelik Ortaokulu",
+      "website": "https://sehitahmetcelikortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Mustafa Serin Ortaokulu",
+      "website": "https://sehitmustafaserinortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "ŞEHİT PİLOT ÜSTEĞMEN ERDEM MUT ORTAOKULU",
+      "website": "https://sehitpiloterdemmutortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Yılmaz Kobak İlkokulu",
+      "website": "https://sehityilmazkobakilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Türkiye Odalar ve Borsalar Birliği Bahçelievler İlkokulu",
+      "website": "https://brhbahcelievlerilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yıldız Özsaraç Anaokulu",
+      "website": "https://yildizozsaracanaokulu.meb.k12.tr/"
+    }
+  ],
+  "BÜYÜKŞEHİR": [
+    {
+      "ad": "Balikesir Karesibey Öğretmenevi ve Akşam Sanat Okulu Müdürlüğü",
+      "website": "https://karesibeyogretmenevi.meb.k12.tr/"
+    },
+    {
+      "ad": "Balikesir Öğretmenevi ve Akşam Sanat Okulu",
+      "website": "https://balikesirogretmenevi.meb.k12.tr/"
+    }
+  ],
+  "DURSUNBEY": [
+    {
+      "ad": "Akbaşlar İlkokulu",
+      "website": "https://akbaslarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk Ortaokulu",
+      "website": "https://dursunbeyataturkortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çanakçı İlkokulu",
+      "website": "https://canakciio.meb.k12.tr/"
+    },
+    {
+      "ad": "Delice İlkokulu",
+      "website": "https://delice.meb.k12.tr/"
+    },
+    {
+      "ad": "Durabeyler Şehit Faruk Gezen İlkokulu",
+      "website": "https://durabeyler.meb.k12.tr/"
+    },
+    {
+      "ad": "Durabeyler Şehit Faruk Gezen Ortaokulu",
+      "website": "https://durabeylerortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Dursunbey Borsa İstanbul Yatılı Bölge Ortaokulu",
+      "website": "https://dursunbeyybo.meb.k12.tr/"
+    },
+    {
+      "ad": "Dursunbey Halk Eğitimi Merkezi",
+      "website": "https://dursunbeyhalkegitimi.meb.k12.tr/"
+    },
+    {
+      "ad": "Dursunbey Mesleki Eğitim Merkezi",
+      "website": "https://dursunbeymesem.meb.k12.tr/"
+    },
+    {
+      "ad": "Dursunbey Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://dursunbeyeml.meb.k12.tr/"
+    },
+    {
+      "ad": "Dursunbey Mustafa Korkmaz Anadolu Lisesi",
+      "website": "https://mkanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Dursunbey Öğretmenevi ve Akşam Sanat Okulu",
+      "website": "https://dursunbeyogretmenevi.meb.k12.tr/"
+    },
+    {
+      "ad": "Dursunbey Raif Eriş Anaokulu",
+      "website": "https://raiferisanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Dursunbey Sarı Hoca Anadolu İmam Hatip Lisesi",
+      "website": "https://dursunbeyihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Dursunbey Şehit Ömer Halisdemir İmam Hatip Ortaokulu",
+      "website": "https://dursunbeysehitomerhalisdemiriho.meb.k12.tr/"
+    },
+    {
+      "ad": "Farabi Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://dbfarabimtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Göbül İlkokulu",
+      "website": "https://gobulilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Göbül Ortaokulu",
+      "website": "https://gobulortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gökçedağ İlkokulu",
+      "website": "https://gokcedagio.meb.k12.tr/"
+    },
+    {
+      "ad": "Hacıömerler İlkokulu",
+      "website": "https://haciomerler.meb.k12.tr/"
+    },
+    {
+      "ad": "Hamzacık Hatun Yılmaz İlkokulu",
+      "website": "https://hamzacikhatunyilmaz.meb.k12.tr/"
+    },
+    {
+      "ad": "Kavacık İlkokulu",
+      "website": "https://kavacikilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kavacık Ortaokulu",
+      "website": "https://kavacikortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mıcırlar İlkokulu",
+      "website": "https://micirlarioo.meb.k12.tr/"
+    },
+    {
+      "ad": "Nene Hatun Kız Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://dursunbeykml.meb.k12.tr/"
+    },
+    {
+      "ad": "Neziha Bal İlkokulu",
+      "website": "https://nezihabalilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Sabahattin Göndür İlkokulu",
+      "website": "https://sgondurio.meb.k12.tr/"
+    },
+    {
+      "ad": "Sadullah Özer İlkokulu",
+      "website": "https://sozeriokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Sağırlar İlkokulu",
+      "website": "https://sagirlarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Selimağa Kayaoğlu İlkokulu",
+      "website": "https://selimagailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Selimağa Kayaoğlu Ortaokulu",
+      "website": "https://selimagaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Süleler İlkokulu",
+      "website": "https://sulelerilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şabanlar Şehit Aydın Eryılmaz İlkokulu",
+      "website": "https://sabanlarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Üçeylül İlkokulu",
+      "website": "https://uceylulilkokulu.meb.k12.tr/"
+    }
+  ],
+  "EDREMİT": [
+    {
+      "ad": "75.Yıl Ortaokulu",
+      "website": "https://edr75yilortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Abidin Pak-Pakmaya Anadolu Lisesi",
+      "website": "https://pakmayaanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Akçay Şehit Halil Kantarcı Ortaokulu",
+      "website": "https://edremitashko.meb.k12.tr/"
+    },
+    {
+      "ad": "Akçay Yunus Emre İlkokulu",
+      "website": "https://akcayyunusemreilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Akçay Zehra Baysal Anaokulu",
+      "website": "https://edremitzbanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ali Çelik İlkokulu",
+      "website": "https://edremitalicelikilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınoluk Fernur Sözen Turizm Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://fernursozenotml.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınoluk Kardeş Çavuşoğlu Ortaokulu",
+      "website": "https://kardescavusogluortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınoluk Mustafa Erçetin Ortaokulu",
+      "website": "https://mustafaercetinortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınoluk Necmi Şahin İlkokulu",
+      "website": "https://altinoluknecmisahinilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınoluk Niyazi Erol İmam Hatip Ortaokulu",
+      "website": "https://aneiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınoluk Zahit Eroğlu İlkokulu",
+      "website": "https://zahiterogluilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Altınoluk Zehra Baysal Anaokulu",
+      "website": "https://azba.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Edremit Halk Eğitimi Merkezi",
+      "website": "https://edremithem10.meb.k12.tr/"
+    },
+    {
+      "ad": "Bostancı İlkokulu",
+      "website": "https://edr-bostanci.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit 100. Yıl Cumhuriyet Anaokulu",
+      "website": "https://edr100yilcumhuriyet.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit 15 Temmuz Şehitler İmam Hatip Ortaokulu",
+      "website": "https://edremit15temmuzsiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit Altınoluk Ö��retmenevi ve Akşam Sanat Okulu",
+      "website": "https://altinolukogretmenevi.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit Anadolu İmam Hatip Lisesi",
+      "website": "https://edremitihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit Anadolu Lisesi",
+      "website": "https://edremitanadolu.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit Anaokulu",
+      "website": "https://edranaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit Bilim ve Sanat Merkezi",
+      "website": "https://edremitbsm.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit Fernur Sözen Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://edremitfernursozenmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit Mesleki Eğitim Merkezi",
+      "website": "https://edremitmem.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://edremiteml.meb.k12.tr/"
+    },
+    {
+      "ad": "Edremit Rehberlik ve Araştırma Merkezi",
+      "website": "https://edremitram.meb.k12.tr/"
+    },
+    {
+      "ad": "Fatih İmam Hatip Ortaokulu",
+      "website": "https://edremitfatihiho.meb.k12.tr/"
+    },
+    {
+      "ad": "FATMA-SEVİM KIYAKOĞLU ANAOKULU",
+      "website": "https://fatmasevimkiyakogluanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Fikriye-Mehmet Elberk Anadolu Lisesi",
+      "website": "https://fikriyemehmetelberkand.meb.k12.tr/"
+    },
+    {
+      "ad": "Filiz Kamuran Dağ Ortaokulu",
+      "website": "https://fkdortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Göbelezoğlu Ortaokulu",
+      "website": "https://gobelezogluortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Güre Atatürk İlkokulu",
+      "website": "https://gureataturkio.meb.k12.tr/"
+    },
+    {
+      "ad": "Güre Atatürk Ortaokulu",
+      "website": "https://gureataturkoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Hacıaslanlar İlkokulu",
+      "website": "https://hacaslanlar.meb.k12.tr/"
+    },
+    {
+      "ad": "HAMİYYET - FERUDUN SÖZEN İLKOKULU",
+      "website": "https://hamiyyet-ferudun-sozen-io.meb.k12.tr/"
+    },
+    {
+      "ad": "Hamiyyet-Ferudun Sözen Özel Eğitim Uygulama Okulu I. Kademe",
+      "website": "https://hamiyyetferudunsozenoeuo1.meb.k12.tr/"
+    },
+    {
+      "ad": "Hasan Basri Çantay Özel Eğitim Uygulama Okulu III. Kademe",
+      "website": "https://hasanbasricantayoeuo3k.meb.k12.tr/"
+    },
+    {
+      "ad": "İstiklal İlkokulu",
+      "website": "https://edremitistiklalilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kadıköy Leman Akpınar Ortaokulu",
+      "website": "https://lemanakpinarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kadıköy Mehmet Refii Terzioğlu İlkokulu",
+      "website": "https://kadikoymrefiiterziogluilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kadıköy Zehra Baysal Anaokulu",
+      "website": "https://kazba.meb.k12.tr/"
+    },
+    {
+      "ad": "Karagözoğlu İlkokulu",
+      "website": "https://karagozogluilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kızılkeçili İlkokulu",
+      "website": "https://kizilkecili.meb.k12.tr/"
+    },
+    {
+      "ad": "Kızılkeçili Ortaokulu",
+      "website": "https://kizilkeciliortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Akif Ersoy İlkokulu",
+      "website": "https://edrmehmetakifersoyilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet-Raşit Ertaş Cumhuriyet İlkokulu",
+      "website": "https://mehmetrasitertascumhuriyet.meb.k12.tr/"
+    },
+    {
+      "ad": "Mevlana Ortaokulu",
+      "website": "https://edr-mevlanaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mimar Sinan İlkokulu",
+      "website": "https://mimarsinanio10.meb.k12.tr/"
+    },
+    {
+      "ad": "Mithat-Fethi Büyükdalgıç İlkokulu",
+      "website": "https://edremitmfbdio.meb.k12.tr/"
+    },
+    {
+      "ad": "Narlı İlkokulu",
+      "website": "https://narliio.meb.k12.tr/"
+    },
+    {
+      "ad": "Nihat Tansoy İlkokulu",
+      "website": "https://edremitnti.meb.k12.tr/"
+    },
+    {
+      "ad": "Ortaoba Eşref Kaya İlkokulu",
+      "website": "https://ortaobailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ortaoba Eşref Kaya Ortaokulu",
+      "website": "https://ortaobaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Remzi Molvalıoğlu Ortaokulu",
+      "website": "https://remzimolvaliogluortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Reşit Çifçi Dokuz Eylül Ortaokulu",
+      "website": "https://resitcifcidokuzeylulortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Salih Korkut Budaras İlkokulu",
+      "website": "https://edremitskbio.meb.k12.tr/"
+    },
+    {
+      "ad": "Saniye-Hüseyin Balya Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://shbmetal.meb.k12.tr/"
+    },
+    {
+      "ad": "Sarıkız Anaokulu",
+      "website": "https://sarikizanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Hamdibey Ortaokulu",
+      "website": "https://sehithamdibeyorta.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Kadir Altınöz İlkokulu",
+      "website": "https://sehitkadiraltinozilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Kadir Altınöz Ortaokulu",
+      "website": "https://sehitkadiraltinozortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Mustafa Serin Fen Lisesi",
+      "website": "https://edremitsmsfl.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Öğretmen Necmettin Yılmaz Anaokulu",
+      "website": "https://edremitmerkezanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Öğretmen Şenay Aybüke Yalçın Anadolu Lisesi",
+      "website": "https://korfezanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Öğretmenler İlkokulu",
+      "website": "https://sehitogretmenlerilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Tümgeneral Aydoğan Aydın Ortaokulu",
+      "website": "https://sehitaydoganaydinortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "TOBB Edremit Körfez Özel Eğitim Uygulama Okulu II. Kademe",
+      "website": "https://tobbedremitkorfezoeuo2k.meb.k12.tr/"
+    },
+    {
+      "ad": "Turhan Dökmecioğlu İmam Hatip Ortaokulu",
+      "website": "https://edremitiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Ülkü-Muharrem Ertaş Anadolu Lisesi",
+      "website": "https://ulkumuharremertas.meb.k12.tr/"
+    },
+    {
+      "ad": "Yaşyer İlkokulu",
+      "website": "https://yasyerio.meb.k12.tr/"
+    },
+    {
+      "ad": "Yaylaönü İlkokulu",
+      "website": "https://yaylaonuilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yılmaz Akpınar İlkokulu",
+      "website": "https://yakpinario.meb.k12.tr/"
+    },
+    {
+      "ad": "Yılmaz Akpınar Kız Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://yakpinarmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Yolören Esin Akpınar İlkokulu",
+      "website": "https://yolorenio.meb.k12.tr/"
+    },
+    {
+      "ad": "Zehra Ferhatoğlu İlkokulu",
+      "website": "https://zfoilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Zehra Ferhatoğlu Ortaokulu",
+      "website": "https://zfoortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Zeytinli İlkokulu",
+      "website": "https://edrzeytinliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Zeytinli Naim Süleymanoğlu İlkokulu",
+      "website": "https://naimsuleymanogluilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Zeytinli Ortaokulu",
+      "website": "https://edrzeytinliortaokulu.meb.k12.tr/"
+    }
+  ],
+  "ERDEK": [
+    {
+      "ad": "Ahmet Vehbi ÇIKRIKÇIOĞLU Anadolu İmam Hatip Lisesi",
+      "website": "https://erdekihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk İlkokulu",
+      "website": "https://erdekataturk.meb.k12.tr/"
+    },
+    {
+      "ad": "Avukat Hasan Tozun İlkokulu",
+      "website": "https://avukathasantozunilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çakıl İlkokulu",
+      "website": "https://cakilio.meb.k12.tr/"
+    },
+    {
+      "ad": "Çayağzı İlkokulu",
+      "website": "https://erdekcayagzi.meb.k12.tr/"
+    },
+    {
+      "ad": "Erdek Anadolu Lisesi",
+      "website": "https://eral.meb.k12.tr/"
+    },
+    {
+      "ad": "Erdek Anaokulu",
+      "website": "https://776780.meb.k12.tr/"
+    },
+    {
+      "ad": "Erdek Halk Eğitimi Merkezi",
+      "website": "https://erdekhem.meb.k12.tr/"
+    },
+    {
+      "ad": "Erdek Öğretmenevi ve Akşam Sanat Okulu",
+      "website": "https://erdekogretmenevi.meb.k12.tr/"
+    },
+    {
+      "ad": "HALİTPAŞA İLKOKULU",
+      "website": "https://erdekhalitpasa.meb.k12.tr/"
+    },
+    {
+      "ad": "İstiklal İlkokulu",
+      "website": "https://erdekistiklal.meb.k12.tr/"
+    },
+    {
+      "ad": "Kapıdağ Ticaret Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://kapidagmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Karşıyaka Çok Programlı Anadolu Lisesi",
+      "website": "https://ekcpal.meb.k12.tr/"
+    },
+    {
+      "ad": "Karşıyaka İlkokulu",
+      "website": "https://erdekkarsiyaka.meb.k12.tr/"
+    },
+    {
+      "ad": "KARŞIYAKA ORTAOKULU",
+      "website": "https://karsiyaka.meb.k12.tr/"
+    },
+    {
+      "ad": "Kestanelik İlkokulu",
+      "website": "https://kestanelikio.meb.k12.tr/"
+    },
+    {
+      "ad": "Muzaffer Gürer Ortaokulu",
+      "website": "https://mgurer.meb.k12.tr/"
+    },
+    {
+      "ad": "Nerime Yüksel Ortaokulu",
+      "website": "https://nerimeyuksel.meb.k12.tr/"
+    },
+    {
+      "ad": "Ocaklar İlkokulu",
+      "website": "https://ocaklarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "OCAKLAR ORTAOKULU",
+      "website": "https://ocaklarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "RECEP AHMET MERCAN ORTAOKULU",
+      "website": "https://ramoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Reşit Mazhar Ertüzün Anaokulu",
+      "website": "https://rmeao.meb.k12.tr/"
+    },
+    {
+      "ad": "Türkiye Odalar ve Borsalar Birliği 18 Eylül Ortaokulu",
+      "website": "https://erdek18eylul.meb.k12.tr/"
+    }
+  ],
+  "GÖMEÇ": [
+    {
+      "ad": "6 Eylül Mesleki Eğitim Merkezi",
+      "website": "https://6eylulmesem.meb.k12.tr/"
+    },
+    {
+      "ad": "AHMET TULUN HİMAM İLKOKULU",
+      "website": "https://ahmettulunhio.meb.k12.tr/"
+    },
+    {
+      "ad": "Gömeç Anadolu Lisesi",
+      "website": "https://gomecanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Gömeç Halk Eğitimi Merkezi",
+      "website": "https://gomechem.meb.k12.tr/"
+    },
+    {
+      "ad": "Gömeç İmam Hatip Ortaokulu",
+      "website": "https://gomecimamhatipoo.meb.k12.tr/"
+    },
+    {
+      "ad": "HACIHÜSEYİNLER İLKOKULU",
+      "website": "https://hacihuseyinlerio.meb.k12.tr/"
+    },
+    {
+      "ad": "HACIHÜSEYİNLER ORTAOKULU",
+      "website": "https://hacihuseyinlerortao.meb.k12.tr/"
+    },
+    {
+      "ad": "Hacıoğlu İlkokulu",
+      "website": "https://haciogluilko.meb.k12.tr/"
+    },
+    {
+      "ad": "İlkkurşun Anaokulu",
+      "website": "https://ilkkursunao.meb.k12.tr/"
+    },
+    {
+      "ad": "Karaağaç Ahmet Karakaş İlkokulu",
+      "website": "https://ahmetkarakasio.meb.k12.tr/"
+    },
+    {
+      "ad": "Karaağaç Ahmet Karakaş Ortaokulu",
+      "website": "https://karakasortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "ŞEHİT MUSTAFA GÜVENÇ ALDEMİR İLKOKULU",
+      "website": "https://smgaldemirilko.meb.k12.tr/"
+    },
+    {
+      "ad": "ŞEHİT MUSTAFA GÜVENÇ ALDEMİR ORTAOKULU",
+      "website": "https://smgaldemirortao.meb.k12.tr/"
+    },
+    {
+      "ad": "ULUBEYLER İLKOKULU",
+      "website": "https://ulubeylerilko.meb.k12.tr/"
+    },
+    {
+      "ad": "ULUBEYLER ORTAOKULU",
+      "website": "https://ulubeylerortao.meb.k12.tr/"
+    }
+  ],
+  "GÖNEN": [
+    {
+      "ad": "Altıeylül Ortaokulu",
+      "website": "https://gonen6eyluloo.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk İlkokulu",
+      "website": "https://gonenataturkio.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk Ortaokulu",
+      "website": "https://gonenataturkoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Gönen Halk Eğitimi Merkezi",
+      "website": "https://gonenhalkegitim.meb.k12.tr/"
+    },
+    {
+      "ad": "Buğdaylı İlkokulu",
+      "website": "https://gonenbugdayliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Eczacı İzzet Akçiçek İlkokulu",
+      "website": "https://akcicek.meb.k12.tr/"
+    },
+    {
+      "ad": "Erdal Tanrıöver Anaokulu",
+      "website": "https://erdaltanriover.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Anadolu İmam Hatip Lisesi",
+      "website": "https://gonenihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Anadolu Lisesi",
+      "website": "https://gonenanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen H. Sükriye İpek Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://hsisaglik.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Mesleki Eğitim Merkezi",
+      "website": "https://gonenmem.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://ktmlgonen.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Mustafa Uşdu Anadolu Lisesi",
+      "website": "https://mul.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Öğretmenevi ve Akşam Sanat Okulu",
+      "website": "https://gonenogretmenevi.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Ömer Seyfettin Fen Lisesi",
+      "website": "https://gonenosfl.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Özel Eğitim Uygulama Okulu I. Kademe",
+      "website": "https://gonenozelegitim.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Özel Eğitim Uygulama Okulu II. Kademe",
+      "website": "https://753022.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Ticaret Odası Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://goneneml.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönen Türkiye Odalar ve Borsalar Birliği Anaokulu Müdürlüğü",
+      "website": "https://775459.meb.k12.tr/"
+    },
+    {
+      "ad": "Gönenli Mehmet Efendi İmam Hatip Ortaokulu",
+      "website": "https://gonenlimehmetefendi.meb.k12.tr/"
+    },
+    {
+      "ad": "Gündoğan İlkokulu",
+      "website": "https://gundoganilk.meb.k12.tr/"
+    },
+    {
+      "ad": "Gündoğan Ortaokulu",
+      "website": "https://gundoganorta.meb.k12.tr/"
+    },
+    {
+      "ad": "Hasanbey İlkokulu",
+      "website": "https://hasanbey-ilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hasanbey Ortaokulu",
+      "website": "https://hasanbeyortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kadir Köker Ortaokulu",
+      "website": "https://kadirkokerortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Karşıyaka 100. Yıl İlkokulu",
+      "website": "https://karsiyakailk.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Ahmet Genç İlkokulu",
+      "website": "https://gonenmagio.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Ahmet Genç Ortaokulu",
+      "website": "https://mehmetahmetgencoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Akif Ersoy İlkokulu",
+      "website": "https://gonenmaeio.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Çanakçı İlkokulu",
+      "website": "https://mci.meb.k12.tr/"
+    },
+    {
+      "ad": "Mirciler Turizm Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://mircilermtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Öğretmen Işıl İpek Ortaokulu",
+      "website": "https://ogretmenisilipekortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Öğretmenim Ortaokulu",
+      "website": "https://gonenogretmenim.meb.k12.tr/"
+    },
+    {
+      "ad": "Özcan Kılınçay İlkokulu",
+      "website": "https://gonenozcan.meb.k12.tr/"
+    },
+    {
+      "ad": "Sarıköy Atatürk İlkokulu",
+      "website": "https://sata.meb.k12.tr/"
+    },
+    {
+      "ad": "Sarıköy Çok Programlı Anadolu Lisesi",
+      "website": "https://sarikoycpl.meb.k12.tr/"
+    },
+    {
+      "ad": "Sarıköy Ortaokulu",
+      "website": "https://sarikoyortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Abdullah Tayyip Olçok İmam Hatip Ortaokulu",
+      "website": "https://sato-iho.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Cengiz Topel Anaokulu",
+      "website": "https://gonensehitcengiztopel.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Kaymakam Rahmi Bey İlkokulu",
+      "website": "https://skrbio.meb.k12.tr/"
+    }
+  ],
+  "HAVRAN": [
+    {
+      "ad": "ALİÇETİNKAYA İLKOKULU",
+      "website": "https://alicetinkaya.meb.k12.tr/"
+    },
+    {
+      "ad": "ÇAMDİBİ İLKOKULU",
+      "website": "https://havrancamdibiio.meb.k12.tr/"
+    },
+    {
+      "ad": "ÇAMDİBİ ORTAOKULU",
+      "website": "https://havrancamdibioo.meb.k12.tr/"
+    },
+    {
+      "ad": "ERMİŞ SOYLU İLKOKULU",
+      "website": "https://ermissoyluio.meb.k12.tr/"
+    },
+    {
+      "ad": "Eseler İlkokulu",
+      "website": "https://eseler.meb.k12.tr/"
+    },
+    {
+      "ad": "GÜLSÜM MEHMET UYSAL BÜYÜKDERE İLKOKULU",
+      "website": "https://gmubuyukdereilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "GÜLSÜM MEHMET UYSAL BÜYÜKDERE ORTAOKULU",
+      "website": "https://gmubuyukdereortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hak-İş Hizmet-İş Sendikası Kocaseyit İlkokulu",
+      "website": "https://hakishizmetiskocaseyitiio.meb.k12.tr/"
+    },
+    {
+      "ad": "HALİL İBRAHİM YILDIRIM FAZLICA İLKOKULU",
+      "website": "https://fazlica.meb.k12.tr/"
+    },
+    {
+      "ad": "HALLAÇLAR İLKOKULU",
+      "website": "https://hallaclario.meb.k12.tr/"
+    },
+    {
+      "ad": "Havran Anadolu Lisesi",
+      "website": "https://havranal.meb.k12.tr/"
+    },
+    {
+      "ad": "Havran Halk Eğitimi Merkezi",
+      "website": "https://havranhem.meb.k12.tr/"
+    },
+    {
+      "ad": "Havran İmam Hatip Ortaokulu",
+      "website": "https://havranimamhatip.meb.k12.tr/"
+    },
+    {
+      "ad": "Havran Mesleki Eğitim Merkezi",
+      "website": "https://havranmem.meb.k12.tr/"
+    },
+    {
+      "ad": "KALABAK İLKOKULU",
+      "website": "https://havrankalabakilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "KALABAK ORTAOKULU",
+      "website": "https://havrankalabakortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "KOBAKLAR İLKOKULU",
+      "website": "https://kobaklario.meb.k12.tr/"
+    },
+    {
+      "ad": "KOBAKLAR ORTAOKULU",
+      "website": "https://kobaklar.meb.k12.tr/"
+    },
+    {
+      "ad": "Kocadağ Damlar İlkokulu",
+      "website": "https://kocadagdamlar.meb.k12.tr/"
+    },
+    {
+      "ad": "KOCASEYİT ORTAOKULU",
+      "website": "https://kocaseyitortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Küçükdere İlkokulu",
+      "website": "https://kucukdere10.meb.k12.tr/"
+    },
+    {
+      "ad": "KÜÇÜKŞAPÇI İLKOKULU",
+      "website": "https://736427.meb.k12.tr/"
+    },
+    {
+      "ad": "KÜÇÜKŞAPÇI ORTAOKULU",
+      "website": "https://kucuksapci.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Çalışır Anadolu İmam Hatip Lisesi",
+      "website": "https://havrananadoluihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Sever Dereören İlkokulu",
+      "website": "https://dereoren.meb.k12.tr/"
+    },
+    {
+      "ad": "Muzaffer Leman Akpınar Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://mlaml.meb.k12.tr/"
+    },
+    {
+      "ad": "ÖMER ÇAVUŞ ANAOKULU",
+      "website": "https://omercavus.meb.k12.tr/"
+    },
+    {
+      "ad": "Sekizeylül Ortaokulu",
+      "website": "https://havransekizeylul.meb.k12.tr/"
+    },
+    {
+      "ad": "Seyitonbaşı İlkokulu",
+      "website": "https://seyitonbasi.meb.k12.tr/"
+    },
+    {
+      "ad": "Sıdıka Ürütürk Eğmir İlkokulu",
+      "website": "https://egmirio.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Eyüp Karataş Ortaokulu",
+      "website": "https://havranortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Temaşalık İlkokulu",
+      "website": "https://temasalikilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Tepeoba İlkokulu",
+      "website": "https://tepeobailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Zeynep Banu Çakırdere İlkokulu",
+      "website": "https://zeynepbanucakirdere.meb.k12.tr/"
+    }
+  ],
+  "İVRİNDİ": [
+    {
+      "ad": "7 EYLÜL İLKOKULU",
+      "website": "https://7eylulio.meb.k12.tr/"
+    },
+    {
+      "ad": "Büyükfındık İlkokulu",
+      "website": "https://buyukfindikilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Büyükfındık Ortaokulu",
+      "website": "https://buyukfindikortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Büyükyenice İlkokulu",
+      "website": "https://buyukyeniceilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Büyükyenice Ortaokulu",
+      "website": "https://buyukyeniceortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Değirmenbaşı İlkokulu",
+      "website": "https://ivrindidegirmenbasiilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Demirciler İlkokulu",
+      "website": "https://ivrindidemircilerilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gazi Mehmet Azman Çavuş Özel Eğitim Meslek Okulu",
+      "website": "https://gazimehmetazmancavusoemo.meb.k12.tr/"
+    },
+    {
+      "ad": "Gazievrenos İlkokulu",
+      "website": "https://gazievrenosilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gökçeyazı Şehit Rıdvan Çetinkaya İlkokulu",
+      "website": "https://gokceyaziilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gökçeyazı Şehit Rıdvan Çetinkaya Ortaokulu",
+      "website": "https://gokceyaziortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gümeli İlkokulu",
+      "website": "https://ivrindigumeliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "İ.Sefa Giray Bozören İlkokulu",
+      "website": "https://isafagirayilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "İ.Sefa Giray Bozören Ortaokulu",
+      "website": "https://safagirayortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "İvrindi Anadolu İmam Hatip Lisesi",
+      "website": "https://ivrindiihl.meb.k12.tr/"
+    },
+    {
+      "ad": "İvrindi Anadolu Lisesi",
+      "website": "https://ivrindianadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "İvrindi Gazi Mehmet Azman Çavuş Özel Eğitim Uygulama Okulu I. Kademe",
+      "website": "https://gazimehmetazmancavusozelegitim1.meb.k12.tr/"
+    },
+    {
+      "ad": "İvrindi Gazi Mehmet Azman Çavuş Özel Eğitim Uygulama Okulu II. Kademe",
+      "website": "https://gazimehmetazmancavusozelegitim2.meb.k12.tr/"
+    },
+    {
+      "ad": "İvrindi Halk Eğitimi Merkezi",
+      "website": "https://ivrindihem.meb.k12.tr/"
+    },
+    {
+      "ad": "İvrindi Mesleki Eğitim Merkezi",
+      "website": "https://775725.meb.k12.tr/"
+    },
+    {
+      "ad": "İvrindi Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://ivrindimtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Kayapa İlkokulu",
+      "website": "https://ivrindikayapailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "KAYAPA ORTAOKULU",
+      "website": "https://ivrindikayapaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Korucu Mehmet Kulak İlkokulu",
+      "website": "https://ivrindikorucuilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Korucu Şehit Bülent Emen Çok Programlı Anadolu Lisesi",
+      "website": "https://korucusbecpal.meb.k12.tr/"
+    },
+    {
+      "ad": "Korucu Yatılı Bölge Ortaokulu",
+      "website": "https://korucuybo.meb.k12.tr/"
+    },
+    {
+      "ad": "Küçükyenice İlkokulu",
+      "website": "https://kucukyeniceilkokul.meb.k12.tr/"
+    },
+    {
+      "ad": "Küçükyenice Ortaokulu",
+      "website": "https://kucukyeniceortaokul.meb.k12.tr/"
+    },
+    {
+      "ad": "Nurettin Çarmıklı Madencilik Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://nurettincarmiklimadencilikmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Okçular Şehit Hasan Kuzu İlkokulu",
+      "website": "https://okcular.meb.k12.tr/"
+    },
+    {
+      "ad": "Susuzyayla İlkokulu",
+      "website": "https://susuzyayla.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Fatih Tomuşoğlu Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://sftmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Kenan Dalkılıç İlkokulu",
+      "website": "https://soganbukuio.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Tuncay Özdemir İmam Hatip Ortaokulu",
+      "website": "https://ivrindiiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Turan Kurt Ortaokulu",
+      "website": "https://sehitturankurt.meb.k12.tr/"
+    },
+    {
+      "ad": "VİLAYETLER BİRLİĞİ ŞEHİT GEDİZ ÇİVİ ANAOKULU",
+      "website": "https://sehitgedizcivianaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yürekli İlkokulu",
+      "website": "https://yurekli.meb.k12.tr/"
+    }
+  ],
+  "KARESİ": [
+    {
+      "ad": "23 Nisan Şehit Deniz Göçkün İlkokulu",
+      "website": "https://23nisanilk.meb.k12.tr/"
+    },
+    {
+      "ad": "Adnan Menderes Anadolu Lisesi",
+      "website": "https://balikesiradnanmenderesal.meb.k12.tr/"
+    },
+    {
+      "ad": "Aktarma Naile Erol Gülcan İlkokulu",
+      "website": "https://aktarmanegi.meb.k12.tr/"
+    },
+    {
+      "ad": "Albay C. Tayyar-Nuran Oğuz Anadolu Lisesi",
+      "website": "https://actnoal.meb.k12.tr/"
+    },
+    {
+      "ad": "Albay Cafer Tayyar-Nuran Oğuz Ortaokulu",
+      "website": "https://actnoortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Albay Tayyar-Nuran Oğuz İlkokulu",
+      "website": "https://atnoilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ali Hikmet Paşa İlkokulu",
+      "website": "https://ahpi.meb.k12.tr/"
+    },
+    {
+      "ad": "Ali Hikmet Paşa Ortaokulu",
+      "website": "https://ahportaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ali Rıza Güçkan Anaokulu",
+      "website": "https://arga.meb.k12.tr/"
+    },
+    {
+      "ad": "Alişuuri İlkokulu",
+      "website": "https://alisuuriilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk İlkokulu",
+      "website": "https://blkataturkilkokul.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://balikesirasml.meb.k12.tr/"
+    },
+    {
+      "ad": "Bakacak Şehit Yüksel Bayhan İlkokulu",
+      "website": "https://bakacakio.meb.k12.tr/"
+    },
+    {
+      "ad": "Bakacak Şehit Yüksel Bayhan Ortaokulu",
+      "website": "https://bakacakoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Anadolu İmam Hatip Lisesi",
+      "website": "https://balikesirihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Borsa İstanbul Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://10bistmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir İmam Hatip Ortaokulu",
+      "website": "https://balikesiriho.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Karesi Ortaokulu",
+      "website": "https://balikesirkaresioo.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Lisesi",
+      "website": "https://balikesirlisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Muharrem Hasbi Anadolu Lisesi",
+      "website": "https://blkmhal.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Olgunlaşma Enstitüsü",
+      "website": "https://balikesirolgunlasma.meb.k12.tr/"
+    },
+    {
+      "ad": "Balıkesir Rehberlik ve Araştırma Merkezi",
+      "website": "https://balikesirram.meb.k12.tr/"
+    },
+    {
+      "ad": "Beyköy İlkokulu",
+      "website": "https://beykoyilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Çiğdem Batubey Ortaokulu",
+      "website": "https://cigdembatubeyortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Değirmenboğazı Özel Eğitim Anaokulu",
+      "website": "https://776420.meb.k12.tr/"
+    },
+    {
+      "ad": "Deliktaş İlkokulu",
+      "website": "https://deliktasilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Deliktaş Ortaokulu",
+      "website": "https://deliktasortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Dr. Ayşe Hümeyra Ökten Kız Anadolu İmam Hatip Lisesi",
+      "website": "https://draysehumeyraoktenkizaihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Ercan Kıvrak İlkokulu",
+      "website": "https://ercankivrakilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Fatih İlkokulu",
+      "website": "https://blkfatihilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Fatih Ortaokulu",
+      "website": "https://blkfatihortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Fatma-Emin Kutvar Anadolu Lisesi",
+      "website": "https://fekal.meb.k12.tr/"
+    },
+    {
+      "ad": "Firdevs Hattatoğlu Özel Eğitim Meslek Okulu",
+      "website": "https://firdevshattatoglu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gazi İmam Hatip Ortaokulu",
+      "website": "https://gaziiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Gazi Mustafa Kemal Turizm Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://gmkmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Hacıilbey Ticaret Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://haciilbeytml.meb.k12.tr/"
+    },
+    {
+      "ad": "İbrahim Bodur Mesleki Eğitim Merkezi",
+      "website": "https://ibrahimbodurmem.meb.k12.tr/"
+    },
+    {
+      "ad": "İl Özel İdare Özel Eğitim Uygulama Okulu III. Kademe",
+      "website": "https://blkisegitim.meb.k12.tr/"
+    },
+    {
+      "ad": "İnebey Anadolu Lisesi",
+      "website": "https://inal.meb.k12.tr/"
+    },
+    {
+      "ad": "İstanbulluoğlu Sosyal Bilimler Lisesi",
+      "website": "https://isbil.meb.k12.tr/"
+    },
+    {
+      "ad": "Kabakdere İlkokulu",
+      "website": "https://kabakdereilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kabakdere Ortaokulu",
+      "website": "https://kabakdereortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kalaycılar İlkokulu",
+      "website": "https://kalaycilario.meb.k12.tr/"
+    },
+    {
+      "ad": "Kamçıllı İlkokulu",
+      "website": "https://samlikamcillilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Karahallılar Ortaokulu",
+      "website": "https://karahallilarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Karesi Anaokulu",
+      "website": "https://kulaanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Karesi Halk Eğitimi Merkezi",
+      "website": "https://karesihem.meb.k12.tr/"
+    },
+    {
+      "ad": "Kastamonu Entegre Özel Eğitim İlkokulu",
+      "website": "https://kastamonuentegreoeilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kastamonu Entegre Özel Eğitim Ortaokulu",
+      "website": "https://kastamonuentegreoeortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kayabey Şehit Ferruh Kulaoğlu Ortaokulu",
+      "website": "https://kayabeyortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kocaavşar İlkokulu",
+      "website": "https://kocaavsarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kocaavşar Ortaokulu",
+      "website": "https://kocaavsarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kurtdereli Mehmet Pehlivan Spor Lisesi",
+      "website": "https://kmpsporlisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Kurtdereli Mehmet Pehlivan Spor Ortaokulu",
+      "website": "https://776364.meb.k12.tr/"
+    },
+    {
+      "ad": "Kuvayi Milliye Özel Eğitim Anaokulu",
+      "website": "https://kuvayimilliyeozelegitimanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Azman Çavuş Ortaokulu",
+      "website": "https://mehmetazmancavus.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Şeref Eğinlioğlu Ortaokulu",
+      "website": "https://mseortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Merkez Ece Amca İlkokulu",
+      "website": "https://eceamcaio.meb.k12.tr/"
+    },
+    {
+      "ad": "Merkez Turplu ilkokulu",
+      "website": "https://turpluilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Merkez Zafer İlkokulu",
+      "website": "https://balikesirzaferilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Naciye Kabakçı Anaokulu",
+      "website": "https://naciyekabakci.meb.k12.tr/"
+    },
+    {
+      "ad": "Nazende Kurşun Anaokulu",
+      "website": "https://nazendekursun.meb.k12.tr/"
+    },
+    {
+      "ad": "Necip Fazıl Kısakürek Ortaokulu",
+      "website": "https://nfkoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Nuran Oğuz Anaokulu",
+      "website": "https://nuranoguz.meb.k12.tr/"
+    },
+    {
+      "ad": "Ovacık İlkokulu",
+      "website": "https://blkovacikilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ovacık Ortaokulu",
+      "website": "https://blkovacikortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Ömer Kurşun Anaokulu",
+      "website": "https://omerkursunanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Rahmi Kula Anadolu Lisesi",
+      "website": "https://rahmikulaanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Sakarya İlkokulu",
+      "website": "https://balikesirsakaryailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Sevinç Kurşun İlkokulu",
+      "website": "https://sevkurokul.meb.k12.tr/"
+    },
+    {
+      "ad": "Sırrı Yırcalı Anadolu Lisesi",
+      "website": "https://syal.meb.k12.tr/"
+    },
+    {
+      "ad": "Süeybe Karakuş Anaokulu",
+      "website": "https://sueybekarakus.meb.k12.tr/"
+    },
+    {
+      "ad": "Şamlı İmam Hatip Ortaokulu",
+      "website": "https://samliiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Şamlı Şehit Mustafa Adışen İlkokulu",
+      "website": "https://samlisehitmustafaadisenio.meb.k12.tr/"
+    },
+    {
+      "ad": "Şamlı Şehit Mustafa Adışen Ortaokulu",
+      "website": "https://samlisehitmustafaadisenoo.meb.k12.tr/"
+    },
+    {
+      "ad": "ŞEHİT ASTSUBAY CEMİL ERKEK ORTAOKULU",
+      "website": "https://cemilerkekortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Jandarma Teğmen Cengiz Evranos İlkokulu",
+      "website": "https://cengizevranos.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Jandarma Teğmen Cengiz Evranos Ortaokulu",
+      "website": "https://cengizevranosoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Mesut Yağan Anaokulu",
+      "website": "https://sehitmesutyagananaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Prof. Dr. İlhan Varank Bilim ve Sanat Merkezi",
+      "website": "https://ilhanvarankbilsem.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Turgut Solak Fen Lisesi",
+      "website": "https://balkesfen.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Yüzbaşı İlker Acar Ortaokulu",
+      "website": "https://blkucpinaroo.meb.k12.tr/"
+    },
+    {
+      "ad": "Şule Yüksel Şenler Kız Anadolu İmam Hatip Lisesi",
+      "website": "https://suleyukselsenlerkizihl.meb.k12.tr/"
+    },
+    {
+      "ad": "T.C. Ziraat Bankası Güzel Sanatlar Lisesi",
+      "website": "https://tczbgsl.meb.k12.tr/"
+    },
+    {
+      "ad": "Tatlıpınar İlkokulu",
+      "website": "https://tatlipinario.meb.k12.tr/"
+    },
+    {
+      "ad": "Tatlıpınar Ortaokulu",
+      "website": "https://tatlipinaroo.meb.k12.tr/"
+    },
+    {
+      "ad": "ÜÇPINARLI ŞEHİT ALİ İLKOKULU",
+      "website": "https://blkucpinario.meb.k12.tr/"
+    },
+    {
+      "ad": "Yağcılar İlkokulu",
+      "website": "https://yagcilario10.meb.k12.tr/"
+    },
+    {
+      "ad": "Yaylabayır İlkokulu",
+      "website": "https://yaylabayirio.meb.k12.tr/"
+    },
+    {
+      "ad": "Yeniköy İlkokulu",
+      "website": "https://yenikoyio.meb.k12.tr/"
+    },
+    {
+      "ad": "Yeniköy Ortaokulu",
+      "website": "https://yenikoyortaokul.meb.k12.tr/"
+    },
+    {
+      "ad": "Zübeyde Hanım Anaokulu",
+      "website": "https://zubeydehanim10.meb.k12.tr/"
+    },
+    {
+      "ad": "Zühtü Özkardaşlar Anadolu Lisesi",
+      "website": "https://zokal.meb.k12.tr/"
+    }
+  ],
+  "KEPSUT": [
+    {
+      "ad": "125.Yıl Yatılı Bölge Ortaokulu",
+      "website": "https://kepsut125yilybo.meb.k12.tr/"
+    },
+    {
+      "ad": "Cumhuriyet İlkokulu",
+      "website": "https://kepsutcumhuriyet.meb.k12.tr/"
+    },
+    {
+      "ad": "Eşeler İlkokulu",
+      "website": "https://eselerilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hacer Özer İlkokulu",
+      "website": "https://hacerozero.meb.k12.tr/"
+    },
+    {
+      "ad": "Hotaşlar İlkokulu",
+      "website": "https://hotaslarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hotaşlar Ortaokulu",
+      "website": "https://hotaslarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "İsaalan İlkokulu",
+      "website": "https://isaalanilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Keçidere İlkokulu",
+      "website": "https://kecidereilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Keçidere Ortaokulu",
+      "website": "https://kecidereortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kepsut Anadolu Lisesi",
+      "website": "https://kepsutanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Kepsut Anaokulu",
+      "website": "https://kepsutanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kepsut Çok Programlı Anadolu Lisesi",
+      "website": "https://kepsutcpl.meb.k12.tr/"
+    },
+    {
+      "ad": "Kepsut Halk Eğitimi Merkezi",
+      "website": "https://kepsuthem.meb.k12.tr/"
+    },
+    {
+      "ad": "Kepsut Hasan Basri Çantay İmam Hatip Ortaokulu",
+      "website": "https://kepsutimamhatip.meb.k12.tr/"
+    },
+    {
+      "ad": "Mahmudiye İlkokulu",
+      "website": "https://mahmudiye-ilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mahmudiye Ortaokulu",
+      "website": "https://mahmudiye-ortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Oktay Koçman Ortaokulu",
+      "website": "https://oktaykocman.meb.k12.tr/"
+    },
+    {
+      "ad": "Sarac İlkokulu",
+      "website": "https://saracilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yaylabaşı İlkokulu",
+      "website": "https://yaylabailkokulu.meb.k12.tr/"
+    }
+  ],
+  "MANYAS": [
+    {
+      "ad": "Akçaova Ortaokulu",
+      "website": "https://akcaovaoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk Ortaokulu",
+      "website": "https://manyasataturk.meb.k12.tr/"
+    },
+    {
+      "ad": "İstiklal İlkokulu",
+      "website": "https://manyasistiklal.meb.k12.tr/"
+    },
+    {
+      "ad": "Kızıksa İlkokulu",
+      "website": "https://kiziksailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kızıksa Ortaokulu",
+      "website": "https://kiziksaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Manyas Anadolu İmam Hatip Lisesi",
+      "website": "https://manyasihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Manyas Anadolu Lisesi",
+      "website": "https://manyasanadolu.meb.k12.tr/"
+    },
+    {
+      "ad": "Manyas Halk Eğitimi Merkezi",
+      "website": "https://manyashem.meb.k12.tr/"
+    },
+    {
+      "ad": "Manyas Öğretmenevi ve Akşam Sanat Okulu",
+      "website": "https://manyasogretmeneviveaso.meb.k12.tr/"
+    },
+    {
+      "ad": "Nene Hatun Anaokulu",
+      "website": "https://manyasnenehatun.meb.k12.tr/"
+    },
+    {
+      "ad": "Salur Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://salurmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Şevketiye İlkokulu",
+      "website": "https://sevketiyeilkokulu.meb.k12.tr/"
+    }
+  ],
+  "MARMARA": [
+    {
+      "ad": "Avşa İlkokulu",
+      "website": "https://avsailkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Avşa Ortaokulu",
+      "website": "https://avsaortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Güner Yavuz Anaokulu",
+      "website": "https://guneryavuzanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Marmara Anaokulu",
+      "website": "https://marmaraadasianaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Marmara Çok Programlı Anadolu Lisesi",
+      "website": "https://marmaracpal.meb.k12.tr/"
+    },
+    {
+      "ad": "Marmara Halk Eğitimi Merkezi",
+      "website": "https://marmarahem.meb.k12.tr/"
+    },
+    {
+      "ad": "Recep Ahmet Mercan İlkokulu",
+      "website": "https://recepahmetmercanio.meb.k12.tr/"
+    },
+    {
+      "ad": "Recep Ahmet Mercan Ortaokulu",
+      "website": "https://recepahmetmercanoo.meb.k12.tr/"
+    },
+    {
+      "ad": "Saraylar Anadolu İmam Hatip Lisesi",
+      "website": "https://saraylaranadoluimamhatiplisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Saraylar İlkokulu",
+      "website": "https://saraylarilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Saraylar Ortaokulu",
+      "website": "https://saraylarortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Topağaç İlkokulu",
+      "website": "https://topagac.meb.k12.tr/"
+    }
+  ],
+  "SAVAŞTEPE": [
+    {
+      "ad": "Alişuuri Ortaokulu",
+      "website": "https://savastepealisuuri.meb.k12.tr/"
+    },
+    {
+      "ad": "Cumhuriyet İlkokulu",
+      "website": "https://savastepecumhuriyetio.meb.k12.tr/"
+    },
+    {
+      "ad": "Fatih Ortaokulu",
+      "website": "https://savastepefatihortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Karacalar Mustafa Kangal İlkokulu",
+      "website": "https://karacalarmkangalio.meb.k12.tr/"
+    },
+    {
+      "ad": "Karacalar Mustafa Kangal Ortaokulu",
+      "website": "https://karacalarmustafakangalortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Mehmet Akif Ersoy İlkokulu",
+      "website": "https://savatepemehmetakifersoyilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Necip Fazıl Kısakürek Anadolu Lisesi",
+      "website": "https://nefkal.meb.k12.tr/"
+    },
+    {
+      "ad": "Sarıbeyler İlkokulu",
+      "website": "https://saribeylerilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Sarıbeyler Ortaokulu",
+      "website": "https://saribeylerortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Savaştepe Anadolu İmam Hatip Lisesi",
+      "website": "https://savastepeaihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Savaştepe Anaokulu",
+      "website": "https://savastepeanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Savaştepe Halk Eğitimi Merkezi",
+      "website": "https://savastepehem.meb.k12.tr/"
+    },
+    {
+      "ad": "Savaştepe Tarım Meslekî ve Teknik Anadolu Lisesi",
+      "website": "https://thmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Onbaşı Bayram Kaya İlkokulu",
+      "website": "https://sehitonbasibayramkayai.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Onbaşı Bayram Kaya Ortaokulu",
+      "website": "https://sehitonbasibayramkayao.meb.k12.tr/"
+    },
+    {
+      "ad": "Tıbbiyeli Hikmet Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://savastepethmtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Yeşilhisar İlkokulu",
+      "website": "https://yesilhisarioo.meb.k12.tr/"
+    },
+    {
+      "ad": "Zafer İlkokulu",
+      "website": "https://savastepezaferio.meb.k12.tr/"
+    }
+  ],
+  "SINDIRGI": [
+    {
+      "ad": "3 Eylül Anaokulu",
+      "website": "https://3eylulanaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Atatürk İlkokulu",
+      "website": "https://blksindirgiataturkioo.meb.k12.tr/"
+    },
+    {
+      "ad": "Cumhuriyet Ortaokulu",
+      "website": "https://scumhuriyetortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Düvertepe İlkokulu",
+      "website": "https://duvertepeilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Düvertepe Yatılı Bölge Ortaokulu",
+      "website": "https://duvertepeybo.meb.k12.tr/"
+    },
+    {
+      "ad": "Gölcük İlkokulu",
+      "website": "https://sindirgigolcukilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Gölcük Ortaokulu",
+      "website": "https://sindirgigolcukortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "İbrahim Ethem Akıncı İlkokulu",
+      "website": "https://ibrahimethemakinciilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "İbrahim Ethem Akıncı Ortaokulu",
+      "website": "https://ibrahimethemakinciortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kocakonak İlkokulu",
+      "website": "https://kocakonakilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Kurtuluş İlkokulu",
+      "website": "https://sindirgikurtulusio.meb.k12.tr/"
+    },
+    {
+      "ad": "Sındırgı Anadolu İmam Hatip Lisesi",
+      "website": "https://sindirgiihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Sındırgı Halk Eğitimi Merkezi",
+      "website": "https://sindirgihem.meb.k12.tr/"
+    },
+    {
+      "ad": "Sındırgı İmam Hatip Ortaokulu",
+      "website": "https://sindirgiiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Sındırgı Makbule Efe Anadolu Lisesi",
+      "website": "https://sindirgimeal.meb.k12.tr/"
+    },
+    {
+      "ad": "Sındırgı Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://sindirgimtal.meb.k12.tr/"
+    },
+    {
+      "ad": "Sındırgı Öğretmenevi ve Akşam Sanat Okulu",
+      "website": "https://sindirgiogretmeneviaso.meb.k12.tr/"
+    },
+    {
+      "ad": "Yağcıbedir Ortaokulu",
+      "website": "https://yagcibedirortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yaylabayır Muazzez Keskin İlkokulu",
+      "website": "https://yaylabayirioo.meb.k12.tr/"
+    },
+    {
+      "ad": "Yüreğil İlkokulu",
+      "website": "https://yuregililkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Yüreğil Ortaokulu",
+      "website": "https://yuregilortaokulu.meb.k12.tr/"
+    }
+  ],
+  "SUSURLUK": [
+    {
+      "ad": "5 Eylül Anadolu Lisesi",
+      "website": "https://5eylulanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "ATATÜRK İLKOKULU",
+      "website": "https://susurlukataturkio.meb.k12.tr/"
+    },
+    {
+      "ad": "Beşeylül İlkokulu",
+      "website": "https://5eylulilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Demirkapı Şeref Eğinlioğlu İlkokulu",
+      "website": "https://dse.meb.k12.tr/"
+    },
+    {
+      "ad": "Demirkapı Şeref Eğinlioğlu Ortaokulu",
+      "website": "https://775362.meb.k12.tr/"
+    },
+    {
+      "ad": "Dereköy İlkokulu",
+      "website": "https://susurlukderekoyilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "FATİH İLKOKULU",
+      "website": "https://fatihio.meb.k12.tr/"
+    },
+    {
+      "ad": "GÖBEL ŞEHİT NUSRET KULA İLKOKULU",
+      "website": "https://gobelsnkilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "GÖBEL ŞEHİT NUSRET KULA ORTAOKULU",
+      "website": "https://gobelsnkortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Hayme Ana Kız Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://susurlukhaymeana.meb.k12.tr/"
+    },
+    {
+      "ad": "KARAPÜRÇEK ŞEHİT MESUT NAYMAN İLKOKULU",
+      "website": "https://karapurceksmnio.meb.k12.tr/"
+    },
+    {
+      "ad": "KARAPÜRÇEK ŞEHİT MESUT NAYMAN ORTAOKULU",
+      "website": "https://karapurceksmnoo.meb.k12.tr/"
+    },
+    {
+      "ad": "NİMET SADIK ÖZYİĞİT ORTAOKULU",
+      "website": "https://susurluknso.meb.k12.tr/"
+    },
+    {
+      "ad": "Susurluk Anadolu İmam Hatip Lisesi",
+      "website": "https://susurlukihl.meb.k12.tr/"
+    },
+    {
+      "ad": "Susurluk Anadolu Lisesi",
+      "website": "https://susurlukanadolulisesi.meb.k12.tr/"
+    },
+    {
+      "ad": "Susurluk Halk Eğitimi Merkezi",
+      "website": "https://susurlukhem.meb.k12.tr/"
+    },
+    {
+      "ad": "Susurluk İmam Hatip Ortaokulu",
+      "website": "https://susurlukiho.meb.k12.tr/"
+    },
+    {
+      "ad": "Susurluk Mesleki ve Teknik Anadolu Lisesi",
+      "website": "https://susurlukeml.meb.k12.tr/"
+    },
+    {
+      "ad": "Şehit Erbil Arslan Ortaokulu",
+      "website": "https://sehiterbilarslanortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "ŞEKER İLKOKULU",
+      "website": "https://susurluksekerio.meb.k12.tr/"
+    },
+    {
+      "ad": "ŞERAFETTİN TUNALI İLKOKULU",
+      "website": "https://serafettintunaliilkokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "ŞERAFETTİN TUNALI ORTAOKULU",
+      "website": "https://serafettintunaliortaokulu.meb.k12.tr/"
+    },
+    {
+      "ad": "Zübeyde Hanım Anaokulu",
+      "website": "https://susurlukzubeydehanim.meb.k12.tr/"
+    }
+  ]
+}

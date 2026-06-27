@@ -1,0 +1,170 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function getUserData() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data;
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'admin@genctek.org' || 
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && getUserData().role == 'admin')
+      );
+    }
+    
+    function isCoordinator() {
+      return isSignedIn() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+        getUserData().role == 'coordinator';
+    }
+
+    function isCommission() {
+      return isSignedIn() && 
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) && 
+        getUserData().role == 'commission';
+    }
+
+    // Users Collection
+    match /users/{userId} {
+      allow read: if isSignedIn(); // Logged-in users can search/view profiles
+      allow create: if isSignedIn() && (
+        (request.auth.uid == userId && !(request.resource.data.role in ['admin', 'coordinator', 'commission'])) || 
+        request.auth.token.email == 'admin@genctek.org'
+      );
+      allow update: if isSignedIn() && (
+        isAdmin() || 
+        (request.auth.uid == userId && 
+         // Allow users to update their own profile but NOT change their role
+         (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['role']) || resource.data.role == request.resource.data.role)
+        )
+      );
+      allow delete: if isAdmin();
+    }
+
+    // Legacy Teachers Collection
+    match /teachers/{teacherId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn() && (isAdmin() || request.auth.uid == teacherId);
+    }
+
+    // Legacy Students Collection
+    match /students/{studentId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn(); // Teachers create student documents
+      allow update, delete: if isSignedIn() && (
+        isAdmin() || 
+        resource.data.ogretmenId == request.auth.uid || 
+        resource.data.studentUid == request.auth.uid
+      );
+    }
+
+    // Custom Schools Collection
+    match /custom_schools/{schoolId} {
+      allow read: if true; // Public or logged-in users need to fetch school list
+      allow write: if isSignedIn(); // Logged-in users (principals, teachers) can suggest custom schools
+    }
+
+    // Events Collection
+    match /events/{eventId} {
+      allow read: if true; // Public can view approved events
+      allow write: if isSignedIn() && (isAdmin() || isCoordinator()); // Only admin or coordinator can create/update events
+    }
+
+    // Projects Collection
+    match /projects/{projectId} {
+      allow read: if true;
+      allow write: if isSignedIn(); // Teachers and students can submit projects
+    }
+
+    // Event Applications Collection
+    match /event_applications/{appId} {
+      allow read: if isSignedIn() && (
+        isAdmin() || 
+        isCoordinator() || 
+        (isCommission() && ("il" in resource.data) && getUserData().il == resource.data.il) ||
+        (exists(resource.data.ogretmenId) && resource.data.ogretmenId == request.auth.uid) || 
+        (exists(resource.data.studentUid) && resource.data.studentUid == request.auth.uid)
+      );
+      allow write: if isSignedIn();
+    }
+
+    // Study Groups Collection
+    match /groups/{groupId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn() && (
+        isAdmin() || 
+        request.auth.uid in resource.data.members
+      );
+      allow delete: if isSignedIn() && (
+        isAdmin() || 
+        resource.data.creatorId == request.auth.uid
+      );
+    }
+
+    // Study Group Announcements Collection
+    match /group_announcements/{annId} {
+      allow read: if isSignedIn() && (
+        isAdmin() || 
+        request.auth.uid in get(/databases/$(database)/documents/groups/$(resource.data.groupId)).data.members
+      );
+      allow create: if isSignedIn() && (
+        isAdmin() || 
+        request.auth.uid in get(/databases/$(database)/documents/groups/$(request.resource.data.groupId)).data.members
+      );
+      allow update, delete: if isSignedIn() && (
+        isAdmin() || 
+        resource.data.authorId == request.auth.uid || 
+        get(/databases/$(database)/documents/groups/$(resource.data.groupId)).data.creatorId == request.auth.uid
+      );
+    }
+
+    // Study Group Tasks Collection
+    match /group_tasks/{taskId} {
+      allow read: if isSignedIn() && (
+        isAdmin() || 
+        request.auth.uid in get(/databases/$(database)/documents/groups/$(resource.data.groupId)).data.members
+      );
+      allow create: if isSignedIn() && (
+        isAdmin() || 
+        request.auth.uid in get(/databases/$(database)/documents/groups/$(request.resource.data.groupId)).data.members
+      );
+      allow update: if isSignedIn() && (
+        isAdmin() || 
+        request.auth.uid in get(/databases/$(database)/documents/groups/$(resource.data.groupId || request.resource.data.groupId)).data.members
+      );
+      allow delete: if isSignedIn() && (
+        isAdmin() || 
+        get(/databases/$(database)/documents/groups/$(resource.data.groupId)).data.creatorId == request.auth.uid
+      );
+    }
+
+    // Direct Messages Collection
+    match /direct_messages/{messageId} {
+      allow read: if isSignedIn() && (request.auth.uid == resource.data.senderId || request.auth.uid == resource.data.receiverId);
+      allow create: if isSignedIn() && request.auth.uid == request.resource.data.senderId;
+      allow update: if isSignedIn() && request.auth.uid == resource.data.receiverId && request.resource.data.okundu == true;
+    }
+
+    // Global Announcements Collection
+    match /announcements/{annId} {
+      allow read: if true; // Public or logged-in users can view announcements
+      allow write: if isSignedIn() && (isAdmin() || isCoordinator() || getUserData().role == 'principal');
+    }
+
+    // User Notifications Collection
+    match /notifications/{notificationId} {
+      allow read, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn(); // Any logged-in user can trigger a notification for another user
+      allow update: if isSignedIn() && resource.data.userId == request.auth.uid 
+                    && (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read']));
+    }
+  }
+}
+
