@@ -1,4 +1,4 @@
-import { Globe, Shield, Github } from "lucide-react";
+import { Globe, Shield } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -124,7 +124,7 @@ const Footer = () => {
               textDecoration: "underline",
             }}
           >
-            <Github size={14} /> GitHub:
+            <Globe size={14} /> GitHub:
             https://github.com/adeministratorr/genctek_atlas
           </a>
         </div>
