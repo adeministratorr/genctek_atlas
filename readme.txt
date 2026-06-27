@@ -16,6 +16,14 @@ Technology Stack:
 - Backend & DB: Firebase (Firestore, Storage, Auth, Hosting)
 - Icons: Lucide React
 
+Vibe Coding Guides:
+- Web app prompt guide: `docs/VIBE_CODING_PROMPTS.md`
+- Android design and coding prompt guide: `docs/ANDROID_VIBE_CODING_PROMPTS.md`
+
+The Android guide covers both sides of the mobile workflow:
+- Vibe Design prompts for Stitch or a similar mobile design tool
+- Vibe Coding prompts for Android Studio, Kotlin, Jetpack Compose, Firebase, role-based screens, security rules, tests, and APK build checks
+
 How to Run Locally:
 1. Ensure Node.js (v16+) is installed.
 2. Clone this repository and run `npm install`.
@@ -37,6 +45,14 @@ Teknoloji Yığını:
 - Tasarım/Stil: Vanilla CSS
 - Backend & Veritabanı: Firebase (Firestore, Storage, Auth, Hosting)
 - İkonlar: Lucide React
+
+Vibe Coding Rehberleri:
+- Web uygulaması prompt rehberi: `docs/VIBE_CODING_PROMPTS.md`
+- Android tasarım ve kodlama prompt rehberi: `docs/ANDROID_VIBE_CODING_PROMPTS.md`
+
+Android rehberi mobil geliştirme akışının iki tarafını kapsar:
+- Stitch veya benzeri bir mobil tasarım aracı için Vibe Design promptları
+- Android Studio, Kotlin, Jetpack Compose, Firebase, rol bazlı ekranlar, güvenlik kuralları, testler ve APK derleme kontrolleri için Vibe Coding promptları
 
 Yerel Kurulum ve Çalıştırma:
 1. Sisteminizde Node.js (v16+) yüklü olduğundan emin olun.

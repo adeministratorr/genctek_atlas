@@ -258,6 +258,33 @@ Rehberde özellikle şu sıfırdan geliştirme promptları bulunur:
 
 Yayına almadan önce rehberdeki **güvenlik kontrolü**, **manuel test** ve **otomatik test** promptlarının kullanılması önerilir.
 
+### Android Vibe Design & Coding Rehberi
+
+GençTek Atlas'ın Android sürümünü tasarlamak ve kodlatmak isteyen öğrenciler için **[GençTek Atlas Android Vibe Design & Coding Promptları](docs/ANDROID_VIBE_CODING_PROMPTS.md)** dosyasını kullanabilirsiniz.
+
+Bu Android rehberi iki akışı birlikte ele alır:
+
+- **Vibe Design:** Stitch veya benzeri bir mobil tasarım aracında giriş, keşfet, harita, formlar, gruplar, mesajlaşma, profil, paneller ve analiz ekranlarını tasarlatma.
+- **Vibe Coding:** Android Studio, Kotlin, Jetpack Compose, Firebase, Demo Modu, rol bazlı ekranlar, Firestore/Storage güvenlik kuralları, testler ve APK derleme kontrolleri için prompt kullanma.
+
+Android rehberinde admin, okul müdürü ve koordinatör rollerinin kayıt formundan seçilmemesi; bu yetkilerin güvenli rol atama akışıyla verilmesi özellikle vurgulanır.
+
+### Laravel Backend Dönüşüm Rehberi
+
+GençTek Atlas'ın varsayılan mimarisi **Firebase serverless** yapıdır. Yani mevcut uygulama normalde Firebase Authentication, Cloud Firestore, Firebase Storage ve Firebase Hosting ile çalışır.
+
+Firebase yerine kendi API sunucunuzu kurmak veya projeyi Laravel backend mimarisine taşımak isterseniz **[GençTek Atlas Laravel Backend ve Firebase'den Dönüşüm Promptları](docs/LARAVEL_BACKEND_MIGRATION_PROMPTS.md)** dosyasını kullanabilirsiniz.
+
+Bu rehber şunları kapsar:
+
+- Laravel API projesi kurma
+- Firebase koleksiyonlarını SQL tablolarına çevirme
+- Laravel auth, token, rol ve policy yapısı kurma
+- Etkinlik, proje, grup, mesajlaşma, bildirim ve analiz API'leri oluşturma
+- React frontend'i Firebase SDK yerine Laravel API kullanacak şekilde dönüştürme
+- Android uygulamayı Firebase yerine Laravel API kullanacak şekilde dönüştürme
+- Veri taşıma, güvenlik, test, hata ayıklama ve yayına alma promptları
+
 ### Antigravity Proje Skill'i
 
 Antigravity veya benzer AI kod editörleriyle bu proje üzerinde çalışırken proje kökündeki **[AGENTS.md](AGENTS.md)** dosyası okunmalıdır. Bu dosya ajanı proje skill'ine yönlendirir:
@@ -371,6 +398,11 @@ genctek-atlas/
 ├── firestore.rules                # Firestore Güvenlik Kuralları
 ├── storage.rules                  # Storage Güvenlik Kuralları
 ├── docs/                          # Ürün, güvenlik, test, deploy ve prompt dokümanları
+│   ├── VIBE_CODING_PROMPTS.md     # Web uygulamasını sıfırdan yazdırma promptları
+│   ├── ANDROID_VIBE_CODING_PROMPTS.md
+│   │                               # Android Vibe Design & Coding promptları
+│   └── LARAVEL_BACKEND_MIGRATION_PROMPTS.md
+│                                   # Laravel backend ve Firebase'den dönüşüm promptları
 ├── ethics-check.md                # Etik inceleme ve AI kullanım kontrolü
 ├── README.md
 ├── LICENSE
