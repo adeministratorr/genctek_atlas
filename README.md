@@ -185,7 +185,7 @@ Firebase CLI çıktısındaki alanları şöyle eşleştirin:
 | `appId`             | `VITE_FIREBASE_APP_ID`              |
 
 > [!TIP]
-> `.env` dosyası yapılandırılmadığı takdirde uygulama otomatik olarak **Yerel Demo Modu** ile başlar. Local demo modunda moderatör girişi için e-posta `admin@genctek.org` ve şifre `GT_admin_2026!` kullanılabilir.
+> `.env` dosyası yapılandırılmadığı takdirde uygulama otomatik olarak **Yerel Demo Modu** ile başlar. Local demo modunda moderatör girişi için e-posta `admin@genctek.org` ve en az 6 karakterli herhangi bir şifre kullanılabilir.
 >
 > [!CAUTION]
 > **Siber Güvenlik Uyarısı (Security Warning):** Projeyi klonlayıp kendi siteniz olarak canlıya alırken, yerel demo konsolunu (`src/components/DemoConsole.jsx`) ve ilgili sahte kullanıcı kodlarını uygulamadan tamamen kaldırmanız, varsayılan giriş bilgilerini ve parolaları sıfırlamanız gerekmektedir. Aksi takdirde yetkisiz kişiler yönetici panelinize erişebilir!

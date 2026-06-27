@@ -310,11 +310,7 @@ const DemoConsole = ({ isOpen, onClose }) => {
                 className="card-btn secondary"
                 disabled={loading}
                 onClick={() =>
-                  handleQuickLogin(
-                    "admin@genctek.org",
-                    "GT_admin_2026!",
-                    "admin",
-                  )
+                  handleQuickLogin("admin@genctek.org", "demo123", "admin")
                 }
                 style={{
                   justifyContent: "flex-start",
@@ -344,7 +340,7 @@ const DemoConsole = ({ isOpen, onClose }) => {
                 onClick={() =>
                   handleQuickLogin(
                     "koordinator@genctek.org",
-                    "coord123",
+                    "demo123",
                     "coordinator",
                   )
                 }
@@ -374,11 +370,7 @@ const DemoConsole = ({ isOpen, onClose }) => {
                 className="card-btn secondary"
                 disabled={loading}
                 onClick={() =>
-                  handleQuickLogin(
-                    "mudur@genctek.org",
-                    "teacher123",
-                    "principal",
-                  )
+                  handleQuickLogin("mudur@genctek.org", "demo123", "principal")
                 }
                 style={{
                   justifyContent: "flex-start",
@@ -406,11 +398,7 @@ const DemoConsole = ({ isOpen, onClose }) => {
                 className="card-btn secondary"
                 disabled={loading}
                 onClick={() =>
-                  handleQuickLogin(
-                    "ogretmen@genctek.org",
-                    "teacher123",
-                    "teacher",
-                  )
+                  handleQuickLogin("ogretmen@genctek.org", "demo123", "teacher")
                 }
                 style={{
                   justifyContent: "flex-start",
@@ -440,7 +428,7 @@ const DemoConsole = ({ isOpen, onClose }) => {
                 onClick={() =>
                   handleQuickLogin(
                     "temsilci@genctek.org",
-                    "student123",
+                    "demo123",
                     "student",
                     {
                       uid: "mock-student-rep-uid",

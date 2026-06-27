@@ -2751,7 +2751,7 @@ export const AppProvider = ({ children }) => {
       const parsedUsers = localUsers ? JSON.parse(localUsers) : [];
 
       // Check admin
-      if (email === "admin@genctek.org" && password === "GT_admin_2026!") {
+      if (email === "admin@genctek.org" && password && password.length >= 6) {
         setUser({ email, uid: "mock-admin-uid" });
         setUserRole("admin");
         fetchData(true);
@@ -2772,21 +2772,8 @@ export const AppProvider = ({ children }) => {
             "Hesabınız henüz moderatör tarafından onaylanmamıştır.",
           );
         }
-        let expectedPassword = "user123";
-        if (
-          matchedUser.role === "teacher" ||
-          matchedUser.role === "principal"
-        ) {
-          expectedPassword = "teacher123";
-        } else if (matchedUser.role === "coordinator") {
-          expectedPassword = "coord123";
-        } else if (matchedUser.role === "commission") {
-          expectedPassword = "commission123";
-        } else if (matchedUser.role === "student") {
-          expectedPassword = "student123";
-        }
 
-        if (password === expectedPassword) {
+        if (password && password.length >= 6) {
           setUser({ email, uid: matchedUser.uid });
           setUserRole(matchedUser.role);
           setUserProfile(matchedUser);
@@ -2835,7 +2822,7 @@ export const AppProvider = ({ children }) => {
       const savedProfile = localStorage.getItem("mock_teacher_profile");
       if (savedProfile) {
         const profile = JSON.parse(savedProfile);
-        if (profile.eposta === email && password === "teacher123") {
+        if (profile.eposta === email && password && password.length >= 6) {
           setUser({ email, uid: profile.uid });
           setUserRole("teacher");
           setTeacherProfile(profile);
@@ -2851,7 +2838,7 @@ export const AppProvider = ({ children }) => {
         const matched = JSON.parse(coordProfiles).find(
           (c) => c.eposta === email,
         );
-        if (matched && password === "coord123") {
+        if (matched && password && password.length >= 6) {
           setUser({ email, uid: matched.id });
           setUserRole("coordinator");
           setTeacherProfile(matched);
@@ -2862,7 +2849,7 @@ export const AppProvider = ({ children }) => {
       }
 
       throw new Error(
-        "Geçersiz e-posta veya şifre (Mock modunda admin@genctek.org / GT_admin_2026!, coordinator@genctek.org / coord123, commission@genctek.org / commission123, teacher@genctek.org / teacher123, veya student@genctek.org / student123 kullanın)",
+        "Geçersiz e-posta veya şifre (Mock modunda geçerli bir demo e-postası girin ve en az 6 karakterli herhangi bir şifre kullanın)",
       );
     }
   };

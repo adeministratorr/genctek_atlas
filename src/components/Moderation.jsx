@@ -822,7 +822,10 @@ const Moderation = () => {
                     style={{ marginBottom: "12px", fontSize: "11px" }}
                   >
                     Mock/Yerel modda admin girişi:{" "}
-                    <strong>admin@genctek.org / GT_admin_2026!</strong>
+                    <strong>
+                      admin@genctek.org / (en az 6 karakterli herhangi bir
+                      şifre)
+                    </strong>
                   </p>
                   <button
                     className="card-btn primary"
