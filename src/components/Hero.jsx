@@ -17,15 +17,16 @@ const Hero = () => {
           className="hero-disclaimer"
           style={{
             marginTop: "24px",
+            marginLeft: "auto",
+            marginRight: "auto",
             padding: "16px 20px",
-            backgroundColor: "rgba(255, 255, 255, 0.08)",
-            border: "1px solid rgba(255, 255, 255, 0.15)",
+            backgroundColor: "rgba(219, 4, 41, 0.04)",
+            border: "1px solid rgba(219, 4, 41, 0.12)",
             borderRadius: "8px",
             fontSize: "13px",
             lineHeight: "1.6",
-            color: "rgba(255, 255, 255, 0.85)",
+            color: "var(--text-muted)",
             textAlign: "left",
-            backdropFilter: "blur(8px)",
             maxWidth: "800px",
           }}
         >
@@ -33,14 +34,14 @@ const Hero = () => {
             style={{
               margin: "0 0 8px 0",
               fontWeight: "700",
-              color: "#ffffff",
+              color: "var(--secondary)",
               fontSize: "14px",
             }}
           >
             GençTek Atlas, öğrencilerin Vibe Coding sürecini uygulamalı olarak
             inceleyebilmesi için hazırlanmış açık kaynaklı bir örnek projedir.
           </p>
-          <p style={{ margin: "0 0 12px 0" }}>
+          <p style={{ margin: "0 0 12px 0", color: "#4b5563" }}>
             Bu uygulama nihai ve resmî bir ürün değildir; arayüzü, özellikleri
             ve teknik yapısı geliştirilmeye açıktır. Dileyen herkes projeyi
             GitHub reposundan klonlayabilir, kendi bilgisayarında
@@ -54,7 +55,7 @@ const Hero = () => {
               alignItems: "center",
               flexWrap: "wrap",
               gap: "10px",
-              borderTop: "1px solid rgba(255, 255, 255, 0.15)",
+              borderTop: "1px solid rgba(219, 4, 41, 0.1)",
               paddingTop: "10px",
               marginTop: "10px",
             }}
@@ -62,7 +63,7 @@ const Hero = () => {
             <span
               style={{
                 fontWeight: "800",
-                color: "#ffffff",
+                color: "var(--secondary)",
                 letterSpacing: "1px",
                 fontSize: "11px",
                 textTransform: "uppercase",
@@ -78,7 +79,7 @@ const Hero = () => {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "6px",
-                color: "#ffffff",
+                color: "var(--primary)",
                 fontWeight: "700",
                 textDecoration: "underline",
                 fontSize: "12px",
