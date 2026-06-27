@@ -368,6 +368,12 @@ const Moderation = () => {
   };
 
   const handleSeedData = async () => {
+    if (userRole !== "admin") {
+      alert(
+        "Bu işlemi gerçekleştirmek için yönetici (admin) yetkiniz olmalıdır.",
+      );
+      return;
+    }
     if (
       !window.confirm(
         "genctek.eba.gov.tr'den çekilen 44 etkinlik ve 3 projeyi veritabanına eklemek istediğinize emin misiniz?",
@@ -807,45 +813,6 @@ const Moderation = () => {
                   Danışman Öğretmen misiniz? Şimdi Kaydolun
                 </button>
               </div>
-
-              {isUsingMockData && (
-                <div
-                  style={{
-                    marginTop: "24px",
-                    paddingTop: "16px",
-                    borderTop: "1px dashed var(--border-color)",
-                    textAlign: "center",
-                  }}
-                >
-                  <p
-                    className="form-hint"
-                    style={{ marginBottom: "12px", fontSize: "11px" }}
-                  >
-                    Mock/Yerel modda admin girişi:{" "}
-                    <strong>
-                      admin@genctek.org / (en az 6 karakterli herhangi bir
-                      şifre)
-                    </strong>
-                  </p>
-                  <button
-                    className="card-btn primary"
-                    onClick={handleSeedData}
-                    disabled={isSeeding}
-                    style={{
-                      width: "100%",
-                      justifyContent: "center",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "8px",
-                    }}
-                  >
-                    <Database size={16} />
-                    {isSeeding
-                      ? `Tohumlanıyor (${seedProgress})`
-                      : "Mock Veritabanını Tohumla (EBA Verileri)"}
-                  </button>
-                </div>
-              )}
             </div>
           ) : userRole === "admin" ? (
             /* Moderation Panel Dashboard (Admin Mode) */

@@ -211,6 +211,12 @@ const DemoConsole = ({ isOpen, onClose }) => {
 
   // Reset Mock Data
   const handleResetData = () => {
+    if (userRole !== "admin") {
+      alert(
+        "Bu işlemi gerçekleştirmek için yönetici (admin) yetkiniz olmalıdır.",
+      );
+      return;
+    }
     if (
       window.confirm(
         "Tüm yerel verileri sıfırlayıp fabrika ayarlarına dönmek istiyor musunuz?",
@@ -623,40 +629,42 @@ const DemoConsole = ({ isOpen, onClose }) => {
           )}
 
           {/* Seeding & Reset */}
-          <div
-            style={{
-              marginTop: "30px",
-              borderTop: "1px solid var(--border-color)",
-              paddingTop: "20px",
-            }}
-          >
-            <h4
+          {userRole === "admin" && (
+            <div
               style={{
-                margin: "0 0 12px 0",
-                fontSize: "13px",
-                color: "var(--text-muted)",
-                textTransform: "uppercase",
-                fontWeight: "700",
+                marginTop: "30px",
+                borderTop: "1px solid var(--border-color)",
+                paddingTop: "20px",
               }}
             >
-              ⚙️ Veritabanı Yönetimi
-            </h4>
+              <h4
+                style={{
+                  margin: "0 0 12px 0",
+                  fontSize: "13px",
+                  color: "var(--text-muted)",
+                  textTransform: "uppercase",
+                  fontWeight: "700",
+                }}
+              >
+                ⚙️ Veritabanı Yönetimi
+              </h4>
 
-            <button
-              onClick={handleResetData}
-              className="card-btn secondary"
-              style={{
-                width: "100%",
-                justifyContent: "center",
-                gap: "8px",
-                border: "1px solid #fee2e2",
-                color: "var(--primary)",
-                backgroundColor: "#fef2f2",
-              }}
-            >
-              <RefreshCw size={14} /> Tüm Verileri Sıfırla
-            </button>
-          </div>
+              <button
+                onClick={handleResetData}
+                className="card-btn secondary"
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  gap: "8px",
+                  border: "1px solid #fee2e2",
+                  color: "var(--primary)",
+                  backgroundColor: "#fef2f2",
+                }}
+              >
+                <RefreshCw size={14} /> Tüm Verileri Sıfırla
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
