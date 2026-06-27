@@ -12,6 +12,7 @@ Welcome to the **GençTek Atlas & Portal** project! This guide will walk you thr
 ## 1. Prerequisites
 
 Before you start, make sure you have the following installed:
+
 - [Node.js](https://nodejs.org/) (v18 or higher)
 - [Git](https://git-scm.com/)
 - A Google/Firebase account
@@ -32,7 +33,7 @@ Since this project relies on Firebase (Firestore, Auth, Storage), you need to cr
      storageBucket: "your-app.firebasestorage.app",
      messagingSenderId: "123456789",
      appId: "1:123456789:web:abcde",
-     measurementId: "G-ABCDE"
+     measurementId: "G-ABCDE",
    };
    ```
 5. Enable **Firestore**, **Authentication** (Email/Password), and **Storage** from the Firebase Console sidebar.
@@ -67,6 +68,7 @@ Since this project relies on Firebase (Firestore, Auth, Storage), you need to cr
 ## 4. Deploying to Firebase Hosting
 
 To deploy your app to the public web (like `https://your-app.web.app`):
+
 1. Install the Firebase CLI:
    ```bash
    npm install -g firebase-tools
@@ -86,6 +88,9 @@ To deploy your app to the public web (like `https://your-app.web.app`):
    firebase deploy
    ```
 
+> [!CAUTION]
+> **Security Warning:** When cloning this project to deploy your own production version, you must completely remove the local demo console (`src/components/DemoConsole.jsx`), reset all default administrator credentials and passwords in `src/context/AppContext.jsx`, and ensure Firebase security rules are set up correctly. Leaving the demo console active exposes your admin dashboard to unauthorized access!
+
 ---
 
 ## 🤖 Automating Setup with Antigravity / Google AI Studio
@@ -94,19 +99,20 @@ If you have access to Google AI Studio or **Antigravity**, you can ask the AI ag
 
 **Copy and paste the following prompt to your Antigravity agent:**
 
-> *"I have just downloaded the GençTek Atlas project. I want you to configure it with my Firebase credentials and prepare it for deployment.*
+> _"I have just downloaded the GençTek Atlas project. I want you to configure it with my Firebase credentials and prepare it for deployment._
 >
-> *Here is my Firebase config object:*
-> *[PASTE YOUR FIREBASE CONFIG JSON HERE]*
+> _Here is my Firebase config object:_
+> _[PASTE YOUR FIREBASE CONFIG JSON HERE]_
 >
-> *Please do the following:*
-> *1. Create a `.env` file in the root directory and map my Firebase config values to the corresponding `VITE_FIREBASE_*` variables.*
-> *2. Update the `.firebaserc` file to use my `projectId` as the default project.*
-> *3. Run `npm install` to install all dependencies.*
-> *4. Run `npm run build` to ensure the project compiles correctly.*
-> *5. Finally, use the `firebase-basics` and `firebase-hosting-basics` skills to deploy the project to Firebase Hosting. If you need me to login, please let me know."*
+> _Please do the following:_
+> _1. Create a `.env` file in the root directory and map my Firebase config values to the corresponding `VITE_FIREBASE_*` variables._
+> _2. Update the `.firebaserc` file to use my `projectId` as the default project._
+> _3. Run `npm install` to install all dependencies._
+> _4. Run `npm run build` to ensure the project compiles correctly._
+> _5. Finally, use the `firebase-basics` and `firebase-hosting-basics` skills to deploy the project to Firebase Hosting. If you need me to login, please let me know."_
 
 ---
+
 ---
 
 # 🚀 Kurulum ve Yayınlama (Deployment) Rehberi
@@ -116,6 +122,7 @@ If you have access to Google AI Studio or **Antigravity**, you can ask the AI ag
 ## 1. Ön Gereksinimler
 
 Başlamadan önce bilgisayarınızda şunların kurulu olduğundan emin olun:
+
 - [Node.js](https://nodejs.org/) (v18 veya üzeri)
 - [Git](https://git-scm.com/)
 - Bir Google/Firebase hesabı
@@ -136,7 +143,7 @@ Bu proje veritabanı, üyelik sistemi ve dosya depolama için Firebase kullanır
      storageBucket: "senin-uygulaman.firebasestorage.app",
      messagingSenderId: "123456789",
      appId: "1:123456789:web:abcde",
-     measurementId: "G-ABCDE"
+     measurementId: "G-ABCDE",
    };
    ```
 5. Firebase panelinden (sol menüden) **Firestore**, **Authentication** (E-posta/Şifre) ve **Storage** servislerini aktifleştirin.
@@ -172,6 +179,7 @@ Bu proje veritabanı, üyelik sistemi ve dosya depolama için Firebase kullanır
 ## 4. İnternette Yayınlama (Firebase Hosting)
 
 Uygulamanızı herkesin girebileceği bir web sitesi (`https://senin-uygulaman.web.app`) haline getirmek için:
+
 1. Firebase komut satırı aracını (CLI) yükleyin:
    ```bash
    npm install -g firebase-tools
@@ -191,6 +199,9 @@ Uygulamanızı herkesin girebileceği bir web sitesi (`https://senin-uygulaman.w
    firebase deploy
    ```
 
+> [!CAUTION]
+> **Siber Güvenlik Uyarısı:** Projeyi klonlayıp kendi siteniz olarak canlıya alırken, yerel demo konsolunu (`src/components/DemoConsole.jsx`) ve ilgili sahte kullanıcı kodlarını uygulamadan tamamen kaldırmanız, varsayılan giriş bilgilerini ve parolaları sıfırlamanız gerekmektedir. Aksi takdirde yetkisiz kişiler yönetici panelinize erişebilir!
+
 ---
 
 ## 🤖 Antigravity / AI Studio ile Kurulumu Otomatikleştirme
@@ -200,19 +211,19 @@ Eğer Google AI Studio veya **Antigravity** kullanıyorsanız, yapay zeka ajanı
 **Seçenek 1: Tam Otomatik Kurulum (Firebase MCP ile - ÖNERİLEN)**
 Hiç Firebase paneline girmeden yapay zekanın tüm süreci sizin adınıza halletmesi için aşağıdaki prompt'u verin:
 
-> *"GençTek Atlas projesini indirdim. Bu projeyi Firebase'de tamamen sıfırdan benim için yapılandırmanı istiyorum. Lütfen **Firebase MCP** araçlarını kullanarak hesabımda uygun bir proje seç (veya oluştur), içine bir web uygulaması (app) kaydet ve `firebase_get_sdk_config` ile API anahtarlarını çek. Elde ettiğin bilgileri `.env.example` şablonunu kullanarak `.env` dosyasına yaz. Ardından `.firebaserc` dosyasını bu projeye göre ayarla, kütüphaneleri kur (npm install), projeyi derle (npm run build) ve son olarak Firebase Hosting'e deploy et."*
+> _"GençTek Atlas projesini indirdim. Bu projeyi Firebase'de tamamen sıfırdan benim için yapılandırmanı istiyorum. Lütfen **Firebase MCP** araçlarını kullanarak hesabımda uygun bir proje seç (veya oluştur), içine bir web uygulaması (app) kaydet ve `firebase_get_sdk_config` ile API anahtarlarını çek. Elde ettiğin bilgileri `.env.example` şablonunu kullanarak `.env` dosyasına yaz. Ardından `.firebaserc` dosyasını bu projeye göre ayarla, kütüphaneleri kur (npm install), projeyi derle (npm run build) ve son olarak Firebase Hosting'e deploy et."_
 
 **Seçenek 2: Manuel Bilgilerle Kurulum**
 Eğer kendi oluşturduğunuz config objeniz hazırsa aşağıdaki prompt'u kullanabilirsiniz:
 
-> *"GençTek Atlas projesini indirdim. Bu projeyi kendi Firebase API anahtarlarımla yapılandırmanı ve internette canlıya almanı (deploy etmeni) istiyorum.*
+> _"GençTek Atlas projesini indirdim. Bu projeyi kendi Firebase API anahtarlarımla yapılandırmanı ve internette canlıya almanı (deploy etmeni) istiyorum._
 >
-> *İşte benim Firebase ayar objem (config):*
-> *[BURAYA FIREBASE CONFIG JSON BİLGİNİZİ YAPIŞTIRIN]*
+> _İşte benim Firebase ayar objem (config):_
+> _[BURAYA FIREBASE CONFIG JSON BİLGİNİZİ YAPIŞTIRIN]_
 >
-> *Lütfen şu adımları benim için yap:*
-> *1. Ana dizinde bir `.env` dosyası oluştur ve yukarıdaki Firebase config bilgilerimi `VITE_FIREBASE_*` değişkenleri ile eşleştir.*
-> *2. `.firebaserc` dosyasını güncelleyerek benim `projectId` bilgisini 'default' olarak ayarla.*
-> *3. Gerekli tüm kütüphaneleri kurmak için `npm install` komutunu çalıştır.*
-> *4. Projenin hatasız derlendiğinden emin olmak için `npm run build` komutunu çalıştır.*
-> *5. Son olarak, projeyi Firebase Hosting üzerinde canlıya al (deploy). Eğer terminalde 'firebase login' yapmam gerekirse lütfen beni yönlendir."*
+> _Lütfen şu adımları benim için yap:_
+> _1. Ana dizinde bir `.env` dosyası oluştur ve yukarıdaki Firebase config bilgilerimi `VITE_FIREBASE_*` değişkenleri ile eşleştir._
+> _2. `.firebaserc` dosyasını güncelleyerek benim `projectId` bilgisini 'default' olarak ayarla._
+> _3. Gerekli tüm kütüphaneleri kurmak için `npm install` komutunu çalıştır._
+> _4. Projenin hatasız derlendiğinden emin olmak için `npm run build` komutunu çalıştır._
+> _5. Son olarak, projeyi Firebase Hosting üzerinde canlıya al (deploy). Eğer terminalde 'firebase login' yapmam gerekirse lütfen beni yönlendir."_

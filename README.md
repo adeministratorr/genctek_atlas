@@ -175,17 +175,20 @@ VITE_FIREBASE_APP_ID=uygulama-id
 
 Firebase CLI çıktısındaki alanları şöyle eşleştirin:
 
-| SDK config alanı | `.env` değişkeni |
-| :--------------- | :--------------- |
-| `apiKey` | `VITE_FIREBASE_API_KEY` |
-| `authDomain` | `VITE_FIREBASE_AUTH_DOMAIN` |
-| `projectId` | `VITE_FIREBASE_PROJECT_ID` |
-| `storageBucket` | `VITE_FIREBASE_STORAGE_BUCKET` |
+| SDK config alanı    | `.env` değişkeni                    |
+| :------------------ | :---------------------------------- |
+| `apiKey`            | `VITE_FIREBASE_API_KEY`             |
+| `authDomain`        | `VITE_FIREBASE_AUTH_DOMAIN`         |
+| `projectId`         | `VITE_FIREBASE_PROJECT_ID`          |
+| `storageBucket`     | `VITE_FIREBASE_STORAGE_BUCKET`      |
 | `messagingSenderId` | `VITE_FIREBASE_MESSAGING_SENDER_ID` |
-| `appId` | `VITE_FIREBASE_APP_ID` |
+| `appId`             | `VITE_FIREBASE_APP_ID`              |
 
 > [!TIP]
-> `.env` dosyası yapılandırılmadığı takdirde uygulama otomatik olarak **Yerel Demo Modu** ile başlar. Local demo modunda moderatör girişi için e-posta `admin@genctek.org` ve şifre `admin123` kullanılabilir.
+> `.env` dosyası yapılandırılmadığı takdirde uygulama otomatik olarak **Yerel Demo Modu** ile başlar. Local demo modunda moderatör girişi için e-posta `admin@genctek.org` ve şifre `GT_admin_2026!` kullanılabilir.
+>
+> [!CAUTION]
+> **Siber Güvenlik Uyarısı (Security Warning):** Projeyi klonlayıp kendi siteniz olarak canlıya alırken, yerel demo konsolunu (`src/components/DemoConsole.jsx`) ve ilgili sahte kullanıcı kodlarını uygulamadan tamamen kaldırmanız, varsayılan giriş bilgilerini ve parolaları sıfırlamanız gerekmektedir. Aksi takdirde yetkisiz kişiler yönetici panelinize erişebilir!
 
 ### 6. Uygulamayı Yerel Sunucuda Başlatın
 

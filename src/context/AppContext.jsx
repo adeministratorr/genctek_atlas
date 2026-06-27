@@ -1,4 +1,11 @@
-import { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
 import {
   collection,
   getDocs,
@@ -49,7 +56,7 @@ export const AppProvider = ({ children }) => {
   const [selectedDetailEvent, setSelectedDetailEvent] = useState(null);
   const [editingEvent, setEditingEvent] = useState(null); // The event currently being edited
   const [isUsingMockData, setIsUsingMockData] = useState(
-    auth.config.apiKey ? auth.config.apiKey.includes("DummyKey") : true
+    auth.config.apiKey ? auth.config.apiKey.includes("DummyKey") : true,
   );
 
   // Phase 2 Study Groups states
@@ -87,7 +94,7 @@ export const AppProvider = ({ children }) => {
       return;
     }
     const matchedCity = citiesData.find(
-      (c) => c.ad.toLowerCase() === cityAd.toLowerCase()
+      (c) => c.ad.toLowerCase() === cityAd.toLowerCase(),
     );
     if (!matchedCity) {
       setSchoolsData({});
@@ -109,7 +116,7 @@ export const AppProvider = ({ children }) => {
       if (!auth.config.apiKey.includes("DummyKey")) {
         const q = query(
           collection(db, "custom_schools"),
-          where("il", "==", cityAd)
+          where("il", "==", cityAd),
         );
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((doc) => {
@@ -119,7 +126,7 @@ export const AppProvider = ({ children }) => {
         const localSchools = localStorage.getItem("mock_custom_schools");
         if (localSchools) {
           customSchoolsList = JSON.parse(localSchools).filter(
-            (s) => s.il.toLowerCase() === cityAd.toLowerCase()
+            (s) => s.il.toLowerCase() === cityAd.toLowerCase(),
           );
         }
       }
@@ -134,7 +141,9 @@ export const AppProvider = ({ children }) => {
         // Check if this is an override of a static school
         if (customSchool.originalId) {
           const idx = mergedData[district].findIndex(
-            (s) => s.id === customSchool.originalId || s.ad === customSchool.originalAd
+            (s) =>
+              s.id === customSchool.originalId ||
+              s.ad === customSchool.originalAd,
           );
           if (idx !== -1) {
             mergedData[district][idx] = {
@@ -147,7 +156,9 @@ export const AppProvider = ({ children }) => {
         }
 
         // Otherwise, add it if it doesn't exist already
-        const exists = mergedData[district].some((s) => s.ad === customSchool.ad);
+        const exists = mergedData[district].some(
+          (s) => s.ad === customSchool.ad,
+        );
         if (!exists) {
           mergedData[district].push({
             id: customSchool.id,
@@ -180,80 +191,108 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   // Add Custom School
-  const addCustomSchool = useCallback(async (schoolData) => {
-    const newSchool = {
-      ...schoolData,
-      olusturmaTarihi: new Date().toISOString(),
-    };
+  const addCustomSchool = useCallback(
+    async (schoolData) => {
+      const newSchool = {
+        ...schoolData,
+        olusturmaTarihi: new Date().toISOString(),
+      };
 
-    let schoolId;
-    if (!auth.config.apiKey.includes("DummyKey")) {
-      const docRef = await addDoc(collection(db, "custom_schools"), newSchool);
-      schoolId = docRef.id;
-    } else {
-      schoolId = "mock-school-" + Date.now();
-      const localSchools = localStorage.getItem("mock_custom_schools");
-      const currentList = localSchools ? JSON.parse(localSchools) : [];
-      const updatedList = [{ id: schoolId, ...newSchool }, ...currentList];
-      localStorage.setItem("mock_custom_schools", JSON.stringify(updatedList));
-    }
-    loadSchoolsForCity(schoolData.il);
-    return schoolId;
-  }, [loadSchoolsForCity]);
+      let schoolId;
+      if (!auth.config.apiKey.includes("DummyKey")) {
+        const docRef = await addDoc(
+          collection(db, "custom_schools"),
+          newSchool,
+        );
+        schoolId = docRef.id;
+      } else {
+        schoolId = "mock-school-" + Date.now();
+        const localSchools = localStorage.getItem("mock_custom_schools");
+        const currentList = localSchools ? JSON.parse(localSchools) : [];
+        const updatedList = [{ id: schoolId, ...newSchool }, ...currentList];
+        localStorage.setItem(
+          "mock_custom_schools",
+          JSON.stringify(updatedList),
+        );
+      }
+      loadSchoolsForCity(schoolData.il);
+      return schoolId;
+    },
+    [loadSchoolsForCity],
+  );
 
   // Update/Edit Custom School (Supports Static overrides too)
-  const updateCustomSchool = useCallback(async (schoolId, schoolData) => {
-    const updatedData = {
-      ...schoolData,
-      guncellemeTarihi: new Date().toISOString(),
-    };
+  const updateCustomSchool = useCallback(
+    async (schoolId, schoolData) => {
+      const updatedData = {
+        ...schoolData,
+        guncellemeTarihi: new Date().toISOString(),
+      };
 
-    if (!auth.config.apiKey.includes("DummyKey")) {
-      if (schoolId && !schoolId.startsWith("static-")) {
-        const docRef = doc(db, "custom_schools", schoolId);
-        await updateDoc(docRef, updatedData);
+      if (!auth.config.apiKey.includes("DummyKey")) {
+        if (schoolId && !schoolId.startsWith("static-")) {
+          const docRef = doc(db, "custom_schools", schoolId);
+          await updateDoc(docRef, updatedData);
+        } else {
+          // Static school override: save as a new custom school linking back
+          await addDoc(collection(db, "custom_schools"), {
+            originalId: schoolId,
+            originalAd: schoolData.originalAd || schoolData.ad,
+            ...updatedData,
+          });
+        }
       } else {
-        // Static school override: save as a new custom school linking back
-        await addDoc(collection(db, "custom_schools"), {
-          originalId: schoolId,
-          originalAd: schoolData.originalAd || schoolData.ad,
-          ...updatedData
-        });
+        const localSchools = localStorage.getItem("mock_custom_schools");
+        const currentList = localSchools ? JSON.parse(localSchools) : [];
+        let updatedList;
+        if (schoolId && !schoolId.startsWith("static-")) {
+          updatedList = currentList.map((s) =>
+            s.id === schoolId ? { ...s, ...updatedData } : s,
+          );
+        } else {
+          const mockId = "mock-school-" + Date.now();
+          updatedList = [
+            {
+              id: mockId,
+              originalId: schoolId,
+              originalAd: schoolData.originalAd || schoolData.ad,
+              ...updatedData,
+            },
+            ...currentList,
+          ];
+        }
+        localStorage.setItem(
+          "mock_custom_schools",
+          JSON.stringify(updatedList),
+        );
       }
-    } else {
-      const localSchools = localStorage.getItem("mock_custom_schools");
-      const currentList = localSchools ? JSON.parse(localSchools) : [];
-      let updatedList;
-      if (schoolId && !schoolId.startsWith("static-")) {
-        updatedList = currentList.map((s) => s.id === schoolId ? { ...s, ...updatedData } : s);
-      } else {
-        const mockId = "mock-school-" + Date.now();
-        updatedList = [{ id: mockId, originalId: schoolId, originalAd: schoolData.originalAd || schoolData.ad, ...updatedData }, ...currentList];
-      }
-      localStorage.setItem("mock_custom_schools", JSON.stringify(updatedList));
-    }
-    loadSchoolsForCity(schoolData.il);
-  }, [loadSchoolsForCity]);
+      loadSchoolsForCity(schoolData.il);
+    },
+    [loadSchoolsForCity],
+  );
 
   // Fetch teacher profile from Firestore (used in onAuthStateChanged flow)
   // eslint-disable-next-line no-unused-vars
-  const fetchTeacherProfile = useCallback(async (uid) => {
-    try {
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        const docRef = doc(db, "teachers", uid);
-        const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setTeacherProfile(docSnap.data());
-          // Auto-load school data for teacher's city
-          if (docSnap.data().il) {
-            loadSchoolsForCity(docSnap.data().il);
+  const fetchTeacherProfile = useCallback(
+    async (uid) => {
+      try {
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          const docRef = doc(db, "teachers", uid);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            setTeacherProfile(docSnap.data());
+            // Auto-load school data for teacher's city
+            if (docSnap.data().il) {
+              loadSchoolsForCity(docSnap.data().il);
+            }
           }
         }
+      } catch (error) {
+        console.error("Teacher profile fetch error:", error);
       }
-    } catch (error) {
-      console.error("Teacher profile fetch error:", error);
-    }
-  }, [loadSchoolsForCity]);
+    },
+    [loadSchoolsForCity],
+  );
 
   // Fetch students for logged-in teacher
   const fetchStudents = useCallback(async (teacherUid) => {
@@ -262,7 +301,7 @@ export const AppProvider = ({ children }) => {
         const q = query(
           collection(db, "students"),
           where("ogretmenId", "==", teacherUid),
-          orderBy("olusturmaTarihi", "desc")
+          orderBy("olusturmaTarihi", "desc"),
         );
         const querySnapshot = await getDocs(q);
         const studentList = [];
@@ -294,12 +333,12 @@ export const AppProvider = ({ children }) => {
         const q1 = query(
           usersRef,
           where("role", "==", "student"),
-          where("schoolId", "==", schoolName)
+          where("schoolId", "==", schoolName),
         );
         const q2 = query(
           usersRef,
           where("role", "==", "student"),
-          where("okul", "==", schoolName)
+          where("okul", "==", schoolName),
         );
 
         const [snap1, snap2] = await Promise.all([getDocs(q1), getDocs(q2)]);
@@ -312,14 +351,13 @@ export const AppProvider = ({ children }) => {
           studentMap.set(doc.id, { id: doc.id, ...doc.data() });
         });
 
-        const studentList = Array.from(studentMap.values()).sort((a, b) => (b.xp || 0) - (a.xp || 0));
+        const studentList = Array.from(studentMap.values()).sort(
+          (a, b) => (b.xp || 0) - (a.xp || 0),
+        );
         setSchoolStudents(studentList);
 
         const groupsRef = collection(db, "groups");
-        const gq = query(
-          groupsRef,
-          where("schoolId", "==", schoolName)
-        );
+        const gq = query(groupsRef, where("schoolId", "==", schoolName));
         const groupsSnap = await getDocs(gq);
         const groupList = [];
         groupsSnap.forEach((doc) => {
@@ -333,7 +371,7 @@ export const AppProvider = ({ children }) => {
           .filter(
             (u) =>
               u.role === "student" &&
-              (u.schoolId === schoolName || u.okul === schoolName)
+              (u.schoolId === schoolName || u.okul === schoolName),
           )
           .sort((a, b) => (b.xp || 0) - (a.xp || 0));
         setSchoolStudents(studentList);
@@ -341,7 +379,7 @@ export const AppProvider = ({ children }) => {
         const localGroups = localStorage.getItem("mock_groups");
         const allGroups = localGroups ? JSON.parse(localGroups) : [];
         const groupList = allGroups.filter(
-          (g) => g.schoolId === schoolName || g.okul === schoolName
+          (g) => g.schoolId === schoolName || g.okul === schoolName,
         );
         setSchoolGroups(groupList);
       }
@@ -353,132 +391,169 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   // Fetch event applications
-  const fetchApplications = useCallback(async (isAdmin = false, teacherUid = null, isCoordinator = false, coordinatorCity = "", isCommission = false) => {
-    try {
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        let q;
-        const appRef = collection(db, "event_applications");
-        if (isAdmin || isCoordinator || isCommission) {
-          q = query(appRef, orderBy("olusturmaTarihi", "desc"));
-        } else if (teacherUid) {
-          q = query(
-            appRef,
-            where("ogretmenId", "==", teacherUid),
-            orderBy("olusturmaTarihi", "desc")
-          );
-        } else {
-          return;
-        }
-
-        const querySnapshot = await getDocs(q);
-        let appList = [];
-        querySnapshot.forEach((doc) => {
-          appList.push({ id: doc.id, ...doc.data() });
-        });
-
-        if ((isCoordinator || isCommission) && coordinatorCity) {
-          appList = appList.filter(app => app.ogretmenBilgi?.il === coordinatorCity);
-        }
-        setApplications(appList);
-      } else {
-        // Mock applications fallback
-        const localApps = localStorage.getItem("mock_event_applications");
-        if (localApps) {
-          let parsedApps = JSON.parse(localApps);
-          if ((isCoordinator || isCommission) && coordinatorCity) {
-            parsedApps = parsedApps.filter((a) => a.ogretmenBilgi?.il === coordinatorCity);
-          } else if (!isAdmin && teacherUid) {
-            parsedApps = parsedApps.filter((a) => a.ogretmenId === teacherUid);
+  const fetchApplications = useCallback(
+    async (
+      isAdmin = false,
+      teacherUid = null,
+      isCoordinator = false,
+      coordinatorCity = "",
+      isCommission = false,
+    ) => {
+      try {
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          let q;
+          const appRef = collection(db, "event_applications");
+          if (isAdmin || isCoordinator || isCommission) {
+            q = query(appRef, orderBy("olusturmaTarihi", "desc"));
+          } else if (teacherUid) {
+            q = query(
+              appRef,
+              where("ogretmenId", "==", teacherUid),
+              orderBy("olusturmaTarihi", "desc"),
+            );
+          } else {
+            return;
           }
-          setApplications(parsedApps);
+
+          const querySnapshot = await getDocs(q);
+          let appList = [];
+          querySnapshot.forEach((doc) => {
+            appList.push({ id: doc.id, ...doc.data() });
+          });
+
+          if ((isCoordinator || isCommission) && coordinatorCity) {
+            appList = appList.filter(
+              (app) => app.ogretmenBilgi?.il === coordinatorCity,
+            );
+          }
+          setApplications(appList);
         } else {
-          setApplications([]);
+          // Mock applications fallback
+          const localApps = localStorage.getItem("mock_event_applications");
+          if (localApps) {
+            let parsedApps = JSON.parse(localApps);
+            if ((isCoordinator || isCommission) && coordinatorCity) {
+              parsedApps = parsedApps.filter(
+                (a) => a.ogretmenBilgi?.il === coordinatorCity,
+              );
+            } else if (!isAdmin && teacherUid) {
+              parsedApps = parsedApps.filter(
+                (a) => a.ogretmenId === teacherUid,
+              );
+            }
+            setApplications(parsedApps);
+          } else {
+            setApplications([]);
+          }
         }
+      } catch (error) {
+        console.error("Error fetching applications:", error);
       }
-    } catch (error) {
-      console.error("Error fetching applications:", error);
-    }
-  }, []);
+    },
+    [],
+  );
 
   // Fetch Study Groups for a user based on role/city
-  const fetchGroups = useCallback(async (uid, role, city = "", schoolId = "") => {
-    try {
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        const groupsRef = collection(db, "groups");
-        let q;
-        if (role === "admin") {
-          q = query(groupsRef, orderBy("olusturmaTarihi", "desc"));
-        } else if ((role === "coordinator" || role === "commission") && city) {
-          q = query(groupsRef, where("il", "==", city), orderBy("olusturmaTarihi", "desc"));
-        } else if (role === "principal" && schoolId) {
-          q = query(groupsRef, where("schoolId", "==", schoolId), orderBy("olusturmaTarihi", "desc"));
-        } else if (role === "student" && schoolId) {
-          q = query(groupsRef, where("schoolId", "==", schoolId), orderBy("olusturmaTarihi", "desc"));
-        } else {
-          // Teachers see groups they are members of
-          q = query(groupsRef, where("members", "array-contains", uid), orderBy("olusturmaTarihi", "desc"));
-        }
-
-        const querySnapshot = await getDocs(q);
-        let list = [];
-        querySnapshot.forEach((doc) => {
-          list.push({ id: doc.id, ...doc.data() });
-        });
-
-        // Seed if completely empty in Firestore
-        if (list.length === 0) {
-          const allGroupsSnap = await getDocs(groupsRef);
-          if (allGroupsSnap.empty) {
-            for (const g of seedGroups) {
-              await addDoc(groupsRef, g);
-            }
-            // Re-fetch filtered query
-            const reSnapshot = await getDocs(q);
-            const reList = [];
-            reSnapshot.forEach((doc) => {
-              reList.push({ id: doc.id, ...doc.data() });
-            });
-            list = reList;
-          }
-        }
-        setGroups(list);
-      } else {
-        // Mock mode groups
-        const local = localStorage.getItem("mock_groups");
-        let list = local ? JSON.parse(local) : [];
-
-        if (list.length === 0) {
-          // Dynamically add active user to the first two groups so they see them immediately
-          const seeded = seedGroups.map((g, idx) => {
-            const members = [...(g.members || [])];
-            if (uid && idx < 2 && !members.includes(uid)) {
-              members.push(uid);
-            }
-            return { ...g, id: `seed-group-${idx}`, members };
-          });
-          localStorage.setItem("mock_groups", JSON.stringify(seeded));
-          list = seeded;
-        }
-
-        if (role !== "admin") {
-          if ((role === "coordinator" || role === "commission") && city) {
-            list = list.filter(g => g.il === city);
+  const fetchGroups = useCallback(
+    async (uid, role, city = "", schoolId = "") => {
+      try {
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          const groupsRef = collection(db, "groups");
+          let q;
+          if (role === "admin") {
+            q = query(groupsRef, orderBy("olusturmaTarihi", "desc"));
+          } else if (
+            (role === "coordinator" || role === "commission") &&
+            city
+          ) {
+            q = query(
+              groupsRef,
+              where("il", "==", city),
+              orderBy("olusturmaTarihi", "desc"),
+            );
           } else if (role === "principal" && schoolId) {
-            list = list.filter(g => g.schoolId === schoolId);
+            q = query(
+              groupsRef,
+              where("schoolId", "==", schoolId),
+              orderBy("olusturmaTarihi", "desc"),
+            );
           } else if (role === "student" && schoolId) {
-            list = list.filter(g => g.schoolId === schoolId || g.members?.includes(uid));
+            q = query(
+              groupsRef,
+              where("schoolId", "==", schoolId),
+              orderBy("olusturmaTarihi", "desc"),
+            );
           } else {
-            list = list.filter(g => g.members?.includes(uid));
+            // Teachers see groups they are members of
+            q = query(
+              groupsRef,
+              where("members", "array-contains", uid),
+              orderBy("olusturmaTarihi", "desc"),
+            );
           }
+
+          const querySnapshot = await getDocs(q);
+          let list = [];
+          querySnapshot.forEach((doc) => {
+            list.push({ id: doc.id, ...doc.data() });
+          });
+
+          // Seed if completely empty in Firestore
+          if (list.length === 0) {
+            const allGroupsSnap = await getDocs(groupsRef);
+            if (allGroupsSnap.empty) {
+              for (const g of seedGroups) {
+                await addDoc(groupsRef, g);
+              }
+              // Re-fetch filtered query
+              const reSnapshot = await getDocs(q);
+              const reList = [];
+              reSnapshot.forEach((doc) => {
+                reList.push({ id: doc.id, ...doc.data() });
+              });
+              list = reList;
+            }
+          }
+          setGroups(list);
+        } else {
+          // Mock mode groups
+          const local = localStorage.getItem("mock_groups");
+          let list = local ? JSON.parse(local) : [];
+
+          if (list.length === 0) {
+            // Dynamically add active user to the first two groups so they see them immediately
+            const seeded = seedGroups.map((g, idx) => {
+              const members = [...(g.members || [])];
+              if (uid && idx < 2 && !members.includes(uid)) {
+                members.push(uid);
+              }
+              return { ...g, id: `seed-group-${idx}`, members };
+            });
+            localStorage.setItem("mock_groups", JSON.stringify(seeded));
+            list = seeded;
+          }
+
+          if (role !== "admin") {
+            if ((role === "coordinator" || role === "commission") && city) {
+              list = list.filter((g) => g.il === city);
+            } else if (role === "principal" && schoolId) {
+              list = list.filter((g) => g.schoolId === schoolId);
+            } else if (role === "student" && schoolId) {
+              list = list.filter(
+                (g) => g.schoolId === schoolId || g.members?.includes(uid),
+              );
+            } else {
+              list = list.filter((g) => g.members?.includes(uid));
+            }
+          }
+          setGroups(list);
         }
-        setGroups(list);
+      } catch (error) {
+        console.error("Error fetching groups:", error);
       }
-    } catch (error) {
-      console.error("Error fetching groups:", error);
-    }
-  }, []);
-
-
+    },
+    [],
+  );
 
   // Notifications & Announcements Actions
   const fetchNotifications = useCallback((currentUserId) => {
@@ -487,10 +562,13 @@ export const AppProvider = ({ children }) => {
       if (!auth.config.apiKey.includes("DummyKey")) {
         const q = query(
           collection(db, "notifications"),
-          where("userId", "==", currentUserId)
+          where("userId", "==", currentUserId),
         );
         const unsubscribe = onSnapshot(q, (snap) => {
-          const list = snap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+          const list = snap.docs.map((docSnap) => ({
+            id: docSnap.id,
+            ...docSnap.data(),
+          }));
           list.sort((a, b) => new Date(b.date) - new Date(a.date));
           setNotifications(list);
         });
@@ -498,7 +576,7 @@ export const AppProvider = ({ children }) => {
       } else {
         const local = localStorage.getItem("mock_notifications");
         const list = local ? JSON.parse(local) : [];
-        const filtered = list.filter(n => n.userId === currentUserId);
+        const filtered = list.filter((n) => n.userId === currentUserId);
         filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
         setTimeout(() => setNotifications(filtered), 0);
         return () => {};
@@ -514,7 +592,10 @@ export const AppProvider = ({ children }) => {
       if (!auth.config.apiKey.includes("DummyKey")) {
         const q = query(collection(db, "announcements"));
         const unsubscribe = onSnapshot(q, (snap) => {
-          const list = snap.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+          const list = snap.docs.map((docSnap) => ({
+            id: docSnap.id,
+            ...docSnap.data(),
+          }));
           list.sort((a, b) => new Date(b.date) - new Date(a.date));
           setAnnouncements(list);
         });
@@ -532,167 +613,191 @@ export const AppProvider = ({ children }) => {
     }
   }, []);
 
-  const createNotification = useCallback(async (userId, title, icerik, type = "info", link = "") => {
-    if (!userId) return;
-    const newNotif = {
-      userId,
-      title,
-      icerik,
-      type,
-      link,
-      date: new Date().toISOString(),
-      read: false
-    };
+  const createNotification = useCallback(
+    async (userId, title, icerik, type = "info", link = "") => {
+      if (!userId) return;
+      const newNotif = {
+        userId,
+        title,
+        icerik,
+        type,
+        link,
+        date: new Date().toISOString(),
+        read: false,
+      };
 
-    try {
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        const docRef = await addDoc(collection(db, "notifications"), newNotif);
-        return docRef.id;
-      } else {
-        const local = localStorage.getItem("mock_notifications");
-        const list = local ? JSON.parse(local) : [];
-        const notifId = "mock-notif-" + Date.now() + Math.random().toString(36).substr(2, 5);
-        const notifWithId = { id: notifId, ...newNotif };
-        list.push(notifWithId);
-        localStorage.setItem("mock_notifications", JSON.stringify(list));
-        if (user && user.uid === userId) {
-          fetchNotifications(user.uid);
+      try {
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          const docRef = await addDoc(
+            collection(db, "notifications"),
+            newNotif,
+          );
+          return docRef.id;
+        } else {
+          const local = localStorage.getItem("mock_notifications");
+          const list = local ? JSON.parse(local) : [];
+          const notifId =
+            "mock-notif-" +
+            Date.now() +
+            Math.random().toString(36).substr(2, 5);
+          const notifWithId = { id: notifId, ...newNotif };
+          list.push(notifWithId);
+          localStorage.setItem("mock_notifications", JSON.stringify(list));
+          if (user && user.uid === userId) {
+            fetchNotifications(user.uid);
+          }
+          return notifId;
         }
-        return notifId;
+      } catch (err) {
+        console.error("Error creating notification:", err);
       }
-    } catch (err) {
-      console.error("Error creating notification:", err);
-    }
-  }, [user, fetchNotifications]);
+    },
+    [user, fetchNotifications],
+  );
 
   // Helper function to award XP to user
-  const awardXpToUser = useCallback(async (uid, xpAmount) => {
-    try {
-      let oldXp = 0;
-      let newXp = 0;
+  const awardXpToUser = useCallback(
+    async (uid, xpAmount) => {
+      try {
+        let oldXp = 0;
+        let newXp = 0;
 
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        const userRef = doc(db, "users", uid);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-          oldXp = userSnap.data().xp || 0;
-          newXp = oldXp + xpAmount;
-          await updateDoc(userRef, { xp: newXp });
-
-          // If current logged-in user profile, update state
-          if (user && user.uid === uid) {
-            setUserProfile(prev => prev ? { ...prev, xp: newXp } : null);
-          }
-        }
-      } else {
-        const local = localStorage.getItem("mock_users");
-        if (local) {
-          const parsed = JSON.parse(local);
-          const idx = parsed.findIndex(u => u.uid === uid);
-          if (idx !== -1) {
-            oldXp = parsed[idx].xp || 0;
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          const userRef = doc(db, "users", uid);
+          const userSnap = await getDoc(userRef);
+          if (userSnap.exists()) {
+            oldXp = userSnap.data().xp || 0;
             newXp = oldXp + xpAmount;
-            parsed[idx].xp = newXp;
-            localStorage.setItem("mock_users", JSON.stringify(parsed));
+            await updateDoc(userRef, { xp: newXp });
 
-            if (user && user.uid === uid) {
-              setUserProfile(parsed[idx]);
-            }
-          }
-        }
-      }
-
-      const oldLevel = Math.floor(oldXp / 100) + 1;
-      const newLevel = Math.floor(newXp / 100) + 1;
-
-      if (newLevel > oldLevel) {
-        await createNotification(
-          uid,
-          "Seviye Atladınız! 🎉",
-          `Tebrikler, yeni bir seviyeye ulaştınız! Artık Seviye ${newLevel} oldunuz.`,
-          "info",
-          "profile"
-        );
-      }
-    } catch (err) {
-      console.error("Error awarding XP:", err);
-    }
-  }, [user, createNotification]);
-
-  const awardBadgeToUser = useCallback(async (uid, badgeName) => {
-    try {
-      let updatedBadges = [];
-      let alreadyHasBadge = false;
-
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        const userRef = doc(db, "users", uid);
-        const userSnap = await getDoc(userRef);
-        if (userSnap.exists()) {
-          const currentBadges = userSnap.data().badges || [];
-          if (currentBadges.includes(badgeName)) {
-            alreadyHasBadge = true;
-          } else {
-            updatedBadges = [...currentBadges, badgeName];
-            await updateDoc(userRef, { badges: updatedBadges });
-            
             // If current logged-in user profile, update state
             if (user && user.uid === uid) {
-              setUserProfile(prev => prev ? { ...prev, badges: updatedBadges } : null);
+              setUserProfile((prev) => (prev ? { ...prev, xp: newXp } : null));
             }
           }
-        }
-      } else {
-        const local = localStorage.getItem("mock_users");
-        if (local) {
-          const parsed = JSON.parse(local);
-          const idx = parsed.findIndex(u => u.uid === uid);
-          if (idx !== -1) {
-            const currentBadges = parsed[idx].badges || [];
-            if (currentBadges.includes(badgeName)) {
-              alreadyHasBadge = true;
-            } else {
-              updatedBadges = [...currentBadges, badgeName];
-              parsed[idx].badges = updatedBadges;
+        } else {
+          const local = localStorage.getItem("mock_users");
+          if (local) {
+            const parsed = JSON.parse(local);
+            const idx = parsed.findIndex((u) => u.uid === uid);
+            if (idx !== -1) {
+              oldXp = parsed[idx].xp || 0;
+              newXp = oldXp + xpAmount;
+              parsed[idx].xp = newXp;
               localStorage.setItem("mock_users", JSON.stringify(parsed));
-              
+
               if (user && user.uid === uid) {
                 setUserProfile(parsed[idx]);
               }
             }
           }
         }
-      }
 
-      if (!alreadyHasBadge && updatedBadges.includes(badgeName)) {
-        await createNotification(
-          uid,
-          "Yeni Rozet Kazanıldı! 🏆",
-          `Tebrikler, '${badgeName}' rozetini kazandınız!`,
-          "success",
-          "profile"
-        );
-      }
-    } catch (err) {
-      console.error("Error awarding badge:", err);
-    }
-  }, [user, createNotification]);
+        const oldLevel = Math.floor(oldXp / 100) + 1;
+        const newLevel = Math.floor(newXp / 100) + 1;
 
-  const markNotificationAsRead = useCallback(async (notificationId) => {
-    if (!user) return;
-    try {
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        await updateDoc(doc(db, "notifications", notificationId), { read: true });
-      } else {
-        const local = localStorage.getItem("mock_notifications");
-        const list = local ? JSON.parse(local) : [];
-        const updated = list.map(n => n.id === notificationId ? { ...n, read: true } : n);
-        localStorage.setItem("mock_notifications", JSON.stringify(updated));
-        fetchNotifications(user.uid);
+        if (newLevel > oldLevel) {
+          await createNotification(
+            uid,
+            "Seviye Atladınız! 🎉",
+            `Tebrikler, yeni bir seviyeye ulaştınız! Artık Seviye ${newLevel} oldunuz.`,
+            "info",
+            "profile",
+          );
+        }
+      } catch (err) {
+        console.error("Error awarding XP:", err);
       }
-    } catch (err) {
-      console.error("Error marking notification as read:", err);
-    }
-  }, [user, fetchNotifications]);
+    },
+    [user, createNotification],
+  );
+
+  const awardBadgeToUser = useCallback(
+    async (uid, badgeName) => {
+      try {
+        let updatedBadges = [];
+        let alreadyHasBadge = false;
+
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          const userRef = doc(db, "users", uid);
+          const userSnap = await getDoc(userRef);
+          if (userSnap.exists()) {
+            const currentBadges = userSnap.data().badges || [];
+            if (currentBadges.includes(badgeName)) {
+              alreadyHasBadge = true;
+            } else {
+              updatedBadges = [...currentBadges, badgeName];
+              await updateDoc(userRef, { badges: updatedBadges });
+
+              // If current logged-in user profile, update state
+              if (user && user.uid === uid) {
+                setUserProfile((prev) =>
+                  prev ? { ...prev, badges: updatedBadges } : null,
+                );
+              }
+            }
+          }
+        } else {
+          const local = localStorage.getItem("mock_users");
+          if (local) {
+            const parsed = JSON.parse(local);
+            const idx = parsed.findIndex((u) => u.uid === uid);
+            if (idx !== -1) {
+              const currentBadges = parsed[idx].badges || [];
+              if (currentBadges.includes(badgeName)) {
+                alreadyHasBadge = true;
+              } else {
+                updatedBadges = [...currentBadges, badgeName];
+                parsed[idx].badges = updatedBadges;
+                localStorage.setItem("mock_users", JSON.stringify(parsed));
+
+                if (user && user.uid === uid) {
+                  setUserProfile(parsed[idx]);
+                }
+              }
+            }
+          }
+        }
+
+        if (!alreadyHasBadge && updatedBadges.includes(badgeName)) {
+          await createNotification(
+            uid,
+            "Yeni Rozet Kazanıldı! 🏆",
+            `Tebrikler, '${badgeName}' rozetini kazandınız!`,
+            "success",
+            "profile",
+          );
+        }
+      } catch (err) {
+        console.error("Error awarding badge:", err);
+      }
+    },
+    [user, createNotification],
+  );
+
+  const markNotificationAsRead = useCallback(
+    async (notificationId) => {
+      if (!user) return;
+      try {
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          await updateDoc(doc(db, "notifications", notificationId), {
+            read: true,
+          });
+        } else {
+          const local = localStorage.getItem("mock_notifications");
+          const list = local ? JSON.parse(local) : [];
+          const updated = list.map((n) =>
+            n.id === notificationId ? { ...n, read: true } : n,
+          );
+          localStorage.setItem("mock_notifications", JSON.stringify(updated));
+          fetchNotifications(user.uid);
+        }
+      } catch (err) {
+        console.error("Error marking notification as read:", err);
+      }
+    },
+    [user, fetchNotifications],
+  );
 
   const markAllNotificationsAsRead = useCallback(async () => {
     if (!user) return;
@@ -701,17 +806,19 @@ export const AppProvider = ({ children }) => {
         const q = query(
           collection(db, "notifications"),
           where("userId", "==", user.uid),
-          where("read", "==", false)
+          where("read", "==", false),
         );
         const snap = await getDocs(q);
-        const promises = snap.docs.map(docSnap => 
-          updateDoc(doc(db, "notifications", docSnap.id), { read: true })
+        const promises = snap.docs.map((docSnap) =>
+          updateDoc(doc(db, "notifications", docSnap.id), { read: true }),
         );
         await Promise.all(promises);
       } else {
         const local = localStorage.getItem("mock_notifications");
         const list = local ? JSON.parse(local) : [];
-        const updated = list.map(n => n.userId === user.uid ? { ...n, read: true } : n);
+        const updated = list.map((n) =>
+          n.userId === user.uid ? { ...n, read: true } : n,
+        );
         localStorage.setItem("mock_notifications", JSON.stringify(updated));
         fetchNotifications(user.uid);
       }
@@ -720,51 +827,57 @@ export const AppProvider = ({ children }) => {
     }
   }, [user, fetchNotifications]);
 
-  const deleteNotification = useCallback(async (notificationId) => {
-    if (!user) return;
-    try {
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        await deleteDoc(doc(db, "notifications", notificationId));
-      } else {
-        const local = localStorage.getItem("mock_notifications");
-        const list = local ? JSON.parse(local) : [];
-        const filtered = list.filter(n => n.id !== notificationId);
-        localStorage.setItem("mock_notifications", JSON.stringify(filtered));
-        fetchNotifications(user.uid);
+  const deleteNotification = useCallback(
+    async (notificationId) => {
+      if (!user) return;
+      try {
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          await deleteDoc(doc(db, "notifications", notificationId));
+        } else {
+          const local = localStorage.getItem("mock_notifications");
+          const list = local ? JSON.parse(local) : [];
+          const filtered = list.filter((n) => n.id !== notificationId);
+          localStorage.setItem("mock_notifications", JSON.stringify(filtered));
+          fetchNotifications(user.uid);
+        }
+      } catch (err) {
+        console.error("Error deleting notification:", err);
       }
-    } catch (err) {
-      console.error("Error deleting notification:", err);
-    }
-  }, [user, fetchNotifications]);
+    },
+    [user, fetchNotifications],
+  );
 
-  const addAnnouncement = useCallback(async (baslik, icerik) => {
-    const newAnn = {
-      baslik,
-      icerik,
-      date: new Date().toISOString(),
-      authorName: userProfile?.adSoyad || user?.email || "Yönetici",
-      authorRole: userRole || "admin"
-    };
+  const addAnnouncement = useCallback(
+    async (baslik, icerik) => {
+      const newAnn = {
+        baslik,
+        icerik,
+        date: new Date().toISOString(),
+        authorName: userProfile?.adSoyad || user?.email || "Yönetici",
+        authorRole: userRole || "admin",
+      };
 
-    try {
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        const docRef = await addDoc(collection(db, "announcements"), newAnn);
-        return docRef.id;
-      } else {
-        const local = localStorage.getItem("mock_announcements");
-        const list = local ? JSON.parse(local) : [];
-        const annId = "mock-ann-" + Date.now();
-        const annWithId = { id: annId, ...newAnn };
-        list.push(annWithId);
-        localStorage.setItem("mock_announcements", JSON.stringify(list));
-        fetchAnnouncements();
-        return annId;
+      try {
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          const docRef = await addDoc(collection(db, "announcements"), newAnn);
+          return docRef.id;
+        } else {
+          const local = localStorage.getItem("mock_announcements");
+          const list = local ? JSON.parse(local) : [];
+          const annId = "mock-ann-" + Date.now();
+          const annWithId = { id: annId, ...newAnn };
+          list.push(annWithId);
+          localStorage.setItem("mock_announcements", JSON.stringify(list));
+          fetchAnnouncements();
+          return annId;
+        }
+      } catch (err) {
+        console.error("Error adding announcement:", err);
+        throw err;
       }
-    } catch (err) {
-      console.error("Error adding announcement:", err);
-      throw err;
-    }
-  }, [user, userProfile, userRole, fetchAnnouncements]);
+    },
+    [user, userProfile, userRole, fetchAnnouncements],
+  );
 
   // Fetch group details: announcements, tasks
   const fetchGroupDetails = useCallback(async (groupId) => {
@@ -781,33 +894,37 @@ export const AppProvider = ({ children }) => {
         const annQ = query(
           collection(db, "group_announcements"),
           where("groupId", "==", groupId),
-          orderBy("olusturmaTarihi", "desc")
+          orderBy("olusturmaTarihi", "desc"),
         );
         const annSnap = await getDocs(annQ);
         const annList = [];
-        annSnap.forEach(d => annList.push({ id: d.id, ...d.data() }));
+        annSnap.forEach((d) => annList.push({ id: d.id, ...d.data() }));
         setGroupAnnouncements(annList);
 
         // Fetch tasks
         const taskQ = query(
           collection(db, "group_tasks"),
           where("groupId", "==", groupId),
-          orderBy("olusturmaTarihi", "desc")
+          orderBy("olusturmaTarihi", "desc"),
         );
         const taskSnap = await getDocs(taskQ);
         const taskList = [];
-        taskSnap.forEach(d => taskList.push({ id: d.id, ...d.data() }));
+        taskSnap.forEach((d) => taskList.push({ id: d.id, ...d.data() }));
         setGroupTasks(taskList);
       } else {
         // Mock group detail
         const localGroups = localStorage.getItem("mock_groups");
-        const matchedGroup = localGroups ? JSON.parse(localGroups).find(g => g.id === groupId) : null;
+        const matchedGroup = localGroups
+          ? JSON.parse(localGroups).find((g) => g.id === groupId)
+          : null;
         if (matchedGroup) {
           setActiveGroup(matchedGroup);
         }
 
         const localAnn = localStorage.getItem("mock_group_announcements");
-        const annList = localAnn ? JSON.parse(localAnn).filter(a => a.groupId === groupId) : [];
+        const annList = localAnn
+          ? JSON.parse(localAnn).filter((a) => a.groupId === groupId)
+          : [];
         // Sort: Pinned first, then date desc
         annList.sort((a, b) => {
           if (a.isPinned && !b.isPinned) return -1;
@@ -817,7 +934,9 @@ export const AppProvider = ({ children }) => {
         setGroupAnnouncements(annList);
 
         const localTasks = localStorage.getItem("mock_group_tasks");
-        const taskList = localTasks ? JSON.parse(localTasks).filter(t => t.groupId === groupId) : [];
+        const taskList = localTasks
+          ? JSON.parse(localTasks).filter((t) => t.groupId === groupId)
+          : [];
         setGroupTasks(taskList);
       }
     } catch (error) {
@@ -842,7 +961,7 @@ export const AppProvider = ({ children }) => {
       creatorId: user.uid,
       members: [user.uid],
       inviteCode: code,
-      olusturmaTarihi: new Date().toISOString()
+      olusturmaTarihi: new Date().toISOString(),
     };
 
     let groupId;
@@ -873,12 +992,15 @@ export const AppProvider = ({ children }) => {
 
     let groupId;
     if (!auth.config.apiKey.includes("DummyKey")) {
-      const q = query(collection(db, "groups"), where("inviteCode", "==", cleanCode));
+      const q = query(
+        collection(db, "groups"),
+        where("inviteCode", "==", cleanCode),
+      );
       const snap = await getDocs(q);
       if (snap.empty) {
         throw new Error("Geçersiz davet kodu");
       }
-      
+
       const groupDoc = snap.docs[0];
       const groupData = groupDoc.data();
       if (groupData.members?.includes(user.uid)) {
@@ -886,20 +1008,25 @@ export const AppProvider = ({ children }) => {
       }
 
       const updatedMembers = [...(groupData.members || []), user.uid];
-      await updateDoc(doc(db, "groups", groupDoc.id), { members: updatedMembers });
+      await updateDoc(doc(db, "groups", groupDoc.id), {
+        members: updatedMembers,
+      });
       fetchGroups(user.uid, userRole, userProfile?.il, userProfile?.schoolId);
       groupId = groupDoc.id;
     } else {
       const local = localStorage.getItem("mock_groups");
       const list = local ? JSON.parse(local) : [];
-      const matchedIdx = list.findIndex(g => g.inviteCode === cleanCode);
+      const matchedIdx = list.findIndex((g) => g.inviteCode === cleanCode);
       if (matchedIdx === -1) {
         throw new Error("Geçersiz davet kodu");
       }
       if (list[matchedIdx].members?.includes(user.uid)) {
         throw new Error("Zaten bu gruba üyesiniz");
       }
-      list[matchedIdx].members = [...(list[matchedIdx].members || []), user.uid];
+      list[matchedIdx].members = [
+        ...(list[matchedIdx].members || []),
+        user.uid,
+      ];
       localStorage.setItem("mock_groups", JSON.stringify(list));
       fetchGroups(user.uid, userRole, userProfile?.il, userProfile?.schoolId);
       groupId = list[matchedIdx].id;
@@ -913,7 +1040,7 @@ export const AppProvider = ({ children }) => {
 
   const joinStudyGroupById = async (groupId) => {
     if (!groupId) throw new Error("Grup ID boş olamaz");
-    
+
     if (!auth.config.apiKey.includes("DummyKey")) {
       const groupRef = doc(db, "groups", groupId);
       const snap = await getDoc(groupRef);
@@ -930,14 +1057,17 @@ export const AppProvider = ({ children }) => {
     } else {
       const local = localStorage.getItem("mock_groups");
       const list = local ? JSON.parse(local) : [];
-      const matchedIdx = list.findIndex(g => g.id === groupId);
+      const matchedIdx = list.findIndex((g) => g.id === groupId);
       if (matchedIdx === -1) {
         throw new Error("Grup bulunamadı");
       }
       if (list[matchedIdx].members?.includes(user.uid)) {
         throw new Error("Zaten bu gruba üyesiniz");
       }
-      list[matchedIdx].members = [...(list[matchedIdx].members || []), user.uid];
+      list[matchedIdx].members = [
+        ...(list[matchedIdx].members || []),
+        user.uid,
+      ];
       localStorage.setItem("mock_groups", JSON.stringify(list));
       fetchGroups(user.uid, userRole, userProfile?.il, userProfile?.schoolId);
     }
@@ -949,49 +1079,58 @@ export const AppProvider = ({ children }) => {
   };
 
   // Create Group Announcement
-  const createGroupAnnouncement = useCallback(async (groupId, annData) => {
-    const newAnn = {
-      groupId,
-      title: annData.title,
-      content: annData.content,
-      authorId: user.uid,
-      authorName: userProfile?.adSoyad || "İsimsiz Kullanıcı",
-      isPinned: false,
-      olusturmaTarihi: new Date().toISOString()
-    };
+  const createGroupAnnouncement = useCallback(
+    async (groupId, annData) => {
+      const newAnn = {
+        groupId,
+        title: annData.title,
+        content: annData.content,
+        authorId: user.uid,
+        authorName: userProfile?.adSoyad || "İsimsiz Kullanıcı",
+        isPinned: false,
+        olusturmaTarihi: new Date().toISOString(),
+      };
 
-    let resultId;
-    if (!auth.config.apiKey.includes("DummyKey")) {
-      const docRef = await addDoc(collection(db, "group_announcements"), newAnn);
-      fetchGroupDetails(groupId);
-      resultId = docRef.id;
-    } else {
-      const mockId = "mock-ann-" + Date.now();
-      const local = localStorage.getItem("mock_group_announcements");
-      const list = local ? JSON.parse(local) : [];
-      const updated = [{ id: mockId, ...newAnn }, ...list];
-      localStorage.setItem("mock_group_announcements", JSON.stringify(updated));
-      fetchGroupDetails(groupId);
-      resultId = mockId;
-    }
+      let resultId;
+      if (!auth.config.apiKey.includes("DummyKey")) {
+        const docRef = await addDoc(
+          collection(db, "group_announcements"),
+          newAnn,
+        );
+        fetchGroupDetails(groupId);
+        resultId = docRef.id;
+      } else {
+        const mockId = "mock-ann-" + Date.now();
+        const local = localStorage.getItem("mock_group_announcements");
+        const list = local ? JSON.parse(local) : [];
+        const updated = [{ id: mockId, ...newAnn }, ...list];
+        localStorage.setItem(
+          "mock_group_announcements",
+          JSON.stringify(updated),
+        );
+        fetchGroupDetails(groupId);
+        resultId = mockId;
+      }
 
-    const group = groups.find((g) => g.id === groupId);
-    if (group && group.members) {
-      group.members.forEach((memberId) => {
-        if (memberId !== user.uid) {
-          createNotification(
-            memberId,
-            "Yeni Grup Duyurusu",
-            `"${group.name || group.ad || "Çalışma Grubu"}" grubunda yeni bir duyuru yayınlandı: "${annData.title}"`,
-            "group",
-            "groups"
-          );
-        }
-      });
-    }
+      const group = groups.find((g) => g.id === groupId);
+      if (group && group.members) {
+        group.members.forEach((memberId) => {
+          if (memberId !== user.uid) {
+            createNotification(
+              memberId,
+              "Yeni Grup Duyurusu",
+              `"${group.name || group.ad || "Çalışma Grubu"}" grubunda yeni bir duyuru yayınlandı: "${annData.title}"`,
+              "group",
+              "groups",
+            );
+          }
+        });
+      }
 
-    return resultId;
-  }, [user, userProfile, groups, createNotification, fetchGroupDetails]);
+      return resultId;
+    },
+    [user, userProfile, groups, createNotification, fetchGroupDetails],
+  );
 
   // Delete Group Announcement
   const deleteGroupAnnouncement = async (announcementId, groupId) => {
@@ -1000,8 +1139,13 @@ export const AppProvider = ({ children }) => {
     } else {
       const local = localStorage.getItem("mock_group_announcements");
       if (local) {
-        const filtered = JSON.parse(local).filter(a => a.id !== announcementId);
-        localStorage.setItem("mock_group_announcements", JSON.stringify(filtered));
+        const filtered = JSON.parse(local).filter(
+          (a) => a.id !== announcementId,
+        );
+        localStorage.setItem(
+          "mock_group_announcements",
+          JSON.stringify(filtered),
+        );
       }
     }
     fetchGroupDetails(groupId);
@@ -1010,12 +1154,19 @@ export const AppProvider = ({ children }) => {
   // Toggle Pinned Announcement
   const togglePinAnnouncement = async (announcementId, isPinned, groupId) => {
     if (!auth.config.apiKey.includes("DummyKey")) {
-      await updateDoc(doc(db, "group_announcements", announcementId), { isPinned });
+      await updateDoc(doc(db, "group_announcements", announcementId), {
+        isPinned,
+      });
     } else {
       const local = localStorage.getItem("mock_group_announcements");
       if (local) {
-        const updated = JSON.parse(local).map(a => a.id === announcementId ? { ...a, isPinned } : a);
-        localStorage.setItem("mock_group_announcements", JSON.stringify(updated));
+        const updated = JSON.parse(local).map((a) =>
+          a.id === announcementId ? { ...a, isPinned } : a,
+        );
+        localStorage.setItem(
+          "mock_group_announcements",
+          JSON.stringify(updated),
+        );
       }
     }
     fetchGroupDetails(groupId);
@@ -1032,7 +1183,7 @@ export const AppProvider = ({ children }) => {
       dueDate: taskData.dueDate || "",
       assignedTo: taskData.assignedTo || [],
       xpReward: taskData.xpReward || 50,
-      olusturmaTarihi: new Date().toISOString()
+      olusturmaTarihi: new Date().toISOString(),
     };
 
     if (!auth.config.apiKey.includes("DummyKey")) {
@@ -1068,7 +1219,7 @@ export const AppProvider = ({ children }) => {
         const local = localStorage.getItem("mock_group_tasks");
         if (local) {
           const list = JSON.parse(local);
-          const idx = list.findIndex(t => t.id === taskId);
+          const idx = list.findIndex((t) => t.id === taskId);
           if (idx !== -1) {
             taskData = list[idx];
             oldStatus = taskData.status;
@@ -1082,7 +1233,7 @@ export const AppProvider = ({ children }) => {
       if (taskData && newStatus === "done" && oldStatus !== "done") {
         const xp = Number(taskData.xpReward) || 50;
         const assignees = taskData.assignedTo || [];
-        
+
         for (const userUid of assignees) {
           await awardXpToUser(userUid, xp);
           await awardBadgeToUser(userUid, "Görev Canavarı");
@@ -1098,12 +1249,14 @@ export const AppProvider = ({ children }) => {
   // Assign task to members
   const assignTaskToMembers = async (taskId, memberUids, groupId) => {
     if (!auth.config.apiKey.includes("DummyKey")) {
-      await updateDoc(doc(db, "group_tasks", taskId), { assignedTo: memberUids });
+      await updateDoc(doc(db, "group_tasks", taskId), {
+        assignedTo: memberUids,
+      });
     } else {
       const local = localStorage.getItem("mock_group_tasks");
       if (local) {
         const list = JSON.parse(local);
-        const idx = list.findIndex(t => t.id === taskId);
+        const idx = list.findIndex((t) => t.id === taskId);
         if (idx !== -1) {
           list[idx].assignedTo = memberUids;
           localStorage.setItem("mock_group_tasks", JSON.stringify(list));
@@ -1132,7 +1285,7 @@ export const AppProvider = ({ children }) => {
           eventsQuery = query(eventsRef, orderBy("olusturmaTarihi", "desc"));
           projectsQuery = query(
             projectsRef,
-            orderBy("olusturmaTarihi", "desc")
+            orderBy("olusturmaTarihi", "desc"),
           );
         } else {
           // Regular users only see approved entries
@@ -1142,7 +1295,7 @@ export const AppProvider = ({ children }) => {
 
         // 3-second timeout for Firestore fetch to prevent page load hangs
         const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("Firestore fetch timeout")), 3000)
+          setTimeout(() => reject(new Error("Firestore fetch timeout")), 3000),
         );
 
         const [eventsSnap, projectsSnap] = await Promise.race([
@@ -1164,7 +1317,7 @@ export const AppProvider = ({ children }) => {
         }
       } else {
         throw new Error(
-          "Firebase initialized with dummy config, using mock data."
+          "Firebase initialized with dummy config, using mock data.",
         );
       }
 
@@ -1174,7 +1327,7 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       console.warn(
         "Firebase fetch failed or empty, falling back to mock data:",
-        error.message
+        error.message,
       );
       setIsUsingMockData(true);
       // Populate with mock data for display
@@ -1184,7 +1337,7 @@ export const AppProvider = ({ children }) => {
       }));
       const seededProjectsWithIds = seedProjects.map((project, idx) => {
         const matchedEvent = seededEventsWithIds.find(
-          (e) => e.ad === project.etkinlikAd
+          (e) => e.ad === project.etkinlikAd,
         );
         const projectToSave = { ...project };
         delete projectToSave.etkinlikAd;
@@ -1215,7 +1368,7 @@ export const AppProvider = ({ children }) => {
             olusturmaTarihi: new Date().toISOString(),
             durum: "duyuru",
             ogrenciSiniri: 40,
-            basvuruKisitlama: { ilKisitlama: true, ilceKisitlama: false }
+            basvuruKisitlama: { ilKisitlama: true, ilceKisitlama: false },
           },
         ]);
         setProjects([
@@ -1257,7 +1410,7 @@ export const AppProvider = ({ children }) => {
           role: "admin",
           xp: 9999,
           badges: ["admin-badge"],
-          olusturmaTarihi: new Date().toISOString()
+          olusturmaTarihi: new Date().toISOString(),
         },
         {
           uid: "mock-coord-konya",
@@ -1269,7 +1422,7 @@ export const AppProvider = ({ children }) => {
           schoolId: "",
           xp: 120,
           badges: ["coord-badge"],
-          olusturmaTarihi: new Date().toISOString()
+          olusturmaTarihi: new Date().toISOString(),
         },
         {
           uid: "mock-commission-konya",
@@ -1281,7 +1434,7 @@ export const AppProvider = ({ children }) => {
           schoolId: "",
           xp: 80,
           badges: ["commission-badge"],
-          olusturmaTarihi: new Date().toISOString()
+          olusturmaTarihi: new Date().toISOString(),
         },
         {
           uid: "mock-teacher-konya",
@@ -1293,7 +1446,7 @@ export const AppProvider = ({ children }) => {
           schoolId: "static-42-selçuklu-0",
           xp: 350,
           badges: ["teacher-badge"],
-          olusturmaTarihi: new Date().toISOString()
+          olusturmaTarihi: new Date().toISOString(),
         },
         {
           uid: "mock-student-konya",
@@ -1309,20 +1462,36 @@ export const AppProvider = ({ children }) => {
           studentProfile: {
             sinif: "10. Sınıf",
             teacherId: "mock-teacher-konya",
-            isStudentRep: false
-          }
-        }
+            isStudentRep: false,
+          },
+        },
       ];
       localStorage.setItem("mock_users", JSON.stringify(defaultUsers));
-      
+
       localStorage.setItem(
-        "mock_coordinator_profiles", 
-        JSON.stringify([{ id: "mock-coord-konya", adSoyad: "Ahmet Yılmaz", eposta: "coordinator@genctek.org", il: "Konya", telefon: "5551112233" }])
+        "mock_coordinator_profiles",
+        JSON.stringify([
+          {
+            id: "mock-coord-konya",
+            adSoyad: "Ahmet Yılmaz",
+            eposta: "coordinator@genctek.org",
+            il: "Konya",
+            telefon: "5551112233",
+          },
+        ]),
       );
-      
+
       localStorage.setItem(
         "mock_teacher_profile",
-        JSON.stringify({ uid: "mock-teacher-konya", adSoyad: "Mehmet Demir", eposta: "teacher@genctek.org", il: "Konya", ilce: "Selçuklu", okul: "static-42-selçuklu-0", rol: "teacher" })
+        JSON.stringify({
+          uid: "mock-teacher-konya",
+          adSoyad: "Mehmet Demir",
+          eposta: "teacher@genctek.org",
+          il: "Konya",
+          ilce: "Selçuklu",
+          okul: "static-42-selçuklu-0",
+          rol: "teacher",
+        }),
       );
 
       const defaultMessages = [
@@ -1335,9 +1504,10 @@ export const AppProvider = ({ children }) => {
           receiverName: "Ali Kaya",
           receiverRole: "student",
           il: "Konya",
-          mesaj: "Merhaba Ali, GençTek Atlas platformuna hoş geldin! İl koordinatörün olarak her türlü sorun ve projelerin için bana buradan ulaşabilirsin.",
+          mesaj:
+            "Merhaba Ali, GençTek Atlas platformuna hoş geldin! İl koordinatörün olarak her türlü sorun ve projelerin için bana buradan ulaşabilirsin.",
           tarih: new Date(Date.now() - 3600000 * 2).toISOString(),
-          okundu: true
+          okundu: true,
         },
         {
           id: "msg-init-2",
@@ -1348,12 +1518,16 @@ export const AppProvider = ({ children }) => {
           receiverName: "Ahmet Yılmaz",
           receiverRole: "coordinator",
           il: "Konya",
-          mesaj: "Teşekkür ederim koordinatörüm, siber güvenlik kulübü kurmak istiyorduk, bununla ilgili size danışacaktım.",
+          mesaj:
+            "Teşekkür ederim koordinatörüm, siber güvenlik kulübü kurmak istiyorduk, bununla ilgili size danışacaktım.",
           tarih: new Date(Date.now() - 3600000).toISOString(),
-          okundu: true
-        }
+          okundu: true,
+        },
       ];
-      localStorage.setItem("mock_direct_messages", JSON.stringify(defaultMessages));
+      localStorage.setItem(
+        "mock_direct_messages",
+        JSON.stringify(defaultMessages),
+      );
     }
   }, []);
 
@@ -1380,7 +1554,7 @@ export const AppProvider = ({ children }) => {
           let role = "teacher";
           let city = "";
           let profile = null;
-          
+
           if (!auth.config.apiKey.includes("DummyKey")) {
             // 1. Try unified users collection
             const userRef = doc(db, "users", currentUser.uid);
@@ -1406,7 +1580,8 @@ export const AppProvider = ({ children }) => {
                   schoolId: teacherData.okul || "",
                   xp: 0,
                   badges: [],
-                  olusturmaTarihi: teacherData.olusturmaTarihi || new Date().toISOString()
+                  olusturmaTarihi:
+                    teacherData.olusturmaTarihi || new Date().toISOString(),
                 };
                 await setDoc(userRef, profile);
                 role = profile.role;
@@ -1427,12 +1602,13 @@ export const AppProvider = ({ children }) => {
                     schoolId: studentData.okul || "",
                     xp: studentData.xp || 0,
                     badges: studentData.badges || [],
-                    olusturmaTarihi: studentData.olusturmaTarihi || new Date().toISOString(),
+                    olusturmaTarihi:
+                      studentData.olusturmaTarihi || new Date().toISOString(),
                     studentProfile: {
                       sinif: studentData.sinifSeviyesi || "",
                       teacherId: studentData.ogretmenId || "",
-                      isStudentRep: studentData.isStudentRep || false
-                    }
+                      isStudentRep: studentData.isStudentRep || false,
+                    },
                   };
                   await setDoc(userRef, profile);
                   role = "student";
@@ -1445,7 +1621,7 @@ export const AppProvider = ({ children }) => {
             const localUsers = localStorage.getItem("mock_users");
             let parsedUsers = localUsers ? JSON.parse(localUsers) : [];
             let matched = parsedUsers.find((u) => u.uid === currentUser.uid);
-            
+
             if (matched) {
               profile = matched;
               role = matched.role;
@@ -1467,19 +1643,29 @@ export const AppProvider = ({ children }) => {
                     schoolId: parsed.okul || "",
                     xp: 0,
                     badges: [],
-                    olusturmaTarihi: parsed.olusturmaTarihi || new Date().toISOString()
+                    olusturmaTarihi:
+                      parsed.olusturmaTarihi || new Date().toISOString(),
                   };
                   parsedUsers.push(profile);
-                  localStorage.setItem("mock_users", JSON.stringify(parsedUsers));
+                  localStorage.setItem(
+                    "mock_users",
+                    JSON.stringify(parsedUsers),
+                  );
                   role = profile.role;
                   city = profile.il;
                 }
               }
               if (!profile) {
                 // Try legacy coordinator migration
-                const coordProfiles = localStorage.getItem("mock_coordinator_profiles");
+                const coordProfiles = localStorage.getItem(
+                  "mock_coordinator_profiles",
+                );
                 if (coordProfiles) {
-                  const matchedCoord = JSON.parse(coordProfiles).find((c) => c.id === currentUser.uid || c.eposta === currentUser.email);
+                  const matchedCoord = JSON.parse(coordProfiles).find(
+                    (c) =>
+                      c.id === currentUser.uid ||
+                      c.eposta === currentUser.email,
+                  );
                   if (matchedCoord) {
                     profile = {
                       uid: matchedCoord.id || currentUser.uid,
@@ -1492,10 +1678,15 @@ export const AppProvider = ({ children }) => {
                       schoolId: "",
                       xp: 0,
                       badges: [],
-                      olusturmaTarihi: matchedCoord.olusturmaTarihi || new Date().toISOString()
+                      olusturmaTarihi:
+                        matchedCoord.olusturmaTarihi ||
+                        new Date().toISOString(),
                     };
                     parsedUsers.push(profile);
-                    localStorage.setItem("mock_users", JSON.stringify(parsedUsers));
+                    localStorage.setItem(
+                      "mock_users",
+                      JSON.stringify(parsedUsers),
+                    );
                     role = "coordinator";
                     city = profile.il;
                   }
@@ -1503,23 +1694,33 @@ export const AppProvider = ({ children }) => {
               }
             }
           }
-          
+
           setUserRole(role);
           setUserProfile(profile);
           setTeacherProfile(profile); // Maintain for backward compatibility
-          
+
           if (role === "coordinator" || role === "commission") {
             fetchData(true);
-            fetchApplications(false, currentUser.uid, role === "coordinator", city, role === "commission");
+            fetchApplications(
+              false,
+              currentUser.uid,
+              role === "coordinator",
+              city,
+              role === "commission",
+            );
           } else if (role === "teacher" || role === "principal") {
             fetchStudents(currentUser.uid);
             fetchData(false);
             fetchApplications(false, currentUser.uid, false);
           } else if (role === "student") {
             fetchData(false);
-            fetchApplications(false, profile.studentProfile?.teacherId || null, false);
+            fetchApplications(
+              false,
+              profile.studentProfile?.teacherId || null,
+              false,
+            );
           }
-          
+
           const schoolId = profile?.schoolId || profile?.okul || "";
           fetchGroups(currentUser.uid, role, city, schoolId);
         }
@@ -1543,26 +1744,37 @@ export const AppProvider = ({ children }) => {
   // Secondary auth helper to register a user without signing out the current user
   const createSecondaryAuthUser = async (email, password) => {
     const apps = getApps();
-    const secondaryApp = apps.find(app => app.name === "secondaryApp");
+    const secondaryApp = apps.find((app) => app.name === "secondaryApp");
     if (secondaryApp) {
       await deleteApp(secondaryApp);
     }
-    
+
     const newApp = initializeApp(firebaseConfig, "secondaryApp");
     const secondaryAuth = getSecondaryAuth(newApp);
-    const userCredential = await createUserWithEmailAndPassword(secondaryAuth, email, password);
+    const userCredential = await createUserWithEmailAndPassword(
+      secondaryAuth,
+      email,
+      password,
+    );
     const uid = userCredential.user.uid;
-    
+
     await secondaryAuth.signOut();
     await deleteApp(newApp);
-    
+
     return uid;
   };
 
   // General User Registration (Supports Teacher and Principal)
-  const registerUser = async (email, password, profileData, role = "teacher") => {
+  const registerUser = async (
+    email,
+    password,
+    profileData,
+    role = "teacher",
+  ) => {
     if (role === "coordinator" || role === "commission" || role === "admin") {
-      throw new Error("Bu yetkideki kullanıcılar genel kayıt formu üzerinden oluşturulamaz. Sadece moderatörler tarafından eklenebilir.");
+      throw new Error(
+        "Bu yetkideki kullanıcılar genel kayıt formu üzerinden oluşturulamaz. Sadece moderatörler tarafından eklenebilir.",
+      );
     }
     const newProfile = {
       uid: "",
@@ -1579,23 +1791,23 @@ export const AppProvider = ({ children }) => {
       olusturmaTarihi: new Date().toISOString(),
       ...(role === "principal" && {
         principalProfile: {
-          studentRepInfo: profileData.studentRepInfo || null
-        }
-      })
+          studentRepInfo: profileData.studentRepInfo || null,
+        },
+      }),
     };
 
     if (!auth.config.apiKey.includes("DummyKey")) {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       const uid = userCredential.user.uid;
       newProfile.uid = uid;
-      
+
       // Write to unified users
       await setDoc(doc(db, "users", uid), newProfile);
-      
+
       // Legacy compatibility write to teachers collection if role is teacher/principal
       if (role === "teacher" || role === "principal") {
         await setDoc(doc(db, "teachers", uid), {
@@ -1607,7 +1819,7 @@ export const AppProvider = ({ children }) => {
           ilce: profileData.ilce,
           okul: profileData.okul,
           rol: role,
-          olusturmaTarihi: newProfile.olusturmaTarihi
+          olusturmaTarihi: newProfile.olusturmaTarihi,
         });
       }
       return uid;
@@ -1615,26 +1827,29 @@ export const AppProvider = ({ children }) => {
       // Mock register flow
       const mockUid = `mock-user-${role}-` + Date.now();
       newProfile.uid = mockUid;
-      
+
       const localUsers = localStorage.getItem("mock_users");
       const currentUsers = localUsers ? JSON.parse(localUsers) : [];
       const updatedUsers = [newProfile, ...currentUsers];
       localStorage.setItem("mock_users", JSON.stringify(updatedUsers));
-      
+
       if (role === "teacher" || role === "principal") {
-        localStorage.setItem("mock_teacher_profile", JSON.stringify({
-          uid: mockUid,
-          adSoyad: profileData.adSoyad,
-          eposta: email,
-          telefon: profileData.telefon,
-          il: profileData.il,
-          ilce: profileData.ilce,
-          okul: profileData.okul,
-          rol: role,
-          olusturmaTarihi: newProfile.olusturmaTarihi
-        }));
+        localStorage.setItem(
+          "mock_teacher_profile",
+          JSON.stringify({
+            uid: mockUid,
+            adSoyad: profileData.adSoyad,
+            eposta: email,
+            telefon: profileData.telefon,
+            il: profileData.il,
+            ilce: profileData.ilce,
+            okul: profileData.okul,
+            rol: role,
+            olusturmaTarihi: newProfile.olusturmaTarihi,
+          }),
+        );
       }
-      
+
       setUser({ email, uid: mockUid });
       setUserRole(role);
       setUserProfile(newProfile);
@@ -1657,8 +1872,13 @@ export const AppProvider = ({ children }) => {
       telefon: studentData.veliTelefon || "",
       role: "student",
       il: studentData.il || teacherProfile?.il || "",
-      ilce: studentData.ilce || teacherProfile?.ilce || teacherProfile?.ilçe || "",
-      schoolId: studentData.schoolId || teacherProfile?.schoolId || teacherProfile?.okul || "",
+      ilce:
+        studentData.ilce || teacherProfile?.ilce || teacherProfile?.ilçe || "",
+      schoolId:
+        studentData.schoolId ||
+        teacherProfile?.schoolId ||
+        teacherProfile?.okul ||
+        "",
       xp: 0,
       badges: [],
       onaylandi: false,
@@ -1666,8 +1886,8 @@ export const AppProvider = ({ children }) => {
       studentProfile: {
         sinif: studentData.sinifSeviyesi || "",
         teacherId: studentData.teacherId || user?.uid || "",
-        isStudentRep: studentData.isStudentRep || false
-      }
+        isStudentRep: studentData.isStudentRep || false,
+      },
     };
 
     if (!auth.config.apiKey.includes("DummyKey")) {
@@ -1685,7 +1905,7 @@ export const AppProvider = ({ children }) => {
         veliTelefon: studentData.veliTelefon,
         isStudentRep: studentData.isStudentRep || false,
         olusturmaTarihi: newProfile.olusturmaTarihi,
-        studentUid: uid
+        studentUid: uid,
       });
 
       if (user?.uid) {
@@ -1711,14 +1931,14 @@ export const AppProvider = ({ children }) => {
         veliTelefon: studentData.veliTelefon,
         isStudentRep: studentData.isStudentRep || false,
         olusturmaTarihi: newProfile.olusturmaTarihi,
-        studentUid: mockUid
+        studentUid: mockUid,
       };
 
       const localStudents = localStorage.getItem("mock_students");
       const currentStudents = localStudents ? JSON.parse(localStudents) : [];
       const updatedStudents = [newMockStudentLegacy, ...currentStudents];
       localStorage.setItem("mock_students", JSON.stringify(updatedStudents));
-      
+
       setStudents(updatedStudents);
       return mockStudentId;
     }
@@ -1736,7 +1956,7 @@ export const AppProvider = ({ children }) => {
     if (!auth.config.apiKey.includes("DummyKey")) {
       const docRef = doc(db, "students", studentId);
       await updateDoc(docRef, studentData);
-      
+
       // Update in unified users if studentUid is known
       const docSnap = await getDoc(docRef);
       if (docSnap.exists() && docSnap.data().studentUid) {
@@ -1744,24 +1964,26 @@ export const AppProvider = ({ children }) => {
         await updateDoc(userRef, {
           adSoyad: studentData.adSoyad,
           telefon: studentData.veliTelefon,
-          "studentProfile.sinif": studentData.sinifSeviyesi
+          "studentProfile.sinif": studentData.sinifSeviyesi,
         });
       }
       fetchStudents(user.uid);
     } else {
       const updatedList = students.map((s) =>
-        s.id === studentId ? { ...s, ...studentData } : s
+        s.id === studentId ? { ...s, ...studentData } : s,
       );
       setStudents(updatedList);
       localStorage.setItem("mock_students", JSON.stringify(updatedList));
 
       // Update mock users as well
-      const matched = updatedList.find(s => s.id === studentId);
+      const matched = updatedList.find((s) => s.id === studentId);
       if (matched && matched.studentUid) {
         const localUsers = localStorage.getItem("mock_users");
         if (localUsers) {
           const parsedUsers = JSON.parse(localUsers);
-          const idx = parsedUsers.findIndex(u => u.uid === matched.studentUid);
+          const idx = parsedUsers.findIndex(
+            (u) => u.uid === matched.studentUid,
+          );
           if (idx !== -1) {
             parsedUsers[idx].adSoyad = studentData.adSoyad;
             parsedUsers[idx].telefon = studentData.veliTelefon;
@@ -1787,7 +2009,7 @@ export const AppProvider = ({ children }) => {
       await deleteDoc(docRef);
       fetchStudents(user.uid);
     } else {
-      const matched = students.find(s => s.id === studentId);
+      const matched = students.find((s) => s.id === studentId);
       const updatedList = students.filter((s) => s.id !== studentId);
       setStudents(updatedList);
       localStorage.setItem("mock_students", JSON.stringify(updatedList));
@@ -1795,7 +2017,9 @@ export const AppProvider = ({ children }) => {
       if (matched && matched.studentUid) {
         const localUsers = localStorage.getItem("mock_users");
         if (localUsers) {
-          const parsedUsers = JSON.parse(localUsers).filter(u => u.uid !== matched.studentUid);
+          const parsedUsers = JSON.parse(localUsers).filter(
+            (u) => u.uid !== matched.studentUid,
+          );
           localStorage.setItem("mock_users", JSON.stringify(parsedUsers));
         }
       }
@@ -1811,7 +2035,7 @@ export const AppProvider = ({ children }) => {
       // 1. Check legacy students collection first
       const studentDocRef = doc(db, "students", studentId);
       const studentSnap = await getDoc(studentDocRef);
-      
+
       if (studentSnap.exists()) {
         foundStudentUid = studentSnap.data().studentUid;
         await updateDoc(studentDocRef, { isStudentRep: isRep });
@@ -1819,21 +2043,24 @@ export const AppProvider = ({ children }) => {
         // studentId might actually be the studentUid (unified user uid)
         foundStudentUid = studentId;
         // Search legacy students for this studentUid to keep them sync'd
-        const q = query(collection(db, "students"), where("studentUid", "==", studentId));
+        const q = query(
+          collection(db, "students"),
+          where("studentUid", "==", studentId),
+        );
         const qSnap = await getDocs(q);
         if (!qSnap.empty) {
           const lId = qSnap.docs[0].id;
           await updateDoc(doc(db, "students", lId), { isStudentRep: isRep });
         }
       }
-      
+
       if (foundStudentUid) {
         const userDocRef = doc(db, "users", foundStudentUid);
         const userSnap = await getDoc(userDocRef);
         if (userSnap.exists()) {
           await updateDoc(userDocRef, {
             "studentProfile.isStudentRep": isRep,
-            isStudentRep: isRep
+            isStudentRep: isRep,
           });
           studentInfo = userSnap.data();
         }
@@ -1842,29 +2069,34 @@ export const AppProvider = ({ children }) => {
       // Update principal profile if logged in user is principal
       if (userRole === "principal" && user) {
         const principalDocRef = doc(db, "users", user.uid);
-        const repInfo = isRep && studentInfo ? {
-          adSoyad: studentInfo.adSoyad || "",
-          eposta: studentInfo.eposta || "",
-          telefon: studentInfo.telefon || studentInfo.veliTelefon || ""
-        } : null;
-        
+        const repInfo =
+          isRep && studentInfo
+            ? {
+                adSoyad: studentInfo.adSoyad || "",
+                eposta: studentInfo.eposta || "",
+                telefon: studentInfo.telefon || studentInfo.veliTelefon || "",
+              }
+            : null;
+
         await updateDoc(principalDocRef, {
-          studentRepInfo: repInfo
+          studentRepInfo: repInfo,
         });
-        
+
         // Legacy teachers table update if exists
         const teacherDocRef = doc(db, "teachers", user.uid);
         const teacherSnap = await getDoc(teacherDocRef);
         if (teacherSnap.exists()) {
           await updateDoc(teacherDocRef, {
-            studentRepInfo: repInfo
+            studentRepInfo: repInfo,
           });
         }
-        
+
         // Update local userProfile state
-        setUserProfile(prev => prev ? { ...prev, studentRepInfo: repInfo } : null);
+        setUserProfile((prev) =>
+          prev ? { ...prev, studentRepInfo: repInfo } : null,
+        );
       }
-      
+
       if (user?.uid) {
         fetchStudents(user.uid);
       }
@@ -1876,7 +2108,7 @@ export const AppProvider = ({ children }) => {
       let parsedUsers = localUsers ? JSON.parse(localUsers) : [];
 
       // 1. Try to find student in mock_students
-      let matchedStudent = parsedStudents.find(s => s.id === studentId);
+      let matchedStudent = parsedStudents.find((s) => s.id === studentId);
       let foundLegacy = false;
       if (matchedStudent) {
         foundStudentUid = matchedStudent.studentUid;
@@ -1885,7 +2117,7 @@ export const AppProvider = ({ children }) => {
       } else {
         // studentId might be studentUid
         foundStudentUid = studentId;
-        matchedStudent = parsedStudents.find(s => s.studentUid === studentId);
+        matchedStudent = parsedStudents.find((s) => s.studentUid === studentId);
         if (matchedStudent) {
           matchedStudent.isStudentRep = isRep;
           foundLegacy = true;
@@ -1899,7 +2131,7 @@ export const AppProvider = ({ children }) => {
 
       // 2. Find and update in mock_users
       if (foundStudentUid) {
-        const userMatched = parsedUsers.find(u => u.uid === foundStudentUid);
+        const userMatched = parsedUsers.find((u) => u.uid === foundStudentUid);
         if (userMatched) {
           if (userMatched.studentProfile) {
             userMatched.studentProfile.isStudentRep = isRep;
@@ -1911,13 +2143,16 @@ export const AppProvider = ({ children }) => {
 
       // 3. Update principal profile if principal is logged in
       if (userRole === "principal" && user) {
-        const repInfo = isRep && studentInfo ? {
-          adSoyad: studentInfo.adSoyad || "",
-          eposta: studentInfo.eposta || "",
-          telefon: studentInfo.telefon || studentInfo.veliTelefon || ""
-        } : null;
-        
-        const pIdx = parsedUsers.findIndex(u => u.uid === user.uid);
+        const repInfo =
+          isRep && studentInfo
+            ? {
+                adSoyad: studentInfo.adSoyad || "",
+                eposta: studentInfo.eposta || "",
+                telefon: studentInfo.telefon || studentInfo.veliTelefon || "",
+              }
+            : null;
+
+        const pIdx = parsedUsers.findIndex((u) => u.uid === user.uid);
         if (pIdx !== -1) {
           parsedUsers[pIdx].studentRepInfo = repInfo;
           setUserProfile(parsedUsers[pIdx]);
@@ -1933,7 +2168,7 @@ export const AppProvider = ({ children }) => {
     if (!auth.config.apiKey.includes("DummyKey")) {
       const userRef = doc(db, "users", uid);
       await updateDoc(userRef, updatedData);
-      
+
       if (userRole === "teacher" || userRole === "principal") {
         const teacherRef = doc(db, "teachers", uid);
         const teacherSnap = await getDoc(teacherRef);
@@ -1943,11 +2178,11 @@ export const AppProvider = ({ children }) => {
             telefon: updatedData.telefon || teacherSnap.data().telefon,
             il: updatedData.il || teacherSnap.data().il,
             ilce: updatedData.ilce || teacherSnap.data().ilce,
-            okul: updatedData.schoolId || teacherSnap.data().okul
+            okul: updatedData.schoolId || teacherSnap.data().okul,
           });
         }
       }
-      
+
       const userSnap = await getDoc(userRef);
       if (userSnap.exists()) {
         setUserProfile(userSnap.data());
@@ -1957,25 +2192,31 @@ export const AppProvider = ({ children }) => {
       const localUsers = localStorage.getItem("mock_users");
       if (localUsers) {
         const parsed = JSON.parse(localUsers);
-        const idx = parsed.findIndex(u => u.uid === uid);
+        const idx = parsed.findIndex((u) => u.uid === uid);
         if (idx !== -1) {
           parsed[idx] = { ...parsed[idx], ...updatedData };
           localStorage.setItem("mock_users", JSON.stringify(parsed));
           setUserProfile(parsed[idx]);
           setTeacherProfile(parsed[idx]);
-          
-          if (parsed[idx].role === "teacher" || parsed[idx].role === "principal") {
-            localStorage.setItem("mock_teacher_profile", JSON.stringify({
-              uid: parsed[idx].uid,
-              adSoyad: parsed[idx].adSoyad,
-              eposta: parsed[idx].eposta,
-              telefon: parsed[idx].telefon,
-              il: parsed[idx].il,
-              ilce: parsed[idx].ilce,
-              okul: parsed[idx].schoolId,
-              rol: parsed[idx].role,
-              olusturmaTarihi: parsed[idx].olusturmaTarihi
-            }));
+
+          if (
+            parsed[idx].role === "teacher" ||
+            parsed[idx].role === "principal"
+          ) {
+            localStorage.setItem(
+              "mock_teacher_profile",
+              JSON.stringify({
+                uid: parsed[idx].uid,
+                adSoyad: parsed[idx].adSoyad,
+                eposta: parsed[idx].eposta,
+                telefon: parsed[idx].telefon,
+                il: parsed[idx].il,
+                ilce: parsed[idx].ilce,
+                okul: parsed[idx].schoolId,
+                rol: parsed[idx].role,
+                olusturmaTarihi: parsed[idx].olusturmaTarihi,
+              }),
+            );
           }
         }
       }
@@ -1989,7 +2230,7 @@ export const AppProvider = ({ children }) => {
     if (!auth.config.apiKey.includes("DummyKey")) {
       const userRef = doc(db, "users", targetUid);
       await updateDoc(userRef, { role: newRole });
-      
+
       const teacherRef = doc(db, "teachers", targetUid);
       const teacherSnap = await getDoc(teacherRef);
       if (teacherSnap.exists()) {
@@ -1999,20 +2240,22 @@ export const AppProvider = ({ children }) => {
       const localUsers = localStorage.getItem("mock_users");
       if (localUsers) {
         const parsed = JSON.parse(localUsers);
-        const idx = parsed.findIndex(u => u.uid === targetUid);
+        const idx = parsed.findIndex((u) => u.uid === targetUid);
         if (idx !== -1) {
           parsed[idx].role = newRole;
           localStorage.setItem("mock_users", JSON.stringify(parsed));
         }
       }
-      
+
       const coordProfiles = localStorage.getItem("mock_coordinator_profiles");
       if (coordProfiles && newRole === "coordinator") {
         const parsedCoords = JSON.parse(coordProfiles);
-        const exist = parsedCoords.some(c => c.id === targetUid);
+        const exist = parsedCoords.some((c) => c.id === targetUid);
         if (!exist) {
           const localUsersList = localStorage.getItem("mock_users");
-          const userMatched = localUsersList ? JSON.parse(localUsersList).find(u => u.uid === targetUid) : null;
+          const userMatched = localUsersList
+            ? JSON.parse(localUsersList).find((u) => u.uid === targetUid)
+            : null;
           if (userMatched) {
             parsedCoords.push({
               id: targetUid,
@@ -2020,9 +2263,12 @@ export const AppProvider = ({ children }) => {
               eposta: userMatched.eposta,
               telefon: userMatched.telefon,
               il: userMatched.il,
-              olusturmaTarihi: new Date().toISOString()
+              olusturmaTarihi: new Date().toISOString(),
             });
-            localStorage.setItem("mock_coordinator_profiles", JSON.stringify(parsedCoords));
+            localStorage.setItem(
+              "mock_coordinator_profiles",
+              JSON.stringify(parsedCoords),
+            );
           }
         }
       }
@@ -2039,9 +2285,9 @@ export const AppProvider = ({ children }) => {
         eposta: updatedData.eposta,
         telefon: updatedData.telefon || "",
         il: updatedData.il,
-        role: updatedData.role || role
+        role: updatedData.role || role,
       });
-      
+
       if (role === "coordinator" || updatedData.role === "coordinator") {
         const teacherRef = doc(db, "teachers", uid);
         const teacherSnap = await getDoc(teacherRef);
@@ -2051,7 +2297,7 @@ export const AppProvider = ({ children }) => {
             eposta: updatedData.eposta,
             telefon: updatedData.telefon || "",
             il: updatedData.il,
-            rol: updatedData.role || role
+            rol: updatedData.role || role,
           });
         } else {
           await setDoc(teacherRef, {
@@ -2061,7 +2307,7 @@ export const AppProvider = ({ children }) => {
             telefon: updatedData.telefon || "",
             il: updatedData.il,
             rol: updatedData.role || role,
-            olusturmaTarihi: new Date().toISOString()
+            olusturmaTarihi: new Date().toISOString(),
           });
         }
       }
@@ -2069,34 +2315,39 @@ export const AppProvider = ({ children }) => {
       const localUsers = localStorage.getItem("mock_users");
       if (localUsers) {
         const parsed = JSON.parse(localUsers);
-        const idx = parsed.findIndex(u => u.uid === uid);
+        const idx = parsed.findIndex((u) => u.uid === uid);
         if (idx !== -1) {
-          parsed[idx] = { 
-            ...parsed[idx], 
+          parsed[idx] = {
+            ...parsed[idx],
             adSoyad: updatedData.adSoyad,
             eposta: updatedData.eposta,
             telefon: updatedData.telefon || "",
             il: updatedData.il,
-            role: updatedData.role || role
+            role: updatedData.role || role,
           };
           localStorage.setItem("mock_users", JSON.stringify(parsed));
         }
       }
-      
+
       if (role === "coordinator" || updatedData.role === "coordinator") {
         const localCoords = localStorage.getItem("mock_coordinator_profiles");
         let parsedCoords = localCoords ? JSON.parse(localCoords) : [];
-        const idx = parsedCoords.findIndex(c => c.id === uid || c.uid === uid);
+        const idx = parsedCoords.findIndex(
+          (c) => c.id === uid || c.uid === uid,
+        );
         if (idx !== -1) {
-          parsedCoords[idx] = { 
-            ...parsedCoords[idx], 
+          parsedCoords[idx] = {
+            ...parsedCoords[idx],
             adSoyad: updatedData.adSoyad,
             eposta: updatedData.eposta,
             telefon: updatedData.telefon || "",
             il: updatedData.il,
-            role: updatedData.role || role
+            role: updatedData.role || role,
           };
-          localStorage.setItem("mock_coordinator_profiles", JSON.stringify(parsedCoords));
+          localStorage.setItem(
+            "mock_coordinator_profiles",
+            JSON.stringify(parsedCoords),
+          );
         } else if (updatedData.role === "coordinator") {
           parsedCoords.push({
             id: uid,
@@ -2106,18 +2357,26 @@ export const AppProvider = ({ children }) => {
             telefon: updatedData.telefon || "",
             il: updatedData.il,
             role: "coordinator",
-            olusturmaTarihi: new Date().toISOString()
+            olusturmaTarihi: new Date().toISOString(),
           });
-          localStorage.setItem("mock_coordinator_profiles", JSON.stringify(parsedCoords));
+          localStorage.setItem(
+            "mock_coordinator_profiles",
+            JSON.stringify(parsedCoords),
+          );
         }
       }
-      
+
       if (role === "coordinator" && updatedData.role === "commission") {
         const localCoords = localStorage.getItem("mock_coordinator_profiles");
         if (localCoords) {
           const parsedCoords = JSON.parse(localCoords);
-          const filteredCoords = parsedCoords.filter(c => c.id !== uid && c.uid !== uid);
-          localStorage.setItem("mock_coordinator_profiles", JSON.stringify(filteredCoords));
+          const filteredCoords = parsedCoords.filter(
+            (c) => c.id !== uid && c.uid !== uid,
+          );
+          localStorage.setItem(
+            "mock_coordinator_profiles",
+            JSON.stringify(filteredCoords),
+          );
         }
       }
     }
@@ -2135,16 +2394,19 @@ export const AppProvider = ({ children }) => {
       const localUsers = localStorage.getItem("mock_users");
       if (localUsers) {
         const parsed = JSON.parse(localUsers);
-        const filtered = parsed.filter(u => u.uid !== uid);
+        const filtered = parsed.filter((u) => u.uid !== uid);
         localStorage.setItem("mock_users", JSON.stringify(filtered));
       }
-      
+
       if (role === "coordinator") {
         const localCoords = localStorage.getItem("mock_coordinator_profiles");
         if (localCoords) {
           const parsed = JSON.parse(localCoords);
-          const filtered = parsed.filter(c => c.id !== uid && c.uid !== uid);
-          localStorage.setItem("mock_coordinator_profiles", JSON.stringify(filtered));
+          const filtered = parsed.filter((c) => c.id !== uid && c.uid !== uid);
+          localStorage.setItem(
+            "mock_coordinator_profiles",
+            JSON.stringify(filtered),
+          );
         }
       }
     }
@@ -2169,7 +2431,10 @@ export const AppProvider = ({ children }) => {
       const localApps = localStorage.getItem("mock_event_applications");
       const currentList = localApps ? JSON.parse(localApps) : [];
       const updatedList = [{ id: mockId, ...newApp }, ...currentList];
-      localStorage.setItem("mock_event_applications", JSON.stringify(updatedList));
+      localStorage.setItem(
+        "mock_event_applications",
+        JSON.stringify(updatedList),
+      );
       fetchApplications(userRole === "admin", user?.uid);
       appId = mockId;
     }
@@ -2189,16 +2454,19 @@ export const AppProvider = ({ children }) => {
     // Update local state
     setApplications((prev) =>
       prev.map((item) =>
-        item.id === appId ? { ...item, onaylandi: true } : item
-      )
+        item.id === appId ? { ...item, onaylandi: true } : item,
+      ),
     );
     if (auth.config.apiKey.includes("DummyKey")) {
       const localApps = localStorage.getItem("mock_event_applications");
       if (localApps) {
         const updated = JSON.parse(localApps).map((item) =>
-          item.id === appId ? { ...item, onaylandi: true } : item
+          item.id === appId ? { ...item, onaylandi: true } : item,
         );
-        localStorage.setItem("mock_event_applications", JSON.stringify(updated));
+        localStorage.setItem(
+          "mock_event_applications",
+          JSON.stringify(updated),
+        );
       }
     }
   };
@@ -2213,8 +2481,13 @@ export const AppProvider = ({ children }) => {
     if (auth.config.apiKey.includes("DummyKey")) {
       const localApps = localStorage.getItem("mock_event_applications");
       if (localApps) {
-        const updated = JSON.parse(localApps).filter((item) => item.id !== appId);
-        localStorage.setItem("mock_event_applications", JSON.stringify(updated));
+        const updated = JSON.parse(localApps).filter(
+          (item) => item.id !== appId,
+        );
+        localStorage.setItem(
+          "mock_event_applications",
+          JSON.stringify(updated),
+        );
       }
     }
   };
@@ -2254,7 +2527,9 @@ export const AppProvider = ({ children }) => {
       await updateDoc(docRef, updatedEvent);
     }
     setEvents((prev) =>
-      prev.map((item) => (item.id === eventId ? { ...item, ...updatedEvent } : item))
+      prev.map((item) =>
+        item.id === eventId ? { ...item, ...updatedEvent } : item,
+      ),
     );
     if (auth.config.apiKey.includes("DummyKey")) {
       refreshData();
@@ -2312,7 +2587,7 @@ export const AppProvider = ({ children }) => {
     file,
     maxWidth = 600,
     maxHeight = 600,
-    quality = 0.7
+    quality = 0.7,
   ) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -2359,7 +2634,7 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       console.error(
         "Görsel sıkıştırma hatası, orijinal base64 kullanılıyor:",
-        error
+        error,
       );
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -2379,8 +2654,8 @@ export const AppProvider = ({ children }) => {
     if (colName === "events") {
       setEvents((prev) =>
         prev.map((item) =>
-          item.id === id ? { ...item, onaylandi: true } : item
-        )
+          item.id === id ? { ...item, onaylandi: true } : item,
+        ),
       );
       const ev = events.find((e) => e.id === id);
       if (ev && ev.creatorId) {
@@ -2389,14 +2664,14 @@ export const AppProvider = ({ children }) => {
           "Etkinliğiniz Onaylandı",
           `"${ev.ad}" adlı etkinliğiniz onaylandı.`,
           "event",
-          "events"
+          "events",
         );
       }
     } else {
       setProjects((prev) =>
         prev.map((item) =>
-          item.id === id ? { ...item, onaylandi: true } : item
-        )
+          item.id === id ? { ...item, onaylandi: true } : item,
+        ),
       );
       const proj = projects.find((p) => p.id === id);
       if (proj && proj.userId) {
@@ -2405,7 +2680,7 @@ export const AppProvider = ({ children }) => {
           "Projeniz Onaylandı",
           `"${proj.ad}" adlı projeniz onaylandı.`,
           "project",
-          "projects"
+          "projects",
         );
         await awardBadgeToUser(proj.userId, "Girişimci");
       }
@@ -2434,14 +2709,14 @@ export const AppProvider = ({ children }) => {
     if (colName === "events") {
       setEvents((prev) =>
         prev.map((item) =>
-          item.id === id ? { ...item, oneCikar: value } : item
-        )
+          item.id === id ? { ...item, oneCikar: value } : item,
+        ),
       );
     } else {
       setProjects((prev) =>
         prev.map((item) =>
-          item.id === id ? { ...item, oneCikar: value } : item
-        )
+          item.id === id ? { ...item, oneCikar: value } : item,
+        ),
       );
     }
   };
@@ -2449,38 +2724,59 @@ export const AppProvider = ({ children }) => {
   // Moderator Login
   const loginModerator = async (email, password) => {
     if (!auth.config.apiKey.includes("DummyKey")) {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
       const uid = userCredential.user.uid;
       const userDoc = await getDoc(doc(db, "users", uid));
       if (userDoc.exists()) {
         const userData = userDoc.data();
-        if (userData.role !== "admin" && userData.role !== "coordinator" && userData.role !== "commission" && !userData.onaylandi) {
+        if (
+          userData.role !== "admin" &&
+          userData.role !== "coordinator" &&
+          userData.role !== "commission" &&
+          !userData.onaylandi
+        ) {
           await signOut(auth);
-          throw new Error("Hesabınız henüz moderatör tarafından onaylanmamıştır.");
+          throw new Error(
+            "Hesabınız henüz moderatör tarafından onaylanmamıştır.",
+          );
         }
       }
     } else {
       // Mock Login bypass
       const localUsers = localStorage.getItem("mock_users");
       const parsedUsers = localUsers ? JSON.parse(localUsers) : [];
-      
+
       // Check admin
-      if (email === "admin@genctek.org" && password === "admin123") {
+      if (email === "admin@genctek.org" && password === "GT_admin_2026!") {
         setUser({ email, uid: "mock-admin-uid" });
         setUserRole("admin");
         fetchData(true);
         fetchApplications(true);
         return;
       }
-      
+
       // Find user in mock_users
-      const matchedUser = parsedUsers.find(u => u.eposta === email);
+      const matchedUser = parsedUsers.find((u) => u.eposta === email);
       if (matchedUser) {
-        if (matchedUser.role !== "admin" && matchedUser.role !== "coordinator" && matchedUser.role !== "commission" && !matchedUser.onaylandi) {
-          throw new Error("Hesabınız henüz moderatör tarafından onaylanmamıştır.");
+        if (
+          matchedUser.role !== "admin" &&
+          matchedUser.role !== "coordinator" &&
+          matchedUser.role !== "commission" &&
+          !matchedUser.onaylandi
+        ) {
+          throw new Error(
+            "Hesabınız henüz moderatör tarafından onaylanmamıştır.",
+          );
         }
         let expectedPassword = "user123";
-        if (matchedUser.role === "teacher" || matchedUser.role === "principal") {
+        if (
+          matchedUser.role === "teacher" ||
+          matchedUser.role === "principal"
+        ) {
           expectedPassword = "teacher123";
         } else if (matchedUser.role === "coordinator") {
           expectedPassword = "coord123";
@@ -2489,27 +2785,48 @@ export const AppProvider = ({ children }) => {
         } else if (matchedUser.role === "student") {
           expectedPassword = "student123";
         }
-        
+
         if (password === expectedPassword) {
           setUser({ email, uid: matchedUser.uid });
           setUserRole(matchedUser.role);
           setUserProfile(matchedUser);
-          if (matchedUser.role === "teacher" || matchedUser.role === "principal") {
+          if (
+            matchedUser.role === "teacher" ||
+            matchedUser.role === "principal"
+          ) {
             setTeacherProfile(matchedUser);
             fetchStudents(matchedUser.uid);
             fetchData(false);
             fetchApplications(false, matchedUser.uid);
-          } else if (matchedUser.role === "coordinator" || matchedUser.role === "commission") {
+          } else if (
+            matchedUser.role === "coordinator" ||
+            matchedUser.role === "commission"
+          ) {
             setTeacherProfile(matchedUser); // backward compatibility
             fetchData(true);
-            fetchApplications(false, matchedUser.uid, matchedUser.role === "coordinator", matchedUser.il, matchedUser.role === "commission");
+            fetchApplications(
+              false,
+              matchedUser.uid,
+              matchedUser.role === "coordinator",
+              matchedUser.il,
+              matchedUser.role === "commission",
+            );
           } else if (matchedUser.role === "student") {
             fetchData(false);
-            fetchApplications(false, matchedUser.studentProfile?.teacherId || null, false);
+            fetchApplications(
+              false,
+              matchedUser.studentProfile?.teacherId || null,
+              false,
+            );
           }
-          
+
           const schoolId = matchedUser.schoolId || matchedUser.okul || "";
-          fetchGroups(matchedUser.uid, matchedUser.role, matchedUser.il, schoolId);
+          fetchGroups(
+            matchedUser.uid,
+            matchedUser.role,
+            matchedUser.il,
+            schoolId,
+          );
           return;
         }
       }
@@ -2531,7 +2848,9 @@ export const AppProvider = ({ children }) => {
 
       const coordProfiles = localStorage.getItem("mock_coordinator_profiles");
       if (coordProfiles) {
-        const matched = JSON.parse(coordProfiles).find((c) => c.eposta === email);
+        const matched = JSON.parse(coordProfiles).find(
+          (c) => c.eposta === email,
+        );
         if (matched && password === "coord123") {
           setUser({ email, uid: matched.id });
           setUserRole("coordinator");
@@ -2543,7 +2862,7 @@ export const AppProvider = ({ children }) => {
       }
 
       throw new Error(
-        "Geçersiz e-posta veya şifre (Mock modunda admin@genctek.org / admin123, coordinator@genctek.org / coord123, commission@genctek.org / commission123, teacher@genctek.org / teacher123, veya student@genctek.org / student123 kullanın)"
+        "Geçersiz e-posta veya şifre (Mock modunda admin@genctek.org / GT_admin_2026!, coordinator@genctek.org / coord123, commission@genctek.org / commission123, teacher@genctek.org / teacher123, veya student@genctek.org / student123 kullanın)",
       );
     }
   };
@@ -2565,18 +2884,24 @@ export const AppProvider = ({ children }) => {
   // Helper to calculate total approved students in an event
   const getApprovedStudentCount = (eventId) => {
     const eventApps = applications.filter(
-      (app) => app.etkinlikId === eventId && app.onaylandi
+      (app) => app.etkinlikId === eventId && app.onaylandi,
     );
-    return eventApps.reduce((total, app) => total + (app.ogrenciler?.length || 0), 0);
+    return eventApps.reduce(
+      (total, app) => total + (app.ogrenciler?.length || 0),
+      0,
+    );
   };
 
   // Memoized handlers for city/district updates to ensure referential stability
-  const handleSetSelectedCity = useCallback((city) => {
-    setSelectedCity(city);
-    setSelectedDistrict("");
-    setSelectedSchool("");
-    loadSchoolsForCity(city);
-  }, [loadSchoolsForCity]);
+  const handleSetSelectedCity = useCallback(
+    (city) => {
+      setSelectedCity(city);
+      setSelectedDistrict("");
+      setSelectedSchool("");
+      loadSchoolsForCity(city);
+    },
+    [loadSchoolsForCity],
+  );
 
   const handleSetSelectedDistrict = useCallback((dist) => {
     setSelectedDistrict(dist);
@@ -2588,10 +2913,11 @@ export const AppProvider = ({ children }) => {
     return events.filter((event) => {
       const matchesCity = selectedCity
         ? event.il === selectedCity ||
-          (event.duzenleyenIller && event.duzenleyenIller.includes(selectedCity)) ||
+          (event.duzenleyenIller &&
+            event.duzenleyenIller.includes(selectedCity)) ||
           event.kapsam === "turkiye"
         : true;
-      
+
       const matchesDistrict = selectedDistrict
         ? event.ilce === selectedDistrict
         : true;
@@ -2624,7 +2950,9 @@ export const AppProvider = ({ children }) => {
       const matchesCity = selectedCity
         ? project.katilimciIller?.includes(selectedCity)
         : true;
-      const matchesTheme = filters.theme ? project.tema === filters.theme : true;
+      const matchesTheme = filters.theme
+        ? project.tema === filters.theme
+        : true;
       const matchesSearch = filters.search
         ? project.ad.toLowerCase().includes(filters.search.toLowerCase()) ||
           project.takimAdi
@@ -2666,14 +2994,27 @@ export const AppProvider = ({ children }) => {
     if (!auth.config.apiKey.includes("DummyKey")) {
       const docId = "coord-" + Date.now();
       await setDoc(doc(db, "teachers", docId), { uid: docId, ...newCoord });
-      await setDoc(doc(db, "users", docId), { uid: docId, ...newCoord, role: "coordinator" });
+      await setDoc(doc(db, "users", docId), {
+        uid: docId,
+        ...newCoord,
+        role: "coordinator",
+      });
     } else {
       const coordId = "mock-coord-" + Date.now();
-      const newCoordWithId = { id: coordId, uid: coordId, ...newCoord, role: "coordinator", il: coordinatorData.il };
+      const newCoordWithId = {
+        id: coordId,
+        uid: coordId,
+        ...newCoord,
+        role: "coordinator",
+        il: coordinatorData.il,
+      };
       const localProfile = localStorage.getItem("mock_coordinator_profiles");
       const currentList = localProfile ? JSON.parse(localProfile) : [];
       const updatedList = [newCoordWithId, ...currentList];
-      localStorage.setItem("mock_coordinator_profiles", JSON.stringify(updatedList));
+      localStorage.setItem(
+        "mock_coordinator_profiles",
+        JSON.stringify(updatedList),
+      );
 
       const localUsers = localStorage.getItem("mock_users");
       const parsedUsers = localUsers ? JSON.parse(localUsers) : [];
@@ -2697,7 +3038,12 @@ export const AppProvider = ({ children }) => {
       const localUsers = localStorage.getItem("mock_users");
       const parsedUsers = localUsers ? JSON.parse(localUsers) : [];
       const commissionId = "mock-commission-" + Date.now();
-      const newCommissionWithId = { id: commissionId, uid: commissionId, ...newCommission, role: "commission" };
+      const newCommissionWithId = {
+        id: commissionId,
+        uid: commissionId,
+        ...newCommission,
+        role: "commission",
+      };
       parsedUsers.push(newCommissionWithId);
       localStorage.setItem("mock_users", JSON.stringify(parsedUsers));
     }
@@ -2708,43 +3054,49 @@ export const AppProvider = ({ children }) => {
     if (!currentUserId) return () => {};
     try {
       if (!auth.config.apiKey.includes("DummyKey")) {
-        const q1 = query(collection(db, "direct_messages"), where("senderId", "==", currentUserId));
-        const q2 = query(collection(db, "direct_messages"), where("receiverId", "==", currentUserId));
-        
+        const q1 = query(
+          collection(db, "direct_messages"),
+          where("senderId", "==", currentUserId),
+        );
+        const q2 = query(
+          collection(db, "direct_messages"),
+          where("receiverId", "==", currentUserId),
+        );
+
         let messages1 = [];
         let messages2 = [];
-        
+
         const updateMessages = () => {
           const merged = [];
           const ids = new Set();
-          
-          messages1.forEach(m => {
+
+          messages1.forEach((m) => {
             if (!ids.has(m.id)) {
               merged.push(m);
               ids.add(m.id);
             }
           });
-          messages2.forEach(m => {
+          messages2.forEach((m) => {
             if (!ids.has(m.id)) {
               merged.push(m);
               ids.add(m.id);
             }
           });
-          
+
           merged.sort((a, b) => new Date(a.tarih) - new Date(b.tarih));
           setDirectMessages(merged);
         };
-        
+
         const unsub1 = onSnapshot(q1, (snap) => {
-          messages1 = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          messages1 = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
           updateMessages();
         });
-        
+
         const unsub2 = onSnapshot(q2, (snap) => {
-          messages2 = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+          messages2 = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
           updateMessages();
         });
-        
+
         return () => {
           unsub1();
           unsub2();
@@ -2752,7 +3104,9 @@ export const AppProvider = ({ children }) => {
       } else {
         const local = localStorage.getItem("mock_direct_messages");
         const allMessages = local ? JSON.parse(local) : [];
-        const filtered = allMessages.filter(m => m.senderId === currentUserId || m.receiverId === currentUserId);
+        const filtered = allMessages.filter(
+          (m) => m.senderId === currentUserId || m.receiverId === currentUserId,
+        );
         filtered.sort((a, b) => new Date(a.tarih) - new Date(b.tarih));
         setTimeout(() => setDirectMessages(filtered), 0);
         return () => {};
@@ -2763,84 +3117,123 @@ export const AppProvider = ({ children }) => {
     }
   }, []);
 
-  const sendDirectMessage = useCallback(async (receiverId, receiverName, receiverRole, messageText) => {
-    if (!user || !messageText.trim()) return;
-    
-    const newMessage = {
-      senderId: user.uid,
-      senderName: userProfile?.adSoyad || user.email,
-      senderRole: userRole,
-      receiverId,
-      receiverName,
-      receiverRole,
-      il: userProfile?.il || "",
-      mesaj: messageText,
-      tarih: new Date().toISOString(),
-      okundu: false
-    };
+  const sendDirectMessage = useCallback(
+    async (receiverId, receiverName, receiverRole, messageText) => {
+      if (!user || !messageText.trim()) return;
 
-    try {
-      let msgId;
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        const docRef = await addDoc(collection(db, "direct_messages"), newMessage);
-        await createNotification(receiverId, "Yeni Mesaj", `${userProfile?.adSoyad || user.email} size bir mesaj gönderdi.`, "message", "messages");
-        msgId = docRef.id;
-      } else {
-        const local = localStorage.getItem("mock_direct_messages");
-        const list = local ? JSON.parse(local) : [];
-        const mockMsgId = "mock-msg-" + Date.now();
-        const msgWithId = { id: mockMsgId, ...newMessage };
-        list.push(msgWithId);
-        localStorage.setItem("mock_direct_messages", JSON.stringify(list));
-        fetchDirectMessages(user.uid);
-        await createNotification(receiverId, "Yeni Mesaj", `${userProfile?.adSoyad || user.email} size bir mesaj gönderdi.`, "message", "messages");
-        msgId = mockMsgId;
-      }
+      const newMessage = {
+        senderId: user.uid,
+        senderName: userProfile?.adSoyad || user.email,
+        senderRole: userRole,
+        receiverId,
+        receiverName,
+        receiverRole,
+        il: userProfile?.il || "",
+        mesaj: messageText,
+        tarih: new Date().toISOString(),
+        okundu: false,
+      };
 
-      await awardBadgeToUser(user.uid, "İletişimci");
-      return msgId;
-    } catch (err) {
-      console.error("Error sending direct message:", err);
-      throw err;
-    }
-  }, [user, userProfile, userRole, fetchDirectMessages, createNotification, awardBadgeToUser]);
-
-  const markMessagesAsRead = useCallback(async (senderId) => {
-    if (!user || !senderId) return;
-    try {
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        const q = query(
-          collection(db, "direct_messages"),
-          where("senderId", "==", senderId),
-          where("receiverId", "==", user.uid),
-          where("okundu", "==", false)
-        );
-        const snap = await getDocs(q);
-        const promises = [];
-        snap.forEach((docSnap) => {
-          promises.push(updateDoc(doc(db, "direct_messages", docSnap.id), { okundu: true }));
-        });
-        await Promise.all(promises);
-      } else {
-        const local = localStorage.getItem("mock_direct_messages");
-        const allMessages = local ? JSON.parse(local) : [];
-        let updated = false;
-        const newList = allMessages.map(m => {
-          if (m.senderId === senderId && m.receiverId === user.uid && !m.okundu) {
-            updated = true;
-            return { ...m, okundu: true };
-          }
-          return m;
-        });
-        if (updated) {
-          localStorage.setItem("mock_direct_messages", JSON.stringify(newList));
+      try {
+        let msgId;
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          const docRef = await addDoc(
+            collection(db, "direct_messages"),
+            newMessage,
+          );
+          await createNotification(
+            receiverId,
+            "Yeni Mesaj",
+            `${userProfile?.adSoyad || user.email} size bir mesaj gönderdi.`,
+            "message",
+            "messages",
+          );
+          msgId = docRef.id;
+        } else {
+          const local = localStorage.getItem("mock_direct_messages");
+          const list = local ? JSON.parse(local) : [];
+          const mockMsgId = "mock-msg-" + Date.now();
+          const msgWithId = { id: mockMsgId, ...newMessage };
+          list.push(msgWithId);
+          localStorage.setItem("mock_direct_messages", JSON.stringify(list));
           fetchDirectMessages(user.uid);
+          await createNotification(
+            receiverId,
+            "Yeni Mesaj",
+            `${userProfile?.adSoyad || user.email} size bir mesaj gönderdi.`,
+            "message",
+            "messages",
+          );
+          msgId = mockMsgId;
         }
+
+        await awardBadgeToUser(user.uid, "İletişimci");
+        return msgId;
+      } catch (err) {
+        console.error("Error sending direct message:", err);
+        throw err;
       }
-    } catch (err) {
-      console.error("Error marking messages as read:", err);
-    }
-  }, [user, fetchDirectMessages]);
+    },
+    [
+      user,
+      userProfile,
+      userRole,
+      fetchDirectMessages,
+      createNotification,
+      awardBadgeToUser,
+    ],
+  );
+
+  const markMessagesAsRead = useCallback(
+    async (senderId) => {
+      if (!user || !senderId) return;
+      try {
+        if (!auth.config.apiKey.includes("DummyKey")) {
+          const q = query(
+            collection(db, "direct_messages"),
+            where("senderId", "==", senderId),
+            where("receiverId", "==", user.uid),
+            where("okundu", "==", false),
+          );
+          const snap = await getDocs(q);
+          const promises = [];
+          snap.forEach((docSnap) => {
+            promises.push(
+              updateDoc(doc(db, "direct_messages", docSnap.id), {
+                okundu: true,
+              }),
+            );
+          });
+          await Promise.all(promises);
+        } else {
+          const local = localStorage.getItem("mock_direct_messages");
+          const allMessages = local ? JSON.parse(local) : [];
+          let updated = false;
+          const newList = allMessages.map((m) => {
+            if (
+              m.senderId === senderId &&
+              m.receiverId === user.uid &&
+              !m.okundu
+            ) {
+              updated = true;
+              return { ...m, okundu: true };
+            }
+            return m;
+          });
+          if (updated) {
+            localStorage.setItem(
+              "mock_direct_messages",
+              JSON.stringify(newList),
+            );
+            fetchDirectMessages(user.uid);
+          }
+        }
+      } catch (err) {
+        console.error("Error marking messages as read:", err);
+      }
+    },
+    [user, fetchDirectMessages],
+  );
 
   const fetchChatContacts = useCallback(async (role, il) => {
     if (!il) return;
@@ -2849,22 +3242,33 @@ export const AppProvider = ({ children }) => {
       if (!auth.config.apiKey.includes("DummyKey")) {
         const q = query(collection(db, "users"), where("il", "==", il));
         const snap = await getDocs(q);
-        snap.forEach(doc => {
+        snap.forEach((doc) => {
           usersList.push({ uid: doc.id, ...doc.data() });
         });
       } else {
         const local = localStorage.getItem("mock_users");
         usersList = local ? JSON.parse(local) : [];
         if (role !== "admin") {
-          usersList = usersList.filter(u => u.il === il);
+          usersList = usersList.filter((u) => u.il === il);
         }
       }
 
       if (role === "student") {
-        const filtered = usersList.filter(u => u.role === "coordinator" || u.role === "commission");
+        const filtered = usersList.filter(
+          (u) => u.role === "coordinator" || u.role === "commission",
+        );
         setTimeout(() => setChatContacts(filtered), 0);
-      } else if (role === "coordinator" || role === "commission" || role === "admin") {
-        const filtered = usersList.filter(u => u.role === "student" || u.role === "coordinator" || u.role === "commission");
+      } else if (
+        role === "coordinator" ||
+        role === "commission" ||
+        role === "admin"
+      ) {
+        const filtered = usersList.filter(
+          (u) =>
+            u.role === "student" ||
+            u.role === "coordinator" ||
+            u.role === "commission",
+        );
         setTimeout(() => setChatContacts(filtered), 0);
       }
     } catch (err) {
@@ -2877,7 +3281,7 @@ export const AppProvider = ({ children }) => {
     let unsubDM = () => {};
     let unsubNotif = () => {};
     let unsubAnn = () => {};
-    
+
     if (user && userRole) {
       unsubDM = fetchDirectMessages(user.uid);
       unsubNotif = fetchNotifications(user.uid);
@@ -2886,15 +3290,24 @@ export const AppProvider = ({ children }) => {
         fetchChatContacts(userRole, userCity);
       }
     }
-    
+
     unsubAnn = fetchAnnouncements();
-    
+
     return () => {
       unsubDM();
       unsubNotif();
       unsubAnn();
     };
-  }, [user, userRole, userProfile, teacherProfile, fetchDirectMessages, fetchChatContacts, fetchNotifications, fetchAnnouncements]);
+  }, [
+    user,
+    userRole,
+    userProfile,
+    teacherProfile,
+    fetchDirectMessages,
+    fetchChatContacts,
+    fetchNotifications,
+    fetchAnnouncements,
+  ]);
 
   // Online/Offline status listeners
   useEffect(() => {
@@ -2903,7 +3316,7 @@ export const AppProvider = ({ children }) => {
       createNotification(
         user?.uid || "global",
         "⚡ İnternet bağlantısı sağlandı. Çevrimiçi moda geçildi.",
-        "success"
+        "success",
       );
     };
     const handleOffline = () => {
@@ -2911,7 +3324,7 @@ export const AppProvider = ({ children }) => {
       createNotification(
         user?.uid || "global",
         "⚠️ İnternet bağlantısı kesildi. Çevrimdışı moda geçildi (Veriler önbellekten sunuluyor).",
-        "warning"
+        "warning",
       );
     };
 
@@ -2938,7 +3351,15 @@ export const AppProvider = ({ children }) => {
         fetchStudents(user.uid);
       }
     }
-  }, [user, userRole, teacherProfile, fetchData, fetchApplications, fetchStudents, fetchGroups]);
+  }, [
+    user,
+    userRole,
+    teacherProfile,
+    fetchData,
+    fetchApplications,
+    fetchStudents,
+    fetchGroups,
+  ]);
 
   return (
     <AppContext.Provider

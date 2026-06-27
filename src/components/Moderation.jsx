@@ -1,8 +1,34 @@
 import { useState, useEffect, useCallback } from "react";
 import { useApp } from "../context/AppContext";
-import { Check, Trash2, Star, LogOut, Lock, X, Database, FileSpreadsheet, Printer, Edit2, Users as UsersIcon, MessageSquare, Send, Clock, User, Sparkles } from "lucide-react";
+import {
+  Check,
+  Trash2,
+  Star,
+  LogOut,
+  Lock,
+  X,
+  Database,
+  FileSpreadsheet,
+  Printer,
+  Edit2,
+  Users as UsersIcon,
+  MessageSquare,
+  Send,
+  Clock,
+  User,
+  Sparkles,
+} from "lucide-react";
 import { seedEvents, seedProjects } from "../data/seedData";
-import { collection, addDoc, query, where, getDocs, updateDoc, deleteDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db, auth } from "../firebase/config";
 import ExportButton from "./ExportButton";
 
@@ -61,17 +87,30 @@ const Moderation = () => {
   const [schoolSuccess, setSchoolSuccess] = useState("");
 
   // Coordinator Management State
-  const [coordForm, setCoordForm] = useState({ adSoyad: "", eposta: "", telefon: "", il: "" });
+  const [coordForm, setCoordForm] = useState({
+    adSoyad: "",
+    eposta: "",
+    telefon: "",
+    il: "",
+  });
   const [coordSuccess, setCoordSuccess] = useState("");
   const [coordError, setCoordError] = useState("");
 
-  const [addUserRole, setAddUserRole] = useState(userRole === "admin" ? "coordinator" : "commission");
+  const [addUserRole, setAddUserRole] = useState(
+    userRole === "admin" ? "coordinator" : "commission",
+  );
   const [replyText, setReplyText] = useState("");
   const [searchContactQuery, setSearchContactQuery] = useState("");
   const [selectedStudentContact, setSelectedStudentContact] = useState(null);
 
   const [editingUser, setEditingUser] = useState(null);
-  const [editForm, setEditForm] = useState({ adSoyad: "", eposta: "", telefon: "", il: "", role: "" });
+  const [editForm, setEditForm] = useState({
+    adSoyad: "",
+    eposta: "",
+    telefon: "",
+    il: "",
+    role: "",
+  });
 
   const [eventIlFilter, setEventIlFilter] = useState("");
   const [eventIlceFilter, setEventIlceFilter] = useState("");
@@ -124,7 +163,7 @@ const Moderation = () => {
         const local = localStorage.getItem("mock_users");
         let list = local ? JSON.parse(local) : [];
         if (userRole === "coordinator" && userProfile?.il) {
-          list = list.filter(u => u.il === userProfile.il);
+          list = list.filter((u) => u.il === userProfile.il);
         }
         setUsersList(list);
       }
@@ -147,15 +186,23 @@ const Moderation = () => {
     const queryLower = searchContactQuery.toLowerCase();
     const matchesName = c.adSoyad?.toLowerCase().includes(queryLower);
     const matchesEmail = c.eposta?.toLowerCase().includes(queryLower);
-    const matchesSchool = c.studentProfile?.okulAdi?.toLowerCase().includes(queryLower);
+    const matchesSchool = c.studentProfile?.okulAdi
+      ?.toLowerCase()
+      .includes(queryLower);
     return matchesName || matchesEmail || matchesSchool;
   });
 
   const handleRoleChange = async (targetUid, newRole) => {
-    if (window.confirm("Bu kullanıcının rolünü değiştirmek istediğinize emin misiniz?")) {
+    if (
+      window.confirm(
+        "Bu kullanıcının rolünü değiştirmek istediğinize emin misiniz?",
+      )
+    ) {
       try {
         await updateUserRole(targetUid, newRole);
-        setUsersList(prev => prev.map(u => u.uid === targetUid ? { ...u, role: newRole } : u));
+        setUsersList((prev) =>
+          prev.map((u) => (u.uid === targetUid ? { ...u, role: newRole } : u)),
+        );
       } catch (err) {
         alert("Rol güncellenirken hata oluştu: " + err.message);
       }
@@ -163,7 +210,11 @@ const Moderation = () => {
   };
 
   const handleApproveUser = async (targetUid) => {
-    if (window.confirm("Bu kullanıcının kaydını onaylamak istediğinize emin misiniz?")) {
+    if (
+      window.confirm(
+        "Bu kullanıcının kaydını onaylamak istediğinize emin misiniz?",
+      )
+    ) {
       try {
         if (!auth.config.apiKey.includes("DummyKey")) {
           await updateDoc(doc(db, "users", targetUid), { onaylandi: true });
@@ -171,14 +222,20 @@ const Moderation = () => {
           const local = localStorage.getItem("mock_users");
           if (local) {
             const list = JSON.parse(local);
-            const idx = list.findIndex(u => u.uid === targetUid);
+            const idx = list.findIndex((u) => u.uid === targetUid);
             if (idx !== -1) {
               list[idx].onaylandi = true;
               localStorage.setItem("mock_users", JSON.stringify(list));
             }
           }
         }
-        setUsersList(prev => prev.map(u => (u.uid === targetUid || u.id === targetUid) ? { ...u, onaylandi: true } : u));
+        setUsersList((prev) =>
+          prev.map((u) =>
+            u.uid === targetUid || u.id === targetUid
+              ? { ...u, onaylandi: true }
+              : u,
+          ),
+        );
         alert("Kullanıcı kaydı başarıyla onaylandı.");
       } catch (err) {
         alert("Onaylanırken hata oluştu: " + err.message);
@@ -187,7 +244,11 @@ const Moderation = () => {
   };
 
   const handleRejectUser = async (targetUid) => {
-    if (window.confirm("Bu kullanıcının kaydını reddetmek ve silmek istediğinize emin misiniz?")) {
+    if (
+      window.confirm(
+        "Bu kullanıcının kaydını reddetmek ve silmek istediğinize emin misiniz?",
+      )
+    ) {
       try {
         if (!auth.config.apiKey.includes("DummyKey")) {
           await deleteDoc(doc(db, "users", targetUid));
@@ -195,11 +256,13 @@ const Moderation = () => {
           const local = localStorage.getItem("mock_users");
           if (local) {
             const list = JSON.parse(local);
-            const updated = list.filter(u => u.uid !== targetUid);
+            const updated = list.filter((u) => u.uid !== targetUid);
             localStorage.setItem("mock_users", JSON.stringify(updated));
           }
         }
-        setUsersList(prev => prev.filter(u => u.uid !== targetUid && u.id !== targetUid));
+        setUsersList((prev) =>
+          prev.filter((u) => u.uid !== targetUid && u.id !== targetUid),
+        );
         alert("Kullanıcı kaydı reddedildi ve silindi.");
       } catch (err) {
         alert("İşlem sırasında hata oluştu: " + err.message);
@@ -214,18 +277,23 @@ const Moderation = () => {
 
     if (!coordForm.adSoyad.trim()) return setCoordError("Ad Soyad zorunludur.");
     if (!coordForm.eposta.trim()) return setCoordError("E-posta zorunludur.");
-    
-    const targetIl = userRole === "coordinator" ? userProfile?.il : coordForm.il;
+
+    const targetIl =
+      userRole === "coordinator" ? userProfile?.il : coordForm.il;
     if (!targetIl) return setCoordError("İl seçimi zorunludur.");
 
     try {
       const finalForm = { ...coordForm, il: targetIl };
       if (addUserRole === "coordinator") {
         await addCoordinator(finalForm);
-        setCoordSuccess("İl koordinatörü başarıyla oluşturuldu! Giriş Şifresi: coord123");
+        setCoordSuccess(
+          "İl koordinatörü başarıyla oluşturuldu! Giriş Şifresi: coord123",
+        );
       } else {
         await addCommissionMember(finalForm);
-        setCoordSuccess("Komisyon üyesi başarıyla oluşturuldu! Giriş Şifresi: commission123");
+        setCoordSuccess(
+          "Komisyon üyesi başarıyla oluşturuldu! Giriş Şifresi: commission123",
+        );
       }
       setCoordForm({ adSoyad: "", eposta: "", telefon: "", il: "" });
     } catch (err) {
@@ -240,7 +308,11 @@ const Moderation = () => {
     if (!editForm.il) return alert("İl seçimi zorunludur.");
 
     try {
-      await updateModeratorOrCommission(editingUser.uid, editingUser.role, editForm);
+      await updateModeratorOrCommission(
+        editingUser.uid,
+        editingUser.role,
+        editForm,
+      );
       setEditingUser(null);
       fetchAllUsers();
       alert("Kullanıcı başarıyla güncellendi!");
@@ -251,7 +323,11 @@ const Moderation = () => {
   };
 
   const handleDeleteClick = async (targetUser) => {
-    if (window.confirm(`${targetUser.adSoyad} isimli kullanıcıyı silmek istediğinize emin misiniz?`)) {
+    if (
+      window.confirm(
+        `${targetUser.adSoyad} isimli kullanıcıyı silmek istediğinize emin misiniz?`,
+      )
+    ) {
       try {
         await deleteModeratorOrCommission(targetUser.uid, targetUser.role);
         fetchAllUsers();
@@ -264,7 +340,9 @@ const Moderation = () => {
   };
 
   const getCoordinatorsAndCommissionList = () => {
-    return usersList.filter(u => u.role === "coordinator" || u.role === "commission");
+    return usersList.filter(
+      (u) => u.role === "coordinator" || u.role === "commission",
+    );
   };
 
   // Trigger loading of users when tab is active
@@ -279,10 +357,12 @@ const Moderation = () => {
       const matchesSearch = userSearch
         ? u.adSoyad.toLowerCase().includes(userSearch.toLowerCase()) ||
           u.eposta.toLowerCase().includes(userSearch.toLowerCase()) ||
-          (u.schoolId && u.schoolId.toLowerCase().includes(userSearch.toLowerCase()))
+          (u.schoolId &&
+            u.schoolId.toLowerCase().includes(userSearch.toLowerCase()))
         : true;
       const matchesRole = userRoleFilter ? u.role === userRoleFilter : true;
-      const matchesCity = userRole === "admin" && userCityFilter ? u.il === userCityFilter : true;
+      const matchesCity =
+        userRole === "admin" && userCityFilter ? u.il === userCityFilter : true;
       return matchesSearch && matchesRole && matchesCity;
     });
   };
@@ -290,7 +370,7 @@ const Moderation = () => {
   const handleSeedData = async () => {
     if (
       !window.confirm(
-        "genctek.eba.gov.tr'den çekilen 44 etkinlik ve 3 projeyi veritabanına eklemek istediğinize emin misiniz?"
+        "genctek.eba.gov.tr'den çekilen 44 etkinlik ve 3 projeyi veritabanına eklemek istediğinize emin misiniz?",
       )
     ) {
       return;
@@ -306,18 +386,18 @@ const Moderation = () => {
       for (const event of seedEvents) {
         // Check if event already exists in allEventsRaw
         const exists = allEventsRaw.some(
-          (e) => e.ad.toLowerCase() === event.ad.toLowerCase()
+          (e) => e.ad.toLowerCase() === event.ad.toLowerCase(),
         );
         if (exists) {
           const existingEvent = allEventsRaw.find(
-            (e) => e.ad.toLowerCase() === event.ad.toLowerCase()
+            (e) => e.ad.toLowerCase() === event.ad.toLowerCase(),
           );
           addedEvents.push({ ad: event.ad, id: existingEvent.id });
           continue;
         }
 
         setSeedProgress(
-          `Etkinlik (${++count}/${seedEvents.length}): ${event.ad}`
+          `Etkinlik (${++count}/${seedEvents.length}): ${event.ad}`,
         );
         const docRef = await addDoc(collection(db, "events"), event);
         addedEvents.push({ ad: event.ad, id: docRef.id });
@@ -328,15 +408,15 @@ const Moderation = () => {
       for (const project of seedProjects) {
         // Check if project already exists in allProjectsRaw
         const exists = allProjectsRaw.some(
-          (p) => p.ad.toLowerCase() === project.ad.toLowerCase()
+          (p) => p.ad.toLowerCase() === project.ad.toLowerCase(),
         );
         if (exists) continue;
 
         setSeedProgress(
-          `Proje (${++count}/${seedProjects.length}): ${project.ad}`
+          `Proje (${++count}/${seedProjects.length}): ${project.ad}`,
         );
         const matchedEvent = addedEvents.find(
-          (e) => e.ad.toLowerCase() === project.etkinlikAd?.toLowerCase()
+          (e) => e.ad.toLowerCase() === project.etkinlikAd?.toLowerCase(),
         );
         const projectToSave = { ...project };
         delete projectToSave.etkinlikAd;
@@ -347,7 +427,7 @@ const Moderation = () => {
 
       setSeedProgress("Tamamlandı!");
       alert(
-        "Veritabanı başarıyla tohumlandı! 44 Etkinlik ve 3 Proje sisteme eklendi."
+        "Veritabanı başarıyla tohumlandı! 44 Etkinlik ve 3 Proje sisteme eklendi.",
       );
       refreshData();
     } catch (error) {
@@ -372,16 +452,19 @@ const Moderation = () => {
         const savedRole = localStorage.getItem("mock_teacher_profile")
           ? JSON.parse(localStorage.getItem("mock_teacher_profile")).rol
           : null;
-        
+
         // Check current role in auth
-        if (email !== "admin@genctek.org" && (savedRole === "teacher" || email.includes("teacher"))) {
+        if (
+          email !== "admin@genctek.org" &&
+          (savedRole === "teacher" || email.includes("teacher"))
+        ) {
           setModalType("teacher-dashboard");
         }
       }, 300);
     } catch (err) {
       console.error(err);
       setLoginError(
-        err.message || "Giriş başarısız. Lütfen bilgilerinizi kontrol edin."
+        err.message || "Giriş başarısız. Lütfen bilgilerinizi kontrol edin.",
       );
     } finally {
       setIsLoggingIn(false);
@@ -426,7 +509,9 @@ const Moderation = () => {
         let originalAd = "";
         if (editingSchoolId.startsWith("static-")) {
           const districtSchools = schoolsData[modSelectedDistrict] || [];
-          const originalSchool = districtSchools.find((s) => s.id === editingSchoolId);
+          const originalSchool = districtSchools.find(
+            (s) => s.id === editingSchoolId,
+          );
           if (originalSchool) originalAd = originalSchool.ad;
         }
         await updateCustomSchool(editingSchoolId, { ...payload, originalAd });
@@ -447,12 +532,17 @@ const Moderation = () => {
   // Export to CSV
   const exportToCSV = () => {
     let csvContent = "\uFEFF"; // UTF-8 BOM for Turkish character support in Excel
-    csvContent += "Etkinlik Adı;Danışman Öğretmen;E-posta;Telefon;İl;İlçe;Okul;Öğrenci Adı;Sınıf Seviyesi;Veli Telefonu;Onay Durumu;Başvuru Tarihi\n";
+    csvContent +=
+      "Etkinlik Adı;Danışman Öğretmen;E-posta;Telefon;İl;İlçe;Okul;Öğrenci Adı;Sınıf Seviyesi;Veli Telefonu;Onay Durumu;Başvuru Tarihi\n";
 
     applications.forEach((app) => {
-      const eventObj = allEventsRaw.find((e) => e.id === app.etkinlikId) || { ad: "Bilinmeyen Etkinlik" };
+      const eventObj = allEventsRaw.find((e) => e.id === app.etkinlikId) || {
+        ad: "Bilinmeyen Etkinlik",
+      };
       const statusText = app.onaylandi ? "Onaylandı" : "Beklemede";
-      const dateText = new Date(app.olusturmaTarihi).toLocaleDateString("tr-TR");
+      const dateText = new Date(app.olusturmaTarihi).toLocaleDateString(
+        "tr-TR",
+      );
 
       app.ogrenciler?.forEach((s) => {
         const row = [
@@ -468,7 +558,9 @@ const Moderation = () => {
           s.veliTelefon,
           statusText,
           dateText,
-        ].map(val => `"${val.toString().replace(/"/g, '""')}"`).join(";");
+        ]
+          .map((val) => `"${val.toString().replace(/"/g, '""')}"`)
+          .join(";");
         csvContent += row + "\n";
       });
     });
@@ -477,7 +569,10 @@ const Moderation = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `Genctek_Atlas_Etkinlik_Basvurulari_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute(
+      "download",
+      `Genctek_Atlas_Etkinlik_Basvurulari_${new Date().toISOString().slice(0, 10)}.csv`,
+    );
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -523,10 +618,17 @@ const Moderation = () => {
     `;
 
     applications.forEach((app) => {
-      const eventObj = allEventsRaw.find((e) => e.id === app.etkinlikId) || { ad: "Bilinmeyen Etkinlik" };
-      const statusClass = app.onaylandi ? "badge badge-approved" : "badge badge-pending";
+      const eventObj = allEventsRaw.find((e) => e.id === app.etkinlikId) || {
+        ad: "Bilinmeyen Etkinlik",
+      };
+      const statusClass = app.onaylandi
+        ? "badge badge-approved"
+        : "badge badge-pending";
       const statusText = app.onaylandi ? "Onaylandı" : "Beklemede";
-      const studentsList = app.ogrenciler?.map((s, i) => `${i+1}. ${s.adSoyad} (${s.sinifSeviyesi})`).join("<br/>") || "";
+      const studentsList =
+        app.ogrenciler
+          ?.map((s, i) => `${i + 1}. ${s.adSoyad} (${s.sinifSeviyesi})`)
+          .join("<br/>") || "";
 
       html += `
         <tr>
@@ -559,8 +661,12 @@ const Moderation = () => {
   // Filter pending items
   const pendingEvents = allEventsRaw.filter((e) => !e.onaylandi);
   const pendingProjects = allProjectsRaw.filter((p) => !p.onaylandi);
-  const pendingStaff = usersList.filter(u => (u.role === "principal" || u.role === "teacher") && !u.onaylandi);
-  const pendingStudents = usersList.filter(u => u.role === "student" && !u.onaylandi);
+  const pendingStaff = usersList.filter(
+    (u) => (u.role === "principal" || u.role === "teacher") && !u.onaylandi,
+  );
+  const pendingStudents = usersList.filter(
+    (u) => u.role === "student" && !u.onaylandi,
+  );
 
   // Filter approved items to show star status change option and filter by city/district
   const approvedEvents = allEventsRaw.filter((e) => {
@@ -575,7 +681,13 @@ const Moderation = () => {
       <div
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
-        style={{ maxWidth: "1000px", width: "95%", height: "85vh", display: "flex", flexDirection: "column" }}
+        style={{
+          maxWidth: "1000px",
+          width: "95%",
+          height: "85vh",
+          display: "flex",
+          flexDirection: "column",
+        }}
       >
         <div className="modal-header" style={{ flexShrink: 0 }}>
           <h3>Atlas Giriş & Moderasyon</h3>
@@ -586,7 +698,12 @@ const Moderation = () => {
 
         <div
           className="modal-body"
-          style={{ backgroundColor: "var(--bg-main)", flexGrow: 1, overflowY: "auto", padding: "24px" }}
+          style={{
+            backgroundColor: "var(--bg-main)",
+            flexGrow: 1,
+            overflowY: "auto",
+            padding: "24px",
+          }}
         >
           {!user ? (
             /* Login Form */
@@ -700,8 +817,12 @@ const Moderation = () => {
                     textAlign: "center",
                   }}
                 >
-                  <p className="form-hint" style={{ marginBottom: "12px", fontSize: "11px" }}>
-                    Mock/Yerel modda admin girişi: <strong>admin@genctek.org / admin123</strong>
+                  <p
+                    className="form-hint"
+                    style={{ marginBottom: "12px", fontSize: "11px" }}
+                  >
+                    Mock/Yerel modda admin girişi:{" "}
+                    <strong>admin@genctek.org / GT_admin_2026!</strong>
                   </p>
                   <button
                     className="card-btn primary"
@@ -725,7 +846,9 @@ const Moderation = () => {
             </div>
           ) : userRole === "admin" ? (
             /* Moderation Panel Dashboard (Admin Mode) */
-            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
+            >
               {/* Mod Header Info */}
               <div
                 className="mod-header"
@@ -752,7 +875,9 @@ const Moderation = () => {
                   </p>
                   <h4 style={{ color: "var(--secondary)" }}>{user.email}</h4>
                 </div>
-                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                <div
+                  style={{ display: "flex", gap: "10px", alignItems: "center" }}
+                >
                   <ExportButton type="events" label="Etkinlik Raporu (CSV)" />
                   <ExportButton type="projects" label="Proje Raporu (CSV)" />
                   {isUsingMockData && (
@@ -802,12 +927,20 @@ const Moderation = () => {
                   onClick={() => setActiveTab("approvals")}
                   style={{ paddingBottom: "12px", cursor: "pointer" }}
                 >
-                  {userRole === "commission" ? "Etkinlikler & Projeler" : `Onay Bekleyenler (${pendingEvents.length + pendingProjects.length + pendingStaff.length + pendingStudents.length})`}
+                  {userRole === "commission"
+                    ? "Etkinlikler & Projeler"
+                    : `Onay Bekleyenler (${pendingEvents.length + pendingProjects.length + pendingStaff.length + pendingStudents.length})`}
                 </div>
                 <div
                   className={`list-tab ${activeTab === "applications" ? "active" : ""}`}
                   onClick={() => setActiveTab("applications")}
-                  style={{ paddingBottom: "12px", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" }}
+                  style={{
+                    paddingBottom: "12px",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
                 >
                   <UsersIcon size={16} /> Başvurular ({applications.length})
                 </div>
@@ -838,7 +971,9 @@ const Moderation = () => {
                     }}
                     style={{ paddingBottom: "12px", cursor: "pointer" }}
                   >
-                    {userRole === "admin" ? "İl Koordinatörleri & Komisyon" : "İl Komisyon Üyeleri"}
+                    {userRole === "admin"
+                      ? "İl Koordinatörleri & Komisyon"
+                      : "İl Komisyon Üyeleri"}
                   </div>
                 )}
 
@@ -867,30 +1002,60 @@ const Moderation = () => {
                         backgroundColor: "#f8f9fa",
                       }}
                     >
-                      <div style={{ padding: "16px", borderBottom: "1px solid var(--border-color)" }}>
+                      <div
+                        style={{
+                          padding: "16px",
+                          borderBottom: "1px solid var(--border-color)",
+                        }}
+                      >
                         <input
                           type="text"
                           className="form-input"
                           placeholder="Kişi veya okul ara..."
                           value={searchContactQuery}
-                          onChange={(e) => setSearchContactQuery(e.target.value)}
-                          style={{ margin: 0, padding: "8px 12px", fontSize: "13px" }}
+                          onChange={(e) =>
+                            setSearchContactQuery(e.target.value)
+                          }
+                          style={{
+                            margin: 0,
+                            padding: "8px 12px",
+                            fontSize: "13px",
+                          }}
                         />
                       </div>
-                      <div style={{ flexGrow: 1, overflowY: "auto", padding: "8px" }}>
+                      <div
+                        style={{
+                          flexGrow: 1,
+                          overflowY: "auto",
+                          padding: "8px",
+                        }}
+                      >
                         {filteredChatContacts.length === 0 ? (
-                          <div style={{ textAlign: "center", padding: "20px 10px", fontSize: "12px", color: "var(--text-muted)" }}>
+                          <div
+                            style={{
+                              textAlign: "center",
+                              padding: "20px 10px",
+                              fontSize: "12px",
+                              color: "var(--text-muted)",
+                            }}
+                          >
                             Kişi bulunamadı.
                           </div>
                         ) : (
                           filteredChatContacts.map((contact) => {
-                            const isSelected = selectedStudentContact?.uid === contact.uid;
+                            const isSelected =
+                              selectedStudentContact?.uid === contact.uid;
                             const contactMsgs = directMessages.filter(
-                              (m) => m.senderId === contact.uid || m.receiverId === contact.uid
+                              (m) =>
+                                m.senderId === contact.uid ||
+                                m.receiverId === contact.uid,
                             );
                             const lastMsg = contactMsgs.pop();
                             const unreadCount = directMessages.filter(
-                              (m) => m.senderId === contact.uid && m.receiverId === user.uid && !m.okundu
+                              (m) =>
+                                m.senderId === contact.uid &&
+                                m.receiverId === user.uid &&
+                                !m.okundu,
                             ).length;
 
                             return (
@@ -908,60 +1073,129 @@ const Moderation = () => {
                                   borderRadius: "6px",
                                   cursor: "pointer",
                                   transition: "background 0.2s",
-                                  backgroundColor: isSelected ? "var(--primary-light)" : "transparent",
+                                  backgroundColor: isSelected
+                                    ? "var(--primary-light)"
+                                    : "transparent",
                                   marginBottom: "4px",
-                                  border: isSelected ? "1px solid rgba(217,4,41,0.15)" : "1px solid transparent",
+                                  border: isSelected
+                                    ? "1px solid rgba(217,4,41,0.15)"
+                                    : "1px solid transparent",
                                 }}
                               >
-                                <div style={{
-                                  width: "32px",
-                                  height: "32px",
-                                  borderRadius: "50%",
-                                  backgroundColor: "var(--secondary)",
-                                  color: "white",
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  fontWeight: "700",
-                                  fontSize: "12px",
-                                  flexShrink: 0
-                                }}>
-                                  {contact.adSoyad?.charAt(0).toUpperCase() || <User size={14} />}
+                                <div
+                                  style={{
+                                    width: "32px",
+                                    height: "32px",
+                                    borderRadius: "50%",
+                                    backgroundColor: "var(--secondary)",
+                                    color: "white",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    fontWeight: "700",
+                                    fontSize: "12px",
+                                    flexShrink: 0,
+                                  }}
+                                >
+                                  {contact.adSoyad?.charAt(0).toUpperCase() || (
+                                    <User size={14} />
+                                  )}
                                 </div>
                                 <div style={{ flexGrow: 1, minWidth: 0 }}>
-                                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                                    <h6 style={{ margin: 0, fontSize: "12.5px", fontWeight: "700", color: isSelected ? "var(--primary)" : "var(--secondary)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "space-between",
+                                      alignItems: "baseline",
+                                    }}
+                                  >
+                                    <h6
+                                      style={{
+                                        margin: 0,
+                                        fontSize: "12.5px",
+                                        fontWeight: "700",
+                                        color: isSelected
+                                          ? "var(--primary)"
+                                          : "var(--secondary)",
+                                        whiteSpace: "nowrap",
+                                        overflow: "hidden",
+                                        textOverflow: "ellipsis",
+                                      }}
+                                    >
                                       {contact.adSoyad}
                                     </h6>
                                   </div>
-                                  <p style={{ margin: "2px 0 0 0", fontSize: "10px", color: "var(--text-muted)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                                    {contact.role === "student" ? `${contact.studentProfile?.sinif || "Öğrenci"} | ${contact.il || ""}` : contact.role === "coordinator" ? "Koordinatör" : "Komisyon Üyesi"}
+                                  <p
+                                    style={{
+                                      margin: "2px 0 0 0",
+                                      fontSize: "10px",
+                                      color: "var(--text-muted)",
+                                      whiteSpace: "nowrap",
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                    }}
+                                  >
+                                    {contact.role === "student"
+                                      ? `${contact.studentProfile?.sinif || "Öğrenci"} | ${contact.il || ""}`
+                                      : contact.role === "coordinator"
+                                        ? "Koordinatör"
+                                        : "Komisyon Üyesi"}
                                   </p>
                                   {lastMsg && (
-                                    <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "9px", color: "var(--text-muted)", marginTop: "2px" }}>
-                                      <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flexGrow: 1 }}>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "4px",
+                                        fontSize: "9px",
+                                        color: "var(--text-muted)",
+                                        marginTop: "2px",
+                                      }}
+                                    >
+                                      <span
+                                        style={{
+                                          overflow: "hidden",
+                                          textOverflow: "ellipsis",
+                                          whiteSpace: "nowrap",
+                                          flexGrow: 1,
+                                        }}
+                                      >
                                         {lastMsg.mesaj}
                                       </span>
-                                      <span style={{ display: "flex", alignItems: "center", gap: "2px", flexShrink: 0 }}>
+                                      <span
+                                        style={{
+                                          display: "flex",
+                                          alignItems: "center",
+                                          gap: "2px",
+                                          flexShrink: 0,
+                                        }}
+                                      >
                                         <Clock size={8} />
-                                        {new Date(lastMsg.tarih).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        {new Date(
+                                          lastMsg.tarih,
+                                        ).toLocaleTimeString([], {
+                                          hour: "2-digit",
+                                          minute: "2-digit",
+                                        })}
                                       </span>
                                     </div>
                                   )}
                                 </div>
                                 {unreadCount > 0 && (
-                                  <span style={{
-                                    backgroundColor: "var(--primary)",
-                                    color: "white",
-                                    borderRadius: "50%",
-                                    width: "16px",
-                                    height: "16px",
-                                    fontSize: "9px",
-                                    fontWeight: "800",
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center"
-                                  }}>
+                                  <span
+                                    style={{
+                                      backgroundColor: "var(--primary)",
+                                      color: "white",
+                                      borderRadius: "50%",
+                                      width: "16px",
+                                      height: "16px",
+                                      fontSize: "9px",
+                                      fontWeight: "800",
+                                      display: "flex",
+                                      alignItems: "center",
+                                      justifyContent: "center",
+                                    }}
+                                  >
                                     {unreadCount}
                                   </span>
                                 )}
@@ -973,7 +1207,15 @@ const Moderation = () => {
                     </div>
 
                     {/* Right Column: Chat view */}
-                    <div style={{ display: "flex", flexDirection: "column", height: "100%", minWidth: 0, flexGrow: 1 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        height: "100%",
+                        minWidth: 0,
+                        flexGrow: 1,
+                      }}
+                    >
                       {selectedStudentContact ? (
                         <>
                           {/* Header */}
@@ -988,51 +1230,106 @@ const Moderation = () => {
                             }}
                           >
                             <div>
-                              <h5 style={{ margin: 0, fontSize: "14px", fontWeight: "700" }}>{selectedStudentContact.adSoyad}</h5>
-                              <p style={{ margin: 0, fontSize: "11px", color: "var(--text-muted)" }}>
-                                {selectedStudentContact.role === "student" ? `${selectedStudentContact.studentProfile?.sinif || "Öğrenci"} - ${selectedStudentContact.il}` : selectedStudentContact.role === "coordinator" ? "Koordinatör" : "Komisyon Üyesi"}
+                              <h5
+                                style={{
+                                  margin: 0,
+                                  fontSize: "14px",
+                                  fontWeight: "700",
+                                }}
+                              >
+                                {selectedStudentContact.adSoyad}
+                              </h5>
+                              <p
+                                style={{
+                                  margin: 0,
+                                  fontSize: "11px",
+                                  color: "var(--text-muted)",
+                                }}
+                              >
+                                {selectedStudentContact.role === "student"
+                                  ? `${selectedStudentContact.studentProfile?.sinif || "Öğrenci"} - ${selectedStudentContact.il}`
+                                  : selectedStudentContact.role ===
+                                      "coordinator"
+                                    ? "Koordinatör"
+                                    : "Komisyon Üyesi"}
                               </p>
                             </div>
                           </div>
 
                           {/* Thread Messages */}
-                          <div style={{ flexGrow: 1, overflowY: "auto", padding: "20px", display: "flex", flexDirection: "column", gap: "12px", backgroundColor: "#fafbfc" }}>
-                            {directMessages.filter(
-                              (m) =>
-                                (m.senderId === user.uid && m.receiverId === selectedStudentContact.uid) ||
-                                (m.senderId === selectedStudentContact.uid && m.receiverId === user.uid)
-                            ).map((msg) => {
-                              const isSelf = msg.senderId === user.uid;
-                              return (
-                                <div
-                                  key={msg.id}
-                                  style={{
-                                    alignSelf: isSelf ? "flex-end" : "flex-start",
-                                    maxWidth: "70%",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: isSelf ? "flex-end" : "flex-start"
-                                  }}
-                                >
+                          <div
+                            style={{
+                              flexGrow: 1,
+                              overflowY: "auto",
+                              padding: "20px",
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "12px",
+                              backgroundColor: "#fafbfc",
+                            }}
+                          >
+                            {directMessages
+                              .filter(
+                                (m) =>
+                                  (m.senderId === user.uid &&
+                                    m.receiverId ===
+                                      selectedStudentContact.uid) ||
+                                  (m.senderId === selectedStudentContact.uid &&
+                                    m.receiverId === user.uid),
+                              )
+                              .map((msg) => {
+                                const isSelf = msg.senderId === user.uid;
+                                return (
                                   <div
+                                    key={msg.id}
                                     style={{
-                                      padding: "10px 14px",
-                                      borderRadius: isSelf ? "14px 14px 2px 14px" : "14px 14px 14px 2px",
-                                      backgroundColor: isSelf ? "var(--primary)" : "#f1f2f6",
-                                      color: isSelf ? "white" : "var(--text-main)",
-                                      fontSize: "13px",
-                                      lineHeight: 1.45,
-                                      border: isSelf ? "none" : "1px solid #e9ecef"
+                                      alignSelf: isSelf
+                                        ? "flex-end"
+                                        : "flex-start",
+                                      maxWidth: "70%",
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      alignItems: isSelf
+                                        ? "flex-end"
+                                        : "flex-start",
                                     }}
                                   >
-                                    {msg.mesaj}
+                                    <div
+                                      style={{
+                                        padding: "10px 14px",
+                                        borderRadius: isSelf
+                                          ? "14px 14px 2px 14px"
+                                          : "14px 14px 14px 2px",
+                                        backgroundColor: isSelf
+                                          ? "var(--primary)"
+                                          : "#f1f2f6",
+                                        color: isSelf
+                                          ? "white"
+                                          : "var(--text-main)",
+                                        fontSize: "13px",
+                                        lineHeight: 1.45,
+                                        border: isSelf
+                                          ? "none"
+                                          : "1px solid #e9ecef",
+                                      }}
+                                    >
+                                      {msg.mesaj}
+                                    </div>
+                                    <span
+                                      style={{
+                                        fontSize: "9px",
+                                        color: "var(--text-muted)",
+                                        marginTop: "4px",
+                                      }}
+                                    >
+                                      {new Date(msg.tarih).toLocaleTimeString(
+                                        [],
+                                        { hour: "2-digit", minute: "2-digit" },
+                                      )}
+                                    </span>
                                   </div>
-                                  <span style={{ fontSize: "9px", color: "var(--text-muted)", marginTop: "4px" }}>
-                                    {new Date(msg.tarih).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                                  </span>
-                                </div>
-                              );
-                            })}
+                                );
+                              })}
                           </div>
 
                           {/* Input Area */}
@@ -1044,7 +1341,7 @@ const Moderation = () => {
                                 selectedStudentContact.uid,
                                 selectedStudentContact.adSoyad,
                                 selectedStudentContact.role,
-                                replyText
+                                replyText,
                               );
                               setReplyText("");
                             }}
@@ -1053,7 +1350,7 @@ const Moderation = () => {
                               borderTop: "1px solid var(--border-color)",
                               display: "flex",
                               gap: "10px",
-                              backgroundColor: "white"
+                              backgroundColor: "white",
                             }}
                           >
                             <input
@@ -1074,7 +1371,7 @@ const Moderation = () => {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                                gap: "6px"
+                                gap: "6px",
                               }}
                             >
                               <Send size={14} /> Gönder
@@ -1082,11 +1379,39 @@ const Moderation = () => {
                           </form>
                         </>
                       ) : (
-                        <div style={{ margin: "auto", textAlign: "center", color: "var(--text-muted)", fontSize: "14px" }}>
-                          <MessageSquare size={48} style={{ margin: "0 auto 16px auto", opacity: 0.2, color: "var(--primary)" }} />
-                          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "6px", fontWeight: "600" }}>
-                            <Sparkles size={16} style={{ color: "var(--primary)" }} />
-                            <span>Sohbet akışını görüntülemek için soldan bir kullanıcı seçin.</span>
+                        <div
+                          style={{
+                            margin: "auto",
+                            textAlign: "center",
+                            color: "var(--text-muted)",
+                            fontSize: "14px",
+                          }}
+                        >
+                          <MessageSquare
+                            size={48}
+                            style={{
+                              margin: "0 auto 16px auto",
+                              opacity: 0.2,
+                              color: "var(--primary)",
+                            }}
+                          />
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              gap: "6px",
+                              fontWeight: "600",
+                            }}
+                          >
+                            <Sparkles
+                              size={16}
+                              style={{ color: "var(--primary)" }}
+                            />
+                            <span>
+                              Sohbet akışını görüntülemek için soldan bir
+                              kullanıcı seçin.
+                            </span>
                           </div>
                         </div>
                       )}
@@ -1099,23 +1424,37 @@ const Moderation = () => {
                     setActiveTab("messages");
                     if (user) fetchDirectMessages(user.uid);
                   }}
-                  style={{ paddingBottom: "12px", cursor: "pointer", display: "flex", alignItems: "center", gap: "6px" }}
+                  style={{
+                    paddingBottom: "12px",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "6px",
+                  }}
                 >
                   Sohbet & Destek
-                  {directMessages.filter(m => m.receiverId === user.uid && !m.okundu).length > 0 && (
-                    <span style={{
-                      backgroundColor: "var(--primary)",
-                      color: "white",
-                      borderRadius: "50%",
-                      width: "18px",
-                      height: "18px",
-                      fontSize: "10px",
-                      fontWeight: "800",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center"
-                    }}>
-                      {directMessages.filter(m => m.receiverId === user.uid && !m.okundu).length}
+                  {directMessages.filter(
+                    (m) => m.receiverId === user.uid && !m.okundu,
+                  ).length > 0 && (
+                    <span
+                      style={{
+                        backgroundColor: "var(--primary)",
+                        color: "white",
+                        borderRadius: "50%",
+                        width: "18px",
+                        height: "18px",
+                        fontSize: "10px",
+                        fontWeight: "800",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {
+                        directMessages.filter(
+                          (m) => m.receiverId === user.uid && !m.okundu,
+                        ).length
+                      }
                     </span>
                   )}
                 </div>
@@ -1127,10 +1466,15 @@ const Moderation = () => {
                   {/* Pending Events Table */}
                   <div className="mod-table-container" style={{ margin: 0 }}>
                     <div className="mod-table-title">
-                      <h4>Onay Bekleyen Etkinlikler ({pendingEvents.length})</h4>
+                      <h4>
+                        Onay Bekleyen Etkinlikler ({pendingEvents.length})
+                      </h4>
                     </div>
                     {pendingEvents.length === 0 ? (
-                      <div className="empty-state" style={{ padding: "24px", border: "none" }}>
+                      <div
+                        className="empty-state"
+                        style={{ padding: "24px", border: "none" }}
+                      >
                         Onay bekleyen etkinlik bulunmamaktadır.
                       </div>
                     ) : (
@@ -1149,52 +1493,81 @@ const Moderation = () => {
                           <tbody>
                             {pendingEvents.map((event) => (
                               <tr key={event.id}>
-                                <td style={{ fontWeight: "600" }}>{event.ad}</td>
+                                <td style={{ fontWeight: "600" }}>
+                                  {event.ad}
+                                </td>
                                 <td>{event.tema.split("-")[0]}</td>
-                                <td>{event.ilce ? `${event.il} - ${event.ilce}` : event.il}</td>
+                                <td>
+                                  {event.ilce
+                                    ? `${event.il} - ${event.ilce}`
+                                    : event.il}
+                                </td>
                                 <td>{event.tarih}</td>
                                 <td>
-                                  <span style={{ fontSize: "11px", fontWeight: "700" }}>
-                                    {event.kapsam.toUpperCase()} / {event.durum.toUpperCase()}
+                                  <span
+                                    style={{
+                                      fontSize: "11px",
+                                      fontWeight: "700",
+                                    }}
+                                  >
+                                    {event.kapsam.toUpperCase()} /{" "}
+                                    {event.durum.toUpperCase()}
                                   </span>
                                 </td>
                                 <td className="mod-actions">
-                                 {userRole !== "commission" ? (
-                                   <>
-                                     <button
-                                       className="mod-btn approve"
-                                       onClick={() => approveItem("events", event.id)}
-                                       title="Onayla"
-                                     >
-                                       <Check size={14} />
-                                     </button>
-                                     <button
-                                       className="mod-btn approve"
-                                       style={{ backgroundColor: "#f1f2f6", color: "var(--secondary)" }}
-                                       onClick={() => {
-                                         setEditingEvent(event);
-                                         setModalType("event-register");
-                                       }}
-                                       title="Düzenle"
-                                     >
-                                       <Edit2 size={12} />
-                                     </button>
-                                     <button
-                                       className="mod-btn reject"
-                                       onClick={() => {
-                                         if (window.confirm(`"${event.ad}" etkinliğini reddedip silmek istediğinize emin misiniz?`)) {
-                                           rejectItem("events", event.id);
-                                         }
-                                       }}
-                                       title="Reddet/Sil"
-                                     >
-                                       <Trash2 size={14} />
-                                     </button>
-                                   </>
-                                 ) : (
-                                   <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: "600" }}>Salt Okunur</span>
-                                 )}
-                               </td>
+                                  {userRole !== "commission" ? (
+                                    <>
+                                      <button
+                                        className="mod-btn approve"
+                                        onClick={() =>
+                                          approveItem("events", event.id)
+                                        }
+                                        title="Onayla"
+                                      >
+                                        <Check size={14} />
+                                      </button>
+                                      <button
+                                        className="mod-btn approve"
+                                        style={{
+                                          backgroundColor: "#f1f2f6",
+                                          color: "var(--secondary)",
+                                        }}
+                                        onClick={() => {
+                                          setEditingEvent(event);
+                                          setModalType("event-register");
+                                        }}
+                                        title="Düzenle"
+                                      >
+                                        <Edit2 size={12} />
+                                      </button>
+                                      <button
+                                        className="mod-btn reject"
+                                        onClick={() => {
+                                          if (
+                                            window.confirm(
+                                              `"${event.ad}" etkinliğini reddedip silmek istediğinize emin misiniz?`,
+                                            )
+                                          ) {
+                                            rejectItem("events", event.id);
+                                          }
+                                        }}
+                                        title="Reddet/Sil"
+                                      >
+                                        <Trash2 size={14} />
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <span
+                                      style={{
+                                        fontSize: "11px",
+                                        color: "var(--text-muted)",
+                                        fontWeight: "600",
+                                      }}
+                                    >
+                                      Salt Okunur
+                                    </span>
+                                  )}
+                                </td>
                               </tr>
                             ))}
                           </tbody>
@@ -1209,7 +1582,10 @@ const Moderation = () => {
                       <h4>Onay Bekleyen Projeler ({pendingProjects.length})</h4>
                     </div>
                     {pendingProjects.length === 0 ? (
-                      <div className="empty-state" style={{ padding: "24px", border: "none" }}>
+                      <div
+                        className="empty-state"
+                        style={{ padding: "24px", border: "none" }}
+                      >
                         Onay bekleyen proje bulunmamaktadır.
                       </div>
                     ) : (
@@ -1228,7 +1604,9 @@ const Moderation = () => {
                           <tbody>
                             {pendingProjects.map((project) => (
                               <tr key={project.id}>
-                                <td style={{ fontWeight: "600" }}>{project.ad}</td>
+                                <td style={{ fontWeight: "600" }}>
+                                  {project.ad}
+                                </td>
                                 <td>{project.tema.split("-")[0]}</td>
                                 <td>{project.takimAdi}</td>
                                 <td>{project.katilimciIller?.join(", ")}</td>
@@ -1245,31 +1623,45 @@ const Moderation = () => {
                                   </span>
                                 </td>
                                 <td className="mod-actions">
-                                 {userRole !== "commission" ? (
-                                   <>
-                                     <button
-                                       className="mod-btn approve"
-                                       onClick={() => approveItem("projects", project.id)}
-                                       title="Onayla"
-                                     >
-                                       <Check size={14} />
-                                     </button>
-                                     <button
-                                       className="mod-btn reject"
-                                       onClick={() => {
-                                         if (window.confirm(`"${project.ad}" projesini reddedip silmek istediğinize emin misiniz?`)) {
-                                           rejectItem("projects", project.id);
-                                         }
-                                       }}
-                                       title="Reddet/Sil"
-                                     >
-                                       <Trash2 size={14} />
-                                     </button>
-                                   </>
-                                 ) : (
-                                   <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: "600" }}>Salt Okunur</span>
-                                 )}
-                               </td>
+                                  {userRole !== "commission" ? (
+                                    <>
+                                      <button
+                                        className="mod-btn approve"
+                                        onClick={() =>
+                                          approveItem("projects", project.id)
+                                        }
+                                        title="Onayla"
+                                      >
+                                        <Check size={14} />
+                                      </button>
+                                      <button
+                                        className="mod-btn reject"
+                                        onClick={() => {
+                                          if (
+                                            window.confirm(
+                                              `"${project.ad}" projesini reddedip silmek istediğinize emin misiniz?`,
+                                            )
+                                          ) {
+                                            rejectItem("projects", project.id);
+                                          }
+                                        }}
+                                        title="Reddet/Sil"
+                                      >
+                                        <Trash2 size={14} />
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <span
+                                      style={{
+                                        fontSize: "11px",
+                                        color: "var(--text-muted)",
+                                        fontWeight: "600",
+                                      }}
+                                    >
+                                      Salt Okunur
+                                    </span>
+                                  )}
+                                </td>
                               </tr>
                             ))}
                           </tbody>
@@ -1279,13 +1671,26 @@ const Moderation = () => {
                   </div>
 
                   {/* Pending Staff (Principals & Teachers) Table */}
-                  <div className="mod-table-container" style={{ margin: "24px 0 0 0" }}>
-                    <div className="mod-table-title" style={{ marginBottom: "12px" }}>
-                      <h4>Onay Bekleyen Müdürler & Öğretmenler ({pendingStaff.length})</h4>
+                  <div
+                    className="mod-table-container"
+                    style={{ margin: "24px 0 0 0" }}
+                  >
+                    <div
+                      className="mod-table-title"
+                      style={{ marginBottom: "12px" }}
+                    >
+                      <h4>
+                        Onay Bekleyen Müdürler & Öğretmenler (
+                        {pendingStaff.length})
+                      </h4>
                     </div>
                     {pendingStaff.length === 0 ? (
-                      <div className="empty-state" style={{ padding: "24px", border: "none" }}>
-                        Onay bekleyen okul müdürü veya danışman öğretmen bulunmamaktadır.
+                      <div
+                        className="empty-state"
+                        style={{ padding: "24px", border: "none" }}
+                      >
+                        Onay bekleyen okul müdürü veya danışman öğretmen
+                        bulunmamaktadır.
                       </div>
                     ) : (
                       <div style={{ overflowX: "auto" }}>
@@ -1303,34 +1708,62 @@ const Moderation = () => {
                           <tbody>
                             {pendingStaff.map((staff) => (
                               <tr key={staff.uid || staff.id}>
-                                <td style={{ fontWeight: "600" }}>{staff.adSoyad}</td>
-                                <td>{staff.role === "principal" ? "Okul Müdürü" : "Danışman Öğretmen"}</td>
-                                <td>{staff.ilce ? `${staff.il} - ${staff.ilce}` : staff.il}</td>
+                                <td style={{ fontWeight: "600" }}>
+                                  {staff.adSoyad}
+                                </td>
+                                <td>
+                                  {staff.role === "principal"
+                                    ? "Okul Müdürü"
+                                    : "Danışman Öğretmen"}
+                                </td>
+                                <td>
+                                  {staff.ilce
+                                    ? `${staff.il} - ${staff.ilce}`
+                                    : staff.il}
+                                </td>
                                 <td>{staff.schoolId || staff.okul || "-"}</td>
                                 <td>
                                   {staff.eposta} <br />
-                                  <small style={{ color: "var(--text-muted)" }}>{staff.telefon || "-"}</small>
+                                  <small style={{ color: "var(--text-muted)" }}>
+                                    {staff.telefon || "-"}
+                                  </small>
                                 </td>
                                 <td className="mod-actions">
                                   {userRole !== "commission" ? (
                                     <>
                                       <button
                                         className="mod-btn approve"
-                                        onClick={() => handleApproveUser(staff.uid || staff.id)}
+                                        onClick={() =>
+                                          handleApproveUser(
+                                            staff.uid || staff.id,
+                                          )
+                                        }
                                         title="Onayla"
                                       >
                                         <Check size={14} />
                                       </button>
                                       <button
                                         className="mod-btn reject"
-                                        onClick={() => handleRejectUser(staff.uid || staff.id)}
+                                        onClick={() =>
+                                          handleRejectUser(
+                                            staff.uid || staff.id,
+                                          )
+                                        }
                                         title="Reddet/Sil"
                                       >
                                         <Trash2 size={14} />
                                       </button>
                                     </>
                                   ) : (
-                                    <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: "600" }}>Salt Okunur</span>
+                                    <span
+                                      style={{
+                                        fontSize: "11px",
+                                        color: "var(--text-muted)",
+                                        fontWeight: "600",
+                                      }}
+                                    >
+                                      Salt Okunur
+                                    </span>
                                   )}
                                 </td>
                               </tr>
@@ -1342,12 +1775,23 @@ const Moderation = () => {
                   </div>
 
                   {/* Pending Students Table */}
-                  <div className="mod-table-container" style={{ margin: "24px 0 0 0" }}>
-                    <div className="mod-table-title" style={{ marginBottom: "12px" }}>
-                      <h4>Onay Bekleyen Öğrenciler ({pendingStudents.length})</h4>
+                  <div
+                    className="mod-table-container"
+                    style={{ margin: "24px 0 0 0" }}
+                  >
+                    <div
+                      className="mod-table-title"
+                      style={{ marginBottom: "12px" }}
+                    >
+                      <h4>
+                        Onay Bekleyen Öğrenciler ({pendingStudents.length})
+                      </h4>
                     </div>
                     {pendingStudents.length === 0 ? (
-                      <div className="empty-state" style={{ padding: "24px", border: "none" }}>
+                      <div
+                        className="empty-state"
+                        style={{ padding: "24px", border: "none" }}
+                      >
                         Onay bekleyen öğrenci bulunmamaktadır.
                       </div>
                     ) : (
@@ -1366,31 +1810,61 @@ const Moderation = () => {
                           <tbody>
                             {pendingStudents.map((student) => (
                               <tr key={student.uid || student.id}>
-                                <td style={{ fontWeight: "600" }}>{student.adSoyad}</td>
-                                <td>{student.ilce ? `${student.il} - ${student.ilce}` : student.il}</td>
-                                <td>{student.schoolId || student.okul || "-"}</td>
+                                <td style={{ fontWeight: "600" }}>
+                                  {student.adSoyad}
+                                </td>
+                                <td>
+                                  {student.ilce
+                                    ? `${student.il} - ${student.ilce}`
+                                    : student.il}
+                                </td>
+                                <td>
+                                  {student.schoolId || student.okul || "-"}
+                                </td>
                                 <td>{student.eposta}</td>
-                                <td>{student.olusturmaTarihi ? new Date(student.olusturmaTarihi).toLocaleDateString("tr-TR") : "-"}</td>
+                                <td>
+                                  {student.olusturmaTarihi
+                                    ? new Date(
+                                        student.olusturmaTarihi,
+                                      ).toLocaleDateString("tr-TR")
+                                    : "-"}
+                                </td>
                                 <td className="mod-actions">
                                   {userRole !== "commission" ? (
                                     <>
                                       <button
                                         className="mod-btn approve"
-                                        onClick={() => handleApproveUser(student.uid || student.id)}
+                                        onClick={() =>
+                                          handleApproveUser(
+                                            student.uid || student.id,
+                                          )
+                                        }
                                         title="Onayla"
                                       >
                                         <Check size={14} />
                                       </button>
                                       <button
                                         className="mod-btn reject"
-                                        onClick={() => handleRejectUser(student.uid || student.id)}
+                                        onClick={() =>
+                                          handleRejectUser(
+                                            student.uid || student.id,
+                                          )
+                                        }
                                         title="Reddet/Sil"
                                       >
                                         <Trash2 size={14} />
                                       </button>
                                     </>
                                   ) : (
-                                    <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: "600" }}>Salt Okunur</span>
+                                    <span
+                                      style={{
+                                        fontSize: "11px",
+                                        color: "var(--text-muted)",
+                                        fontWeight: "600",
+                                      }}
+                                    >
+                                      Salt Okunur
+                                    </span>
                                   )}
                                 </td>
                               </tr>
@@ -1406,20 +1880,39 @@ const Moderation = () => {
               {/* TAB CONTENT 2: event applications */}
               {activeTab === "applications" && (
                 <div className="mod-table-container" style={{ margin: 0 }}>
-                  <div className="mod-table-title" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <div
+                    className="mod-table-title"
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
                     <h4>Öğrenci Başvuru Listesi ({applications.length})</h4>
                     <div style={{ display: "flex", gap: "8px" }}>
                       <button
                         className="card-btn secondary"
                         onClick={exportToCSV}
-                        style={{ padding: "6px 12px", display: "flex", alignItems: "center", gap: "6px", fontSize: "13px" }}
+                        style={{
+                          padding: "6px 12px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          fontSize: "13px",
+                        }}
                       >
                         <FileSpreadsheet size={14} /> Excel (CSV)
                       </button>
                       <button
                         className="card-btn secondary"
                         onClick={printPDF}
-                        style={{ padding: "6px 12px", display: "flex", alignItems: "center", gap: "6px", fontSize: "13px" }}
+                        style={{
+                          padding: "6px 12px",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                          fontSize: "13px",
+                        }}
                       >
                         <Printer size={14} /> Yazdır / PDF
                       </button>
@@ -1427,7 +1920,10 @@ const Moderation = () => {
                   </div>
 
                   {applications.length === 0 ? (
-                    <div className="empty-state" style={{ padding: "24px", border: "none" }}>
+                    <div
+                      className="empty-state"
+                      style={{ padding: "24px", border: "none" }}
+                    >
                       Kayıtlı etkinlik katılım başvurusu bulunmamaktadır.
                     </div>
                   ) : (
@@ -1445,30 +1941,61 @@ const Moderation = () => {
                         </thead>
                         <tbody>
                           {applications.map((app) => {
-                            const eventObj = allEventsRaw.find((e) => e.id === app.etkinlikId) || { ad: "Bilinmeyen Etkinlik" };
+                            const eventObj = allEventsRaw.find(
+                              (e) => e.id === app.etkinlikId,
+                            ) || { ad: "Bilinmeyen Etkinlik" };
                             return (
                               <tr key={app.id}>
-                                <td style={{ fontWeight: "600" }}>{eventObj.ad}</td>
+                                <td style={{ fontWeight: "600" }}>
+                                  {eventObj.ad}
+                                </td>
                                 <td>
                                   <div>
-                                    <strong>{app.ogretmenBilgi?.adSoyad || "Ziyaretçi"}</strong>
-                                    <div className="form-hint" style={{ fontSize: "11px" }}>
-                                      {app.ogretmenBilgi?.eposta}<br />{app.ogretmenBilgi?.telefon}
+                                    <strong>
+                                      {app.ogretmenBilgi?.adSoyad ||
+                                        "Ziyaretçi"}
+                                    </strong>
+                                    <div
+                                      className="form-hint"
+                                      style={{ fontSize: "11px" }}
+                                    >
+                                      {app.ogretmenBilgi?.eposta}
+                                      <br />
+                                      {app.ogretmenBilgi?.telefon}
                                     </div>
                                   </div>
                                 </td>
                                 <td>
                                   <div>
                                     {app.ogretmenBilgi?.okul}
-                                    <div className="form-hint" style={{ fontSize: "11px" }}>
-                                      {app.ogretmenBilgi?.ilce} / {app.ogretmenBilgi?.il}
+                                    <div
+                                      className="form-hint"
+                                      style={{ fontSize: "11px" }}
+                                    >
+                                      {app.ogretmenBilgi?.ilce} /{" "}
+                                      {app.ogretmenBilgi?.il}
                                     </div>
                                   </div>
                                 </td>
                                 <td>
-                                  <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                                    <strong>{app.ogrenciler?.length || 0} Öğrenci</strong>
-                                    <ol style={{ paddingLeft: "14px", margin: 0, fontSize: "11px" }} className="form-hint">
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      gap: "4px",
+                                    }}
+                                  >
+                                    <strong>
+                                      {app.ogrenciler?.length || 0} Öğrenci
+                                    </strong>
+                                    <ol
+                                      style={{
+                                        paddingLeft: "14px",
+                                        margin: 0,
+                                        fontSize: "11px",
+                                      }}
+                                      className="form-hint"
+                                    >
                                       {app.ogrenciler?.map((s, idx) => (
                                         <li key={idx}>
                                           {s.adSoyad} ({s.sinifSeviyesi})
@@ -1479,43 +2006,70 @@ const Moderation = () => {
                                 </td>
                                 <td>
                                   {app.onaylandi ? (
-                                    <span className="card-badge" style={{ backgroundColor: "rgba(46,204,113,0.15)", color: "var(--success)" }}>
+                                    <span
+                                      className="card-badge"
+                                      style={{
+                                        backgroundColor:
+                                          "rgba(46,204,113,0.15)",
+                                        color: "var(--success)",
+                                      }}
+                                    >
                                       Onaylandı
                                     </span>
                                   ) : (
-                                    <span className="card-badge" style={{ backgroundColor: "#f1f2f6", color: "var(--text-muted)" }}>
+                                    <span
+                                      className="card-badge"
+                                      style={{
+                                        backgroundColor: "#f1f2f6",
+                                        color: "var(--text-muted)",
+                                      }}
+                                    >
                                       Beklemede
                                     </span>
                                   )}
                                 </td>
                                 <td className="mod-actions">
-                                 {userRole !== "commission" ? (
-                                   <>
-                                     {!app.onaylandi && (
-                                       <button
-                                         className="mod-btn approve"
-                                         onClick={() => approveApplication(app.id)}
-                                         title="Başvuruyu Onayla"
-                                       >
-                                         <Check size={14} />
-                                       </button>
-                                     )}
-                                     <button
-                                       className="mod-btn reject"
-                                       onClick={() => {
-                                         if (window.confirm("Bu başvuruyu kalıcı olarak silmek istediğinize emin misiniz?")) {
-                                           rejectApplication(app.id);
-                                         }
-                                       }}
-                                       title="Başvuruyu Sil"
-                                     >
-                                       <Trash2 size={14} />
-                                     </button>
-                                   </>
-                                 ) : (
-                                   <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: "600" }}>Salt Okunur</span>
-                                 )}
-                               </td>
+                                  {userRole !== "commission" ? (
+                                    <>
+                                      {!app.onaylandi && (
+                                        <button
+                                          className="mod-btn approve"
+                                          onClick={() =>
+                                            approveApplication(app.id)
+                                          }
+                                          title="Başvuruyu Onayla"
+                                        >
+                                          <Check size={14} />
+                                        </button>
+                                      )}
+                                      <button
+                                        className="mod-btn reject"
+                                        onClick={() => {
+                                          if (
+                                            window.confirm(
+                                              "Bu başvuruyu kalıcı olarak silmek istediğinize emin misiniz?",
+                                            )
+                                          ) {
+                                            rejectApplication(app.id);
+                                          }
+                                        }}
+                                        title="Başvuruyu Sil"
+                                      >
+                                        <Trash2 size={14} />
+                                      </button>
+                                    </>
+                                  ) : (
+                                    <span
+                                      style={{
+                                        fontSize: "11px",
+                                        color: "var(--text-muted)",
+                                        fontWeight: "600",
+                                      }}
+                                    >
+                                      Salt Okunur
+                                    </span>
+                                  )}
+                                </td>
                               </tr>
                             );
                           })}
@@ -1532,18 +2086,29 @@ const Moderation = () => {
                   <div className="mod-table-title">
                     <h4>Etkinlik Yönetimi (Onaylı Kayıtlar)</h4>
                   </div>
-                  
+
                   {/* Filters Bar */}
-                  <div style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "16px",
-                    backgroundColor: "#f8f9fa",
-                    padding: "16px",
-                    borderBottom: "1px solid var(--border-color)"
-                  }}>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: "16px",
+                      backgroundColor: "#f8f9fa",
+                      padding: "16px",
+                      borderBottom: "1px solid var(--border-color)",
+                    }}
+                  >
                     <div>
-                      <label className="form-label" style={{ fontWeight: "600", fontSize: "13px", marginBottom: "6px" }}>İl Filtresi</label>
+                      <label
+                        className="form-label"
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "13px",
+                          marginBottom: "6px",
+                        }}
+                      >
+                        İl Filtresi
+                      </label>
                       <select
                         className="form-input"
                         value={eventIlFilter}
@@ -1551,13 +2116,24 @@ const Moderation = () => {
                         style={{ margin: 0 }}
                       >
                         <option value="">Tüm İller</option>
-                        {cities.map(c => (
-                          <option key={c.plaka} value={c.ad}>{c.ad}</option>
+                        {cities.map((c) => (
+                          <option key={c.plaka} value={c.ad}>
+                            {c.ad}
+                          </option>
                         ))}
                       </select>
                     </div>
                     <div>
-                      <label className="form-label" style={{ fontWeight: "600", fontSize: "13px", marginBottom: "6px" }}>İlçe Filtresi</label>
+                      <label
+                        className="form-label"
+                        style={{
+                          fontWeight: "600",
+                          fontSize: "13px",
+                          marginBottom: "6px",
+                        }}
+                      >
+                        İlçe Filtresi
+                      </label>
                       <select
                         className="form-input"
                         value={eventIlceFilter}
@@ -1566,8 +2142,10 @@ const Moderation = () => {
                         style={{ margin: 0 }}
                       >
                         <option value="">Tüm İlçeler</option>
-                        {eventDistricts.map(d => (
-                          <option key={d} value={d}>{d}</option>
+                        {eventDistricts.map((d) => (
+                          <option key={d} value={d}>
+                            {d}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1593,10 +2171,24 @@ const Moderation = () => {
                         <tbody>
                           {approvedEvents.map((e) => (
                             <tr key={e.id}>
-                              <td style={{ fontWeight: "600", fontSize: "13px" }}>{e.ad}</td>
+                              <td
+                                style={{ fontWeight: "600", fontSize: "13px" }}
+                              >
+                                {e.ad}
+                              </td>
                               <td>
-                                <span className="card-badge" style={{ backgroundColor: "#f1f2f6", color: "var(--secondary)" }}>
-                                  {e.kapsam === "turkiye" ? "Türkiye" : e.kapsam === "okul" ? "Okul" : "İl"}
+                                <span
+                                  className="card-badge"
+                                  style={{
+                                    backgroundColor: "#f1f2f6",
+                                    color: "var(--secondary)",
+                                  }}
+                                >
+                                  {e.kapsam === "turkiye"
+                                    ? "Türkiye"
+                                    : e.kapsam === "okul"
+                                      ? "Okul"
+                                      : "İl"}
                                 </span>
                               </td>
                               <td>{e.ilce ? `${e.il} / ${e.ilce}` : e.il}</td>
@@ -1605,8 +2197,12 @@ const Moderation = () => {
                                 <button
                                   className="mod-btn star"
                                   style={{
-                                    backgroundColor: e.oneCikar ? "var(--warning)" : "#e4e6eb",
-                                    color: e.oneCikar ? "#fff" : "var(--text-muted)",
+                                    backgroundColor: e.oneCikar
+                                      ? "var(--warning)"
+                                      : "#e4e6eb",
+                                    color: e.oneCikar
+                                      ? "#fff"
+                                      : "var(--text-muted)",
                                     padding: "4px 8px",
                                     fontSize: "11px",
                                     border: "none",
@@ -1615,19 +2211,36 @@ const Moderation = () => {
                                     display: "inline-flex",
                                     alignItems: "center",
                                     gap: "4px",
-                                    margin: "0 auto"
+                                    margin: "0 auto",
                                   }}
-                                  onClick={() => starItem("events", e.id, !e.oneCikar)}
+                                  onClick={() =>
+                                    starItem("events", e.id, !e.oneCikar)
+                                  }
                                 >
-                                  <Star size={12} fill={e.oneCikar ? "#fff" : "none"} />
+                                  <Star
+                                    size={12}
+                                    fill={e.oneCikar ? "#fff" : "none"}
+                                  />
                                   {e.oneCikar ? "Öne Çıkarıldı" : "Öne Çıkar"}
                                 </button>
                               </td>
                               <td style={{ textAlign: "right" }}>
-                                <div style={{ display: "inline-flex", gap: "8px", justifyContent: "flex-end" }}>
+                                <div
+                                  style={{
+                                    display: "inline-flex",
+                                    gap: "8px",
+                                    justifyContent: "flex-end",
+                                  }}
+                                >
                                   <button
                                     className="btn-icon"
-                                    style={{ border: "none", background: "none", color: "var(--text-muted)", cursor: "pointer", padding: "4px" }}
+                                    style={{
+                                      border: "none",
+                                      background: "none",
+                                      color: "var(--text-muted)",
+                                      cursor: "pointer",
+                                      padding: "4px",
+                                    }}
                                     onClick={() => {
                                       setEditingEvent(e);
                                       setModalType("event-register");
@@ -1638,9 +2251,19 @@ const Moderation = () => {
                                   </button>
                                   <button
                                     className="btn-icon"
-                                    style={{ border: "none", background: "none", color: "var(--danger)", cursor: "pointer", padding: "4px" }}
+                                    style={{
+                                      border: "none",
+                                      background: "none",
+                                      color: "var(--danger)",
+                                      cursor: "pointer",
+                                      padding: "4px",
+                                    }}
                                     onClick={() => {
-                                      if (window.confirm(`"${e.ad}" onaylı etkinliğini tamamen silmek istediğinize emin misiniz?`)) {
+                                      if (
+                                        window.confirm(
+                                          `"${e.ad}" onaylı etkinliğini tamamen silmek istediğinize emin misiniz?`,
+                                        )
+                                      ) {
                                         deleteEvent(e.id);
                                       }
                                     }}
@@ -1661,22 +2284,46 @@ const Moderation = () => {
 
               {/* TAB CONTENT 4: schools */}
               {activeTab === "schools" && (
-                <div className="mod-table-container" style={{ margin: 0, padding: "20px" }}>
-                  <div className="mod-table-title" style={{ marginBottom: "20px" }}>
+                <div
+                  className="mod-table-container"
+                  style={{ margin: 0, padding: "20px" }}
+                >
+                  <div
+                    className="mod-table-title"
+                    style={{ marginBottom: "20px" }}
+                  >
                     <h4>Dinamik Okul Yönetimi</h4>
                     <p className="form-hint" style={{ marginTop: "4px" }}>
-                      Sisteme yeni okul ekleyebilir veya mevcut statik/dinamik okulları güncelleyebilirsiniz.
+                      Sisteme yeni okul ekleyebilir veya mevcut statik/dinamik
+                      okulları güncelleyebilirsiniz.
                     </p>
                   </div>
 
                   {/* Konum Seçimi */}
-                  <div style={{ display: "flex", gap: "16px", marginBottom: "20px", backgroundColor: "#f8f9fa", padding: "16px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "16px",
+                      marginBottom: "20px",
+                      backgroundColor: "#f8f9fa",
+                      padding: "16px",
+                      borderRadius: "8px",
+                      border: "1px solid var(--border-color)",
+                    }}
+                  >
                     <div style={{ flex: 1 }}>
-                      <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>İl Seçiniz</label>
+                      <label
+                        className="form-label"
+                        style={{ fontWeight: "600", fontSize: "13px" }}
+                      >
+                        İl Seçiniz
+                      </label>
                       <select
                         className="form-input"
                         value={modSelectedCity}
-                        onChange={(e) => handleCityChangeForSchools(e.target.value)}
+                        onChange={(e) =>
+                          handleCityChangeForSchools(e.target.value)
+                        }
                         style={{ margin: 0 }}
                       >
                         <option value="">İl Seçin...</option>
@@ -1688,7 +2335,12 @@ const Moderation = () => {
                       </select>
                     </div>
                     <div style={{ flex: 1 }}>
-                      <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>İlçe Seçiniz</label>
+                      <label
+                        className="form-label"
+                        style={{ fontWeight: "600", fontSize: "13px" }}
+                      >
+                        İlçe Seçiniz
+                      </label>
                       <select
                         className="form-input"
                         value={modSelectedDistrict}
@@ -1698,95 +2350,209 @@ const Moderation = () => {
                       >
                         <option value="">İlçe Seçin...</option>
                         {modSelectedCity &&
-                          Object.keys(schoolsData || {}).sort().map((dist) => (
-                            <option key={dist} value={dist}>
-                              {dist}
-                            </option>
-                          ))}
+                          Object.keys(schoolsData || {})
+                            .sort()
+                            .map((dist) => (
+                              <option key={dist} value={dist}>
+                                {dist}
+                              </option>
+                            ))}
                       </select>
                     </div>
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "24px" }}>
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr",
+                      gap: "24px",
+                    }}
+                  >
                     {/* Sol taraf: Okul Formu */}
-                    <div style={{ backgroundColor: "#f8f9fa", padding: "20px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
+                    <div
+                      style={{
+                        backgroundColor: "#f8f9fa",
+                        padding: "20px",
+                        borderRadius: "8px",
+                        border: "1px solid var(--border-color)",
+                      }}
+                    >
                       <h5 style={{ marginBottom: "16px", fontWeight: "600" }}>
                         {editingSchoolId ? "Okulu Düzenle" : "Yeni Okul Ekle"}
                       </h5>
                       {!modSelectedCity || !modSelectedDistrict ? (
-                        <div className="form-hint" style={{ textAlign: "center", padding: "20px" }}>
-                          Okul işlemleri için lütfen yukarıdan İl ve İlçe seçiniz.
+                        <div
+                          className="form-hint"
+                          style={{ textAlign: "center", padding: "20px" }}
+                        >
+                          Okul işlemleri için lütfen yukarıdan İl ve İlçe
+                          seçiniz.
                         </div>
                       ) : (
-                        <form onSubmit={handleSchoolSubmit} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                          <div style={{ padding: "8px", backgroundColor: "#fff", borderRadius: "6px", border: "1px solid var(--border-color)", fontSize: "12px", color: "var(--text-muted)", marginBottom: "4px" }}>
-                            Konum: <strong>{modSelectedCity} / {modSelectedDistrict}</strong>
+                        <form
+                          onSubmit={handleSchoolSubmit}
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "12px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              padding: "8px",
+                              backgroundColor: "#fff",
+                              borderRadius: "6px",
+                              border: "1px solid var(--border-color)",
+                              fontSize: "12px",
+                              color: "var(--text-muted)",
+                              marginBottom: "4px",
+                            }}
+                          >
+                            Konum:{" "}
+                            <strong>
+                              {modSelectedCity} / {modSelectedDistrict}
+                            </strong>
                           </div>
                           <div>
-                            <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Okul Adı</label>
+                            <label
+                              className="form-label"
+                              style={{ fontWeight: "600", fontSize: "13px" }}
+                            >
+                              Okul Adı
+                            </label>
                             <input
                               type="text"
                               className="form-input"
                               placeholder="Okul adını giriniz..."
                               value={schoolForm.ad}
-                              onChange={(e) => setSchoolForm({ ...schoolForm, ad: e.target.value })}
+                              onChange={(e) =>
+                                setSchoolForm({
+                                  ...schoolForm,
+                                  ad: e.target.value,
+                                })
+                              }
                               required
                             />
                           </div>
 
                           <div>
-                            <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Web Sitesi (Opsiyonel)</label>
-                          <input
-                            type="url"
-                            className="form-input"
-                            placeholder="https://okul.meb.k12.tr..."
-                            value={schoolForm.website}
-                            onChange={(e) => setSchoolForm({ ...schoolForm, website: e.target.value })}
-                          />
-                        </div>
+                            <label
+                              className="form-label"
+                              style={{ fontWeight: "600", fontSize: "13px" }}
+                            >
+                              Web Sitesi (Opsiyonel)
+                            </label>
+                            <input
+                              type="url"
+                              className="form-input"
+                              placeholder="https://okul.meb.k12.tr..."
+                              value={schoolForm.website}
+                              onChange={(e) =>
+                                setSchoolForm({
+                                  ...schoolForm,
+                                  website: e.target.value,
+                                })
+                              }
+                            />
+                          </div>
 
-                        {schoolError && <div style={{ color: "var(--danger)", fontSize: "13px" }}>{schoolError}</div>}
-                        {schoolSuccess && <div style={{ color: "var(--success)", fontSize: "13px" }}>{schoolSuccess}</div>}
-
-                        <div style={{ display: "flex", gap: "10px", marginTop: "8px" }}>
-                          <button type="submit" className="card-btn primary" style={{ flex: 1, height: "40px" }}>
-                            {editingSchoolId ? "Güncelle" : "Ekle"}
-                          </button>
-                          {editingSchoolId && (
-                            <button
-                              type="button"
-                              className="card-btn secondary"
-                              style={{ flex: 1, height: "40px" }}
-                              onClick={() => {
-                                setEditingSchoolId(null);
-                                setSchoolForm({ ad: "", website: "" });
+                          {schoolError && (
+                            <div
+                              style={{
+                                color: "var(--danger)",
+                                fontSize: "13px",
                               }}
                             >
-                              Vazgeç
-                            </button>
+                              {schoolError}
+                            </div>
                           )}
-                        </div>
-                      </form>
-                    )}
-                  </div>
+                          {schoolSuccess && (
+                            <div
+                              style={{
+                                color: "var(--success)",
+                                fontSize: "13px",
+                              }}
+                            >
+                              {schoolSuccess}
+                            </div>
+                          )}
+
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "10px",
+                              marginTop: "8px",
+                            }}
+                          >
+                            <button
+                              type="submit"
+                              className="card-btn primary"
+                              style={{ flex: 1, height: "40px" }}
+                            >
+                              {editingSchoolId ? "Güncelle" : "Ekle"}
+                            </button>
+                            {editingSchoolId && (
+                              <button
+                                type="button"
+                                className="card-btn secondary"
+                                style={{ flex: 1, height: "40px" }}
+                                onClick={() => {
+                                  setEditingSchoolId(null);
+                                  setSchoolForm({ ad: "", website: "" });
+                                }}
+                              >
+                                Vazgeç
+                              </button>
+                            )}
+                          </div>
+                        </form>
+                      )}
+                    </div>
 
                     {/* Sağ taraf: Okul Listesi */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "12px",
+                      }}
+                    >
                       <h5 style={{ fontWeight: "600" }}>Okul Listesi</h5>
                       {!modSelectedCity || !modSelectedDistrict ? (
-                        <div className="empty-state" style={{ padding: "40px", border: "1px dashed var(--border-color)" }}>
+                        <div
+                          className="empty-state"
+                          style={{
+                            padding: "40px",
+                            border: "1px dashed var(--border-color)",
+                          }}
+                        >
                           Okulları listelemek için lütfen İl ve İlçe seçin.
                         </div>
                       ) : schoolsLoading ? (
-                        <div className="empty-state" style={{ padding: "40px" }}>
+                        <div
+                          className="empty-state"
+                          style={{ padding: "40px" }}
+                        >
                           Okullar yükleniyor...
                         </div>
-                      ) : (schoolsData[modSelectedDistrict.toUpperCase()] || []).length === 0 ? (
-                        <div className="empty-state" style={{ padding: "40px" }}>
-                          Bu ilçeye ait kayıtlı okul bulunamadı. Yeni bir tane ekleyebilirsiniz.
+                      ) : (schoolsData[modSelectedDistrict.toUpperCase()] || [])
+                          .length === 0 ? (
+                        <div
+                          className="empty-state"
+                          style={{ padding: "40px" }}
+                        >
+                          Bu ilçeye ait kayıtlı okul bulunamadı. Yeni bir tane
+                          ekleyebilirsiniz.
                         </div>
                       ) : (
-                        <div style={{ overflowY: "auto", maxHeight: "400px", border: "1px solid var(--border-color)", borderRadius: "8px" }}>
+                        <div
+                          style={{
+                            overflowY: "auto",
+                            maxHeight: "400px",
+                            border: "1px solid var(--border-color)",
+                            borderRadius: "8px",
+                          }}
+                        >
                           <table className="mod-table" style={{ margin: 0 }}>
                             <thead>
                               <tr>
@@ -1797,14 +2563,35 @@ const Moderation = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              {(schoolsData[modSelectedDistrict.toUpperCase()] || []).map((school) => {
-                                const isStatic = school.id?.startsWith("static-");
+                              {(
+                                schoolsData[
+                                  modSelectedDistrict.toUpperCase()
+                                ] || []
+                              ).map((school) => {
+                                const isStatic =
+                                  school.id?.startsWith("static-");
                                 return (
                                   <tr key={school.id}>
-                                    <td style={{ fontWeight: "600", fontSize: "13px" }}>{school.ad}</td>
+                                    <td
+                                      style={{
+                                        fontWeight: "600",
+                                        fontSize: "13px",
+                                      }}
+                                    >
+                                      {school.ad}
+                                    </td>
                                     <td>
                                       {school.website ? (
-                                        <a href={school.website} target="_blank" rel="noopener noreferrer" className="form-hint" style={{ color: "var(--primary)", textDecoration: "underline" }}>
+                                        <a
+                                          href={school.website}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="form-hint"
+                                          style={{
+                                            color: "var(--primary)",
+                                            textDecoration: "underline",
+                                          }}
+                                        >
                                           Git
                                         </a>
                                       ) : (
@@ -1815,8 +2602,12 @@ const Moderation = () => {
                                       <span
                                         className="card-badge"
                                         style={{
-                                          backgroundColor: isStatic ? "#f1f2f6" : "rgba(46,204,113,0.15)",
-                                          color: isStatic ? "var(--text-muted)" : "var(--success)",
+                                          backgroundColor: isStatic
+                                            ? "#f1f2f6"
+                                            : "rgba(46,204,113,0.15)",
+                                          color: isStatic
+                                            ? "var(--text-muted)"
+                                            : "var(--success)",
                                           fontSize: "11px",
                                         }}
                                       >
@@ -1826,10 +2617,17 @@ const Moderation = () => {
                                     <td>
                                       <button
                                         className="mod-btn approve"
-                                        style={{ backgroundColor: "#f1f2f6", color: "var(--secondary)", padding: "4px 8px" }}
+                                        style={{
+                                          backgroundColor: "#f1f2f6",
+                                          color: "var(--secondary)",
+                                          padding: "4px 8px",
+                                        }}
                                         onClick={() => {
                                           setEditingSchoolId(school.id);
-                                          setSchoolForm({ ad: school.ad, website: school.website || "" });
+                                          setSchoolForm({
+                                            ad: school.ad,
+                                            website: school.website || "",
+                                          });
                                         }}
                                         title="Düzenle"
                                       >
@@ -1850,76 +2648,156 @@ const Moderation = () => {
 
               {/* TAB CONTENT 5: coordinators */}
               {activeTab === "coordinators" && (
-                <div className="mod-table-container" style={{ margin: 0, padding: "20px", display: "flex", flexDirection: "column", gap: "24px" }}>
-                  
+                <div
+                  className="mod-table-container"
+                  style={{
+                    margin: 0,
+                    padding: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "24px",
+                  }}
+                >
                   {/* Row 1: Add Coordinator Form & Coordinators List */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: "24px", borderBottom: "1px solid var(--border-color)", paddingBottom: "24px" }}>
-                    
+                  <div
+                    style={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1.5fr",
+                      gap: "24px",
+                      borderBottom: "1px solid var(--border-color)",
+                      paddingBottom: "24px",
+                    }}
+                  >
                     {/* Left: Form */}
-                    <div style={{ backgroundColor: "#f8f9fa", padding: "20px", borderRadius: "8px", border: "1px solid var(--border-color)" }}>
+                    <div
+                      style={{
+                        backgroundColor: "#f8f9fa",
+                        padding: "20px",
+                        borderRadius: "8px",
+                        border: "1px solid var(--border-color)",
+                      }}
+                    >
                       <h5 style={{ marginBottom: "16px", fontWeight: "600" }}>
-                        {addUserRole === "coordinator" ? "Yeni İl Koordinatörü Oluştur" : "Yeni Komisyon Üyesi Oluştur"}
+                        {addUserRole === "coordinator"
+                          ? "Yeni İl Koordinatörü Oluştur"
+                          : "Yeni Komisyon Üyesi Oluştur"}
                       </h5>
-                      <form onSubmit={async (e) => {
-                        await handleAddUserSubmit(e);
-                        fetchAllUsers();
-                      }} style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                        
+                      <form
+                        onSubmit={async (e) => {
+                          await handleAddUserSubmit(e);
+                          fetchAllUsers();
+                        }}
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "12px",
+                        }}
+                      >
                         {userRole === "admin" && (
                           <div>
-                            <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Kullanıcı Rolü *</label>
+                            <label
+                              className="form-label"
+                              style={{ fontWeight: "600", fontSize: "13px" }}
+                            >
+                              Kullanıcı Rolü *
+                            </label>
                             <select
                               className="form-input"
                               value={addUserRole}
                               onChange={(e) => setAddUserRole(e.target.value)}
                               required
                             >
-                              <option value="coordinator">İl Koordinatörü</option>
-                              <option value="commission">İl Komisyon Üyesi</option>
+                              <option value="coordinator">
+                                İl Koordinatörü
+                              </option>
+                              <option value="commission">
+                                İl Komisyon Üyesi
+                              </option>
                             </select>
                           </div>
                         )}
                         <div>
-                          <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Ad Soyad *</label>
+                          <label
+                            className="form-label"
+                            style={{ fontWeight: "600", fontSize: "13px" }}
+                          >
+                            Ad Soyad *
+                          </label>
                           <input
                             type="text"
                             className="form-input"
                             placeholder="Koordinatörün adını giriniz..."
                             value={coordForm.adSoyad}
-                            onChange={(e) => setCoordForm({ ...coordForm, adSoyad: e.target.value })}
+                            onChange={(e) =>
+                              setCoordForm({
+                                ...coordForm,
+                                adSoyad: e.target.value,
+                              })
+                            }
                             required
                           />
                         </div>
 
                         <div>
-                          <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>E-posta Adresi *</label>
+                          <label
+                            className="form-label"
+                            style={{ fontWeight: "600", fontSize: "13px" }}
+                          >
+                            E-posta Adresi *
+                          </label>
                           <input
                             type="email"
                             className="form-input"
                             placeholder="eposta@genctek.org..."
                             value={coordForm.eposta}
-                            onChange={(e) => setCoordForm({ ...coordForm, eposta: e.target.value })}
+                            onChange={(e) =>
+                              setCoordForm({
+                                ...coordForm,
+                                eposta: e.target.value,
+                              })
+                            }
                             required
                           />
                         </div>
 
                         <div>
-                          <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Telefon Numarası</label>
+                          <label
+                            className="form-label"
+                            style={{ fontWeight: "600", fontSize: "13px" }}
+                          >
+                            Telefon Numarası
+                          </label>
                           <input
                             type="text"
                             className="form-input"
                             placeholder="05xx xxx xx xx"
                             value={coordForm.telefon}
-                            onChange={(e) => setCoordForm({ ...coordForm, telefon: e.target.value })}
+                            onChange={(e) =>
+                              setCoordForm({
+                                ...coordForm,
+                                telefon: e.target.value,
+                              })
+                            }
                           />
                         </div>
 
                         <div>
-                          <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Sorumlu Olduğu İl *</label>
+                          <label
+                            className="form-label"
+                            style={{ fontWeight: "600", fontSize: "13px" }}
+                          >
+                            Sorumlu Olduğu İl *
+                          </label>
                           <select
                             className="form-input"
-                            value={userRole === "coordinator" ? userProfile?.il : coordForm.il}
-                            onChange={(e) => setCoordForm({ ...coordForm, il: e.target.value })}
+                            value={
+                              userRole === "coordinator"
+                                ? userProfile?.il
+                                : coordForm.il
+                            }
+                            onChange={(e) =>
+                              setCoordForm({ ...coordForm, il: e.target.value })
+                            }
                             required
                             disabled={userRole === "coordinator"}
                           >
@@ -1932,28 +2810,66 @@ const Moderation = () => {
                           </select>
                         </div>
 
-                        {coordError && <div style={{ color: "var(--danger)", fontSize: "13px" }}>{coordError}</div>}
+                        {coordError && (
+                          <div
+                            style={{ color: "var(--danger)", fontSize: "13px" }}
+                          >
+                            {coordError}
+                          </div>
+                        )}
                         {coordSuccess && (
-                          <div style={{ color: "var(--success)", fontSize: "13px", backgroundColor: "rgba(46,204,113,0.1)", padding: "10px", borderRadius: "4px" }}>
+                          <div
+                            style={{
+                              color: "var(--success)",
+                              fontSize: "13px",
+                              backgroundColor: "rgba(46,204,113,0.1)",
+                              padding: "10px",
+                              borderRadius: "4px",
+                            }}
+                          >
                             {coordSuccess}
                           </div>
                         )}
 
-                        <button type="submit" className="card-btn primary" style={{ height: "40px", marginTop: "8px" }}>
+                        <button
+                          type="submit"
+                          className="card-btn primary"
+                          style={{ height: "40px", marginTop: "8px" }}
+                        >
                           Hesap Oluştur
                         </button>
                       </form>
                     </div>
 
                     {/* Right: Coordinators & Commission members list */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                      <h5 style={{ fontWeight: "600" }}>Kayıtlı Koordinatör & Komisyon Üyeleri ({getCoordinatorsAndCommissionList().length})</h5>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "12px",
+                      }}
+                    >
+                      <h5 style={{ fontWeight: "600" }}>
+                        Kayıtlı Koordinatör & Komisyon Üyeleri (
+                        {getCoordinatorsAndCommissionList().length})
+                      </h5>
                       {getCoordinatorsAndCommissionList().length === 0 ? (
-                        <div className="empty-state" style={{ padding: "40px" }}>
-                          Kayıtlı koordinatör veya komisyon üyesi bulunmamaktadır.
+                        <div
+                          className="empty-state"
+                          style={{ padding: "40px" }}
+                        >
+                          Kayıtlı koordinatör veya komisyon üyesi
+                          bulunmamaktadır.
                         </div>
                       ) : (
-                        <div style={{ overflowY: "auto", maxHeight: "300px", border: "1px solid var(--border-color)", borderRadius: "8px" }}>
+                        <div
+                          style={{
+                            overflowY: "auto",
+                            maxHeight: "300px",
+                            border: "1px solid var(--border-color)",
+                            borderRadius: "8px",
+                          }}
+                        >
                           <table className="mod-table" style={{ margin: 0 }}>
                             <thead>
                               <tr>
@@ -1967,26 +2883,58 @@ const Moderation = () => {
                             <tbody>
                               {getCoordinatorsAndCommissionList().map((u) => (
                                 <tr key={u.uid}>
-                                  <td style={{ fontWeight: "600", fontSize: "13px" }}>{u.adSoyad}</td>
+                                  <td
+                                    style={{
+                                      fontWeight: "600",
+                                      fontSize: "13px",
+                                    }}
+                                  >
+                                    {u.adSoyad}
+                                  </td>
                                   <td>{u.eposta}</td>
                                   <td>
-                                    <span className="card-badge" style={{
-                                      backgroundColor: u.role === "coordinator" ? "#e0f2fe" : "#f3e8ff",
-                                      color: u.role === "coordinator" ? "#075985" : "#6b21a8",
-                                      fontWeight: "700",
-                                      fontSize: "11px"
-                                    }}>
-                                      {u.role === "coordinator" ? "Koordinatör" : "Komisyon Üyesi"}
+                                    <span
+                                      className="card-badge"
+                                      style={{
+                                        backgroundColor:
+                                          u.role === "coordinator"
+                                            ? "#e0f2fe"
+                                            : "#f3e8ff",
+                                        color:
+                                          u.role === "coordinator"
+                                            ? "#075985"
+                                            : "#6b21a8",
+                                        fontWeight: "700",
+                                        fontSize: "11px",
+                                      }}
+                                    >
+                                      {u.role === "coordinator"
+                                        ? "Koordinatör"
+                                        : "Komisyon Üyesi"}
                                     </span>
                                   </td>
                                   <td>
-                                    <span className="card-badge" style={{ backgroundColor: "var(--primary-light)", color: "var(--primary)" }}>
+                                    <span
+                                      className="card-badge"
+                                      style={{
+                                        backgroundColor: "var(--primary-light)",
+                                        color: "var(--primary)",
+                                      }}
+                                    >
                                       {u.il}
                                     </span>
                                   </td>
                                   <td style={{ textAlign: "right" }}>
-                                    {(userRole === "admin" || (userRole === "coordinator" && u.role === "commission")) ? (
-                                      <div style={{ display: "inline-flex", gap: "8px", justifyContent: "flex-end" }}>
+                                    {userRole === "admin" ||
+                                    (userRole === "coordinator" &&
+                                      u.role === "commission") ? (
+                                      <div
+                                        style={{
+                                          display: "inline-flex",
+                                          gap: "8px",
+                                          justifyContent: "flex-end",
+                                        }}
+                                      >
                                         <button
                                           onClick={() => {
                                             setEditingUser(u);
@@ -1995,7 +2943,7 @@ const Moderation = () => {
                                               eposta: u.eposta,
                                               telefon: u.telefon || "",
                                               il: u.il,
-                                              role: u.role
+                                              role: u.role,
                                             });
                                           }}
                                           className="btn-icon"
@@ -2007,7 +2955,7 @@ const Moderation = () => {
                                             cursor: "pointer",
                                             padding: "4px",
                                             display: "flex",
-                                            alignItems: "center"
+                                            alignItems: "center",
                                           }}
                                         >
                                           <Edit2 size={14} />
@@ -2023,14 +2971,22 @@ const Moderation = () => {
                                             cursor: "pointer",
                                             padding: "4px",
                                             display: "flex",
-                                            alignItems: "center"
+                                            alignItems: "center",
                                           }}
                                         >
                                           <Trash2 size={14} />
                                         </button>
                                       </div>
                                     ) : (
-                                      <span style={{ fontSize: "11px", color: "var(--text-muted)", fontStyle: "italic" }}>Kısıtlı</span>
+                                      <span
+                                        style={{
+                                          fontSize: "11px",
+                                          color: "var(--text-muted)",
+                                          fontStyle: "italic",
+                                        }}
+                                      >
+                                        Kısıtlı
+                                      </span>
                                     )}
                                   </td>
                                 </tr>
@@ -2043,36 +2999,60 @@ const Moderation = () => {
                   </div>
 
                   {/* Row 2: User List & Role Management */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "16px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        flexWrap: "wrap",
+                        gap: "12px",
+                      }}
+                    >
                       <div>
-                        <h4 style={{ margin: 0, fontWeight: "700" }}>Sistem Kullanıcıları & Rol Yönetimi</h4>
+                        <h4 style={{ margin: 0, fontWeight: "700" }}>
+                          Sistem Kullanıcıları & Rol Yönetimi
+                        </h4>
                         <p className="form-hint" style={{ marginTop: "4px" }}>
-                          {userRole === "admin" 
+                          {userRole === "admin"
                             ? "Sistemdeki tüm kayıtlı kullanıcıların rollerini değiştirebilir veya arama yapabilirsiniz."
                             : `${userProfile?.il} ilindeki kayıtlı kullanıcıların listesi.`}
                         </p>
                       </div>
-                      
-                      <button 
-                        className="card-btn secondary" 
+
+                      <button
+                        className="card-btn secondary"
                         onClick={fetchAllUsers}
-                        style={{ height: "fit-content", display: "flex", alignItems: "center", gap: "6px" }}
+                        style={{
+                          height: "fit-content",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                        }}
                       >
                         Yenile
                       </button>
                     </div>
 
                     {/* Filter Bar */}
-                    <div style={{
-                      display: "grid",
-                      gridTemplateColumns: userRole === "admin" ? "2fr 1fr 1fr" : "3fr 1fr",
-                      gap: "12px",
-                      backgroundColor: "#f8f9fa",
-                      padding: "12px",
-                      borderRadius: "8px",
-                      border: "1px solid var(--border-color)"
-                    }}>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns:
+                          userRole === "admin" ? "2fr 1fr 1fr" : "3fr 1fr",
+                        gap: "12px",
+                        backgroundColor: "#f8f9fa",
+                        padding: "12px",
+                        borderRadius: "8px",
+                        border: "1px solid var(--border-color)",
+                      }}
+                    >
                       <input
                         type="text"
                         className="form-input"
@@ -2081,7 +3061,7 @@ const Moderation = () => {
                         onChange={(e) => setUserSearch(e.target.value)}
                         style={{ margin: 0 }}
                       />
-                      
+
                       <select
                         className="form-input"
                         value={userRoleFilter}
@@ -2104,8 +3084,10 @@ const Moderation = () => {
                           style={{ margin: 0 }}
                         >
                           <option value="">Tüm İller</option>
-                          {cities.map(c => (
-                            <option key={c.plaka} value={c.ad}>{c.ad}</option>
+                          {cities.map((c) => (
+                            <option key={c.plaka} value={c.ad}>
+                              {c.ad}
+                            </option>
                           ))}
                         </select>
                       )}
@@ -2114,9 +3096,19 @@ const Moderation = () => {
                     {/* Users Table */}
                     <div className="mod-table-container" style={{ margin: 0 }}>
                       {loadingUsers ? (
-                        <div className="empty-state" style={{ padding: "40px" }}>Kullanıcılar yükleniyor...</div>
+                        <div
+                          className="empty-state"
+                          style={{ padding: "40px" }}
+                        >
+                          Kullanıcılar yükleniyor...
+                        </div>
                       ) : getFilteredUsers().length === 0 ? (
-                        <div className="empty-state" style={{ padding: "40px" }}>Kriterlere uygun kullanıcı bulunamadı.</div>
+                        <div
+                          className="empty-state"
+                          style={{ padding: "40px" }}
+                        >
+                          Kriterlere uygun kullanıcı bulunamadı.
+                        </div>
                       ) : (
                         <div style={{ overflowX: "auto", maxHeight: "400px" }}>
                           <table className="mod-table" style={{ margin: 0 }}>
@@ -2127,17 +3119,34 @@ const Moderation = () => {
                                 <th>Rol</th>
                                 <th>İl / İlçe</th>
                                 <th>Okul / Kurum</th>
-                                {userRole === "admin" && <th style={{ textAlign: "right" }}>İşlem</th>}
+                                {userRole === "admin" && (
+                                  <th style={{ textAlign: "right" }}>İşlem</th>
+                                )}
                               </tr>
                             </thead>
                             <tbody>
                               {getFilteredUsers().map((u) => (
                                 <tr key={u.uid}>
                                   <td style={{ fontWeight: "600" }}>
-                                    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "8px",
+                                      }}
+                                    >
                                       {u.adSoyad}
                                       {u.studentProfile?.isStudentRep && (
-                                        <span className="card-badge" style={{ backgroundColor: "#fff7ed", color: "var(--warning)", border: "1px solid #ffedd5", fontSize: "10px", padding: "1px 4px" }}>
+                                        <span
+                                          className="card-badge"
+                                          style={{
+                                            backgroundColor: "#fff7ed",
+                                            color: "var(--warning)",
+                                            border: "1px solid #ffedd5",
+                                            fontSize: "10px",
+                                            padding: "1px 4px",
+                                          }}
+                                        >
                                           Temsilci
                                         </span>
                                       )}
@@ -2145,29 +3154,87 @@ const Moderation = () => {
                                   </td>
                                   <td>{u.eposta}</td>
                                   <td>
-                                    <span className="card-badge" style={{
-                                      backgroundColor: u.role === "admin" ? "#fee2e2" : u.role === "coordinator" ? "#e0f2fe" : u.role === "commission" ? "#f3e8ff" : u.role === "principal" ? "#fef3c7" : u.role === "teacher" ? "#dcfce7" : "#f1f2f6",
-                                      color: u.role === "admin" ? "#991b1b" : u.role === "coordinator" ? "#075985" : u.role === "commission" ? "#6b21a8" : u.role === "principal" ? "#92400e" : u.role === "teacher" ? "#166534" : "var(--text-muted)",
-                                      fontWeight: "700"
-                                    }}>
-                                      {u.role === "admin" ? "Admin" : u.role === "coordinator" ? "Koordinatör" : u.role === "commission" ? "Komisyon Üyesi" : u.role === "principal" ? "Müdür" : u.role === "teacher" ? "Öğretmen" : "Öğrenci"}
+                                    <span
+                                      className="card-badge"
+                                      style={{
+                                        backgroundColor:
+                                          u.role === "admin"
+                                            ? "#fee2e2"
+                                            : u.role === "coordinator"
+                                              ? "#e0f2fe"
+                                              : u.role === "commission"
+                                                ? "#f3e8ff"
+                                                : u.role === "principal"
+                                                  ? "#fef3c7"
+                                                  : u.role === "teacher"
+                                                    ? "#dcfce7"
+                                                    : "#f1f2f6",
+                                        color:
+                                          u.role === "admin"
+                                            ? "#991b1b"
+                                            : u.role === "coordinator"
+                                              ? "#075985"
+                                              : u.role === "commission"
+                                                ? "#6b21a8"
+                                                : u.role === "principal"
+                                                  ? "#92400e"
+                                                  : u.role === "teacher"
+                                                    ? "#166534"
+                                                    : "var(--text-muted)",
+                                        fontWeight: "700",
+                                      }}
+                                    >
+                                      {u.role === "admin"
+                                        ? "Admin"
+                                        : u.role === "coordinator"
+                                          ? "Koordinatör"
+                                          : u.role === "commission"
+                                            ? "Komisyon Üyesi"
+                                            : u.role === "principal"
+                                              ? "Müdür"
+                                              : u.role === "teacher"
+                                                ? "Öğretmen"
+                                                : "Öğrenci"}
                                     </span>
                                   </td>
-                                  <td>{u.ilce ? `${u.ilce} / ` : ""}{u.il}</td>
+                                  <td>
+                                    {u.ilce ? `${u.ilce} / ` : ""}
+                                    {u.il}
+                                  </td>
                                   <td>{u.schoolId || "-"}</td>
                                   {userRole === "admin" && (
-                                    <td className="mod-actions" style={{ justifyContent: "flex-end" }}>
+                                    <td
+                                      className="mod-actions"
+                                      style={{ justifyContent: "flex-end" }}
+                                    >
                                       <select
                                         className="form-input"
                                         value={u.role}
-                                        onChange={(e) => handleRoleChange(u.uid, e.target.value)}
-                                        style={{ fontSize: "12px", padding: "4px 8px", width: "auto", margin: 0, height: "30px" }}
+                                        onChange={(e) =>
+                                          handleRoleChange(
+                                            u.uid,
+                                            e.target.value,
+                                          )
+                                        }
+                                        style={{
+                                          fontSize: "12px",
+                                          padding: "4px 8px",
+                                          width: "auto",
+                                          margin: 0,
+                                          height: "30px",
+                                        }}
                                       >
                                         <option value="student">Öğrenci</option>
-                                        <option value="teacher">Öğretmen</option>
+                                        <option value="teacher">
+                                          Öğretmen
+                                        </option>
                                         <option value="principal">Müdür</option>
-                                        <option value="coordinator">Koordinatör</option>
-                                        <option value="commission">Komisyon Üyesi</option>
+                                        <option value="coordinator">
+                                          Koordinatör
+                                        </option>
+                                        <option value="commission">
+                                          Komisyon Üyesi
+                                        </option>
                                       </select>
                                     </td>
                                   )}
@@ -2179,7 +3246,6 @@ const Moderation = () => {
                       )}
                     </div>
                   </div>
-
                 </div>
               )}
             </div>
@@ -2187,7 +3253,9 @@ const Moderation = () => {
             /* Teacher Session fallback (should not hit here because of redirection) */
             <div style={{ textAlign: "center", padding: "20px" }}>
               <h4>Öğretmen Girişi Başarılı!</h4>
-              <p className="form-hint">Lütfen Öğretmen Paneline yönlendirilmeyi bekleyin.</p>
+              <p className="form-hint">
+                Lütfen Öğretmen Paneline yönlendirilmeyi bekleyin.
+              </p>
               <button
                 className="card-btn primary"
                 onClick={() => setModalType("teacher-dashboard")}
@@ -2201,53 +3269,122 @@ const Moderation = () => {
       </div>
 
       {editingUser && (
-        <div className="modal-overlay" onClick={() => setEditingUser(null)} style={{ zIndex: 1100 }}>
-          <div className="modal-content glass-panel" onClick={(e) => e.stopPropagation()} style={{ maxWidth: "450px", width: "90%", border: "1px solid var(--border-color)", backgroundColor: "white", padding: "24px", borderRadius: "12px" }}>
-            <div className="modal-header" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--border-color)", paddingBottom: "12px", marginBottom: "16px" }}>
-              <h4 style={{ margin: 0, fontWeight: "700" }}>Kullanıcı Bilgilerini Düzenle</h4>
-              <button className="close-btn" onClick={() => setEditingUser(null)} style={{ background: "none", border: "none", cursor: "pointer", display: "flex", alignItems: "center", padding: "4px" }}>
+        <div
+          className="modal-overlay"
+          onClick={() => setEditingUser(null)}
+          style={{ zIndex: 1100 }}
+        >
+          <div
+            className="modal-content glass-panel"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "450px",
+              width: "90%",
+              border: "1px solid var(--border-color)",
+              backgroundColor: "white",
+              padding: "24px",
+              borderRadius: "12px",
+            }}
+          >
+            <div
+              className="modal-header"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                borderBottom: "1px solid var(--border-color)",
+                paddingBottom: "12px",
+                marginBottom: "16px",
+              }}
+            >
+              <h4 style={{ margin: 0, fontWeight: "700" }}>
+                Kullanıcı Bilgilerini Düzenle
+              </h4>
+              <button
+                className="close-btn"
+                onClick={() => setEditingUser(null)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "4px",
+                }}
+              >
                 <X size={20} />
               </button>
             </div>
-            <div className="modal-body" style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+            <div
+              className="modal-body"
+              style={{ display: "flex", flexDirection: "column", gap: "14px" }}
+            >
               <div>
-                <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Ad Soyad *</label>
+                <label
+                  className="form-label"
+                  style={{ fontWeight: "600", fontSize: "13px" }}
+                >
+                  Ad Soyad *
+                </label>
                 <input
                   type="text"
                   className="form-input"
                   value={editForm.adSoyad}
-                  onChange={(e) => setEditForm({ ...editForm, adSoyad: e.target.value })}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, adSoyad: e.target.value })
+                  }
                   style={{ margin: 0 }}
                   required
                 />
               </div>
               <div>
-                <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>E-posta Adresi *</label>
+                <label
+                  className="form-label"
+                  style={{ fontWeight: "600", fontSize: "13px" }}
+                >
+                  E-posta Adresi *
+                </label>
                 <input
                   type="email"
                   className="form-input"
                   value={editForm.eposta}
-                  onChange={(e) => setEditForm({ ...editForm, eposta: e.target.value })}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, eposta: e.target.value })
+                  }
                   style={{ margin: 0 }}
                   required
                 />
               </div>
               <div>
-                <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Telefon Numarası</label>
+                <label
+                  className="form-label"
+                  style={{ fontWeight: "600", fontSize: "13px" }}
+                >
+                  Telefon Numarası
+                </label>
                 <input
                   type="text"
                   className="form-input"
                   value={editForm.telefon}
-                  onChange={(e) => setEditForm({ ...editForm, telefon: e.target.value })}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, telefon: e.target.value })
+                  }
                   style={{ margin: 0 }}
                 />
               </div>
               <div>
-                <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Sorumlu Olduğu İl *</label>
+                <label
+                  className="form-label"
+                  style={{ fontWeight: "600", fontSize: "13px" }}
+                >
+                  Sorumlu Olduğu İl *
+                </label>
                 <select
                   className="form-input"
                   value={editForm.il}
-                  onChange={(e) => setEditForm({ ...editForm, il: e.target.value })}
+                  onChange={(e) =>
+                    setEditForm({ ...editForm, il: e.target.value })
+                  }
                   disabled={userRole !== "admin"} // Coordinator cannot change province
                   style={{ margin: 0 }}
                   required
@@ -2262,11 +3399,18 @@ const Moderation = () => {
               </div>
               {userRole === "admin" && (
                 <div>
-                  <label className="form-label" style={{ fontWeight: "600", fontSize: "13px" }}>Kullanıcı Rolü *</label>
+                  <label
+                    className="form-label"
+                    style={{ fontWeight: "600", fontSize: "13px" }}
+                  >
+                    Kullanıcı Rolü *
+                  </label>
                   <select
                     className="form-input"
                     value={editForm.role}
-                    onChange={(e) => setEditForm({ ...editForm, role: e.target.value })}
+                    onChange={(e) =>
+                      setEditForm({ ...editForm, role: e.target.value })
+                    }
                     style={{ margin: 0 }}
                     required
                   >
@@ -2276,9 +3420,31 @@ const Moderation = () => {
                 </div>
               )}
             </div>
-            <div className="modal-footer" style={{ borderTop: "1px solid var(--border-color)", paddingTop: "12px", display: "flex", justifyContent: "flex-end", gap: "10px", marginTop: "20px" }}>
-              <button className="card-btn secondary" onClick={() => setEditingUser(null)} style={{ margin: 0 }}>Vazgeç</button>
-              <button className="card-btn primary" onClick={handleEditSubmit} style={{ margin: 0 }}>Değişiklikleri Kaydet</button>
+            <div
+              className="modal-footer"
+              style={{
+                borderTop: "1px solid var(--border-color)",
+                paddingTop: "12px",
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "10px",
+                marginTop: "20px",
+              }}
+            >
+              <button
+                className="card-btn secondary"
+                onClick={() => setEditingUser(null)}
+                style={{ margin: 0 }}
+              >
+                Vazgeç
+              </button>
+              <button
+                className="card-btn primary"
+                onClick={handleEditSubmit}
+                style={{ margin: 0 }}
+              >
+                Değişiklikleri Kaydet
+              </button>
             </div>
           </div>
         </div>
