@@ -262,6 +262,12 @@ Yayına almadan önce rehberdeki **güvenlik kontrolü**, **manuel test** ve **o
 
 GençTek Atlas'ın Android sürümünü tasarlamak ve kodlatmak isteyen öğrenciler için **[GençTek Atlas Android Vibe Design & Coding Promptları](docs/ANDROID_VIBE_CODING_PROMPTS.md)** dosyasını kullanabilirsiniz.
 
+> **💡 Stitch Tasarım Şablonu:**
+> Uygulamanın tasarlanmış hazır hâline **[GençTek Atlas Stitch Projesi](https://stitch.withgoogle.com/projects/6373357757246752645)** bağlantısından ulaşabilirsiniz. Bu projeyi kendi Google hesabınıza aktararak tasarımlar üzerinde değişiklik yapabilir ve kendi çalışmalarınızda kullanabilirsiniz.
+>
+> **🤖 AI Studio Uygulama Şablonu:**
+> Uygulamanın AI Studio üzerindeki çalışan sürümüne ve istem yapılandırmasına **[GençTek Atlas AI Studio Uygulaması](https://ai.studio/apps/12621a2b-e173-4381-9f73-0f3aa4214107)** bağlantısından ulaşabilirsiniz. Bu uygulamayı 'Remiks' (Remix) seçeneğiyle kendi hesabınıza kopyalayarak inceleyebilir ve üzerinde çalışabilirsiniz.
+
 Bu Android rehberi iki akışı birlikte ele alır:
 
 - **Vibe Design:** Stitch veya benzeri bir mobil tasarım aracında giriş, keşfet, harita, formlar, gruplar, mesajlaşma, profil, paneller ve analiz ekranlarını tasarlatma.
