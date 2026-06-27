@@ -175,6 +175,106 @@ Gerekli dosya ve bileşenleri sen oluştur. Koddan sonra bu sistemin nasıl çal
 
 ---
 
+### 5.1. Harita Verisi Bulma: SVG, Leaflet ve GeoJSON
+
+**Açıklama:**
+Bu promptlar harita verisini nereden bulacağını, lisansını nasıl kontrol edeceğini ve SVG mi yoksa Leaflet/GeoJSON mu kullanacağını anlaman için kullanılır. Harita verisi bulurken kaynağın açık lisanslı olmasına dikkat et.
+
+#### Prompt A: En Uygun Harita Yaklaşımını Seç
+
+```text
+GençTek Atlas için Türkiye haritası kullanmak istiyorum ama SVG harita mı, Leaflet mi, GeoJSON mu seçmem gerektiğini bilmiyorum.
+
+Ben lise öğrencisiyim. Lütfen bana sade bir karar tablosu hazırla.
+
+Şunları karşılaştır:
+- SVG Türkiye haritası
+- Leaflet haritası
+- GeoJSON il sınırları
+
+Her seçenek için şunları açıkla:
+1. Ne zaman kullanılmalı?
+2. Avantajı nedir?
+3. Zorluğu nedir?
+4. Mobilde iyi çalışır mı?
+5. GençTek Atlas'ın ilk sürümü için hangisi daha uygundur?
+
+Sonunda bana şu kararı ver:
+- İlk çalışan sürüm için hangi yolu seçmeliyim?
+- Daha gelişmiş sürümde hangi yola geçebilirim?
+- Harita verisi seçerken lisans ve kaynak açısından nelere dikkat etmeliyim?
+
+Kod yazma. Önce karar vermeme yardım et.
+```
+
+#### Prompt B: Açık Lisanslı SVG Türkiye Haritası Bul
+
+```text
+GençTek Atlas için açık lisanslı bir SVG Türkiye haritası bulmak istiyorum.
+
+Lütfen bana güvenli bir araştırma planı hazırla.
+
+Şunları yap:
+1. SVG Türkiye haritası ararken hangi anahtar kelimeleri kullanacağımı yaz.
+2. Kaynağın lisansını nasıl kontrol edeceğimi anlat.
+3. Haritada illerin tıklanabilir olması için SVG içinde hangi bilgileri aramam gerektiğini açıkla.
+4. SVG dosyasında il adı, plaka kodu veya path id bilgisi yoksa ne yapmam gerektiğini söyle.
+5. Bulduğum SVG'yi React uygulamasında nasıl kullanabileceğimi genel olarak anlat.
+
+Kurallar:
+- Telif hakkı belirsiz dosyaları kullanma.
+- Kaynağı README veya dokümantasyonda belirtmem gerektiğini hatırlat.
+- Dosyayı doğrudan kopyalamadan önce lisansını kontrol etmem gerektiğini söyle.
+
+Kod yazma. Önce doğru harita dosyasını seçmem için kontrol listesi hazırla.
+```
+
+#### Prompt C: Leaflet İçin GeoJSON İl Sınırı Verisi Bul
+
+```text
+GençTek Atlas için Leaflet ile Türkiye il sınırlarını göstermek istiyorum. Bunun için GeoJSON verisi bulmam gerekiyor.
+
+Lütfen bana sade bir araştırma ve kontrol planı hazırla.
+
+Şunları açıkla:
+1. GeoJSON nedir?
+2. Türkiye il sınırları için hangi tür açık veri kaynakları aranmalı?
+3. Veri kaynağında lisans, güncellik ve kullanım izni nasıl kontrol edilir?
+4. GeoJSON dosyasında her il için hangi alanlar olmalı? Örnek: il adı, plaka kodu, geometri.
+5. Dosya çok büyükse performans için ne yapılabilir?
+6. Leaflet haritasında il seçimi, hover efekti ve popup nasıl planlanır?
+
+Sonunda bana bir kontrol listesi ver:
+- Kaynak güvenilir mi?
+- Lisans açık mı?
+- İl adları Türkçe karakterlerle doğru mu?
+- 81 il var mı?
+- Dosya boyutu web için uygun mu?
+- Kaynak README'de belirtildi mi?
+
+Kod yazma. Önce veriyi doğru seçmeme yardım et.
+```
+
+#### Prompt D: Bulunan Harita Verisini Uygulamaya Ekle
+
+```text
+GençTek Atlas için açık lisanslı bir harita verisi buldum. Bu veri SVG veya GeoJSON olabilir.
+
+Bu veriyi React uygulamasına güvenli ve düzenli şekilde eklememe yardım et.
+
+Lütfen:
+1. Harita dosyasını proje içinde nereye koymam gerektiğini öner.
+2. Dosya SVG ise illere tıklama olayını nasıl bağlayacağımı açıkla.
+3. Dosya GeoJSON ise Leaflet ile nasıl göstereceğimi açıkla.
+4. İl seçilince etkinlik ve proje listelerini nasıl filtreleyeceğimi anlat.
+5. Kaynak ve lisans bilgisini README'ye nasıl yazacağımı göster.
+6. Harita çalışmazsa kontrol etmem gereken 5 şeyi listele.
+
+Gerekli dosya ve klasörleri sen oluştur. Önce planı açıkla, sonra kodu yaz.
+```
+
+---
+
 ## 6. Etkinlik ve Proje Kayıt Formları
 
 **Açıklama:**
