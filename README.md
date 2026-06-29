@@ -296,6 +296,13 @@ Bu rehber şunları kapsar:
 - Android uygulamayı Firebase yerine Laravel API kullanacak şekilde dönüştürme
 - Veri taşıma, güvenlik, test, hata ayıklama ve yayına alma promptları
 
+#### 🔗 Laravel Alternatif Depoları
+
+Projenin Firebase yerine Laravel backend ve monolitik Laravel frontend ile çalışan alternatif sürümlerine aşağıdaki depolardan ulaşabilirsiniz:
+
+- 🖥️ **Laravel Backend API:** [genctek_atlas_laravel_backend](https://github.com/adeministratorr/genctek_atlas_laravel_backend) — Firestore serverless yapısı yerine MySQL veritabanı, Sanctum token tabanlı kimlik doğrulama, rol/policy koruması ve tüm ilişkisel API uçlarını barındıran PHP Laravel API sunucusu.
+- 🎨 **Laravel Frontend:** [genctek_atlas_laravel_frontend](https://github.com/adeministratorr/genctek_atlas_laravel_frontend) — React sürümüne alternatif olarak klasik Laravel Blade şablon motoru, Tailwind CSS ve Laravel API entegrasyonuyla geliştirilmiş monolitik web istemcisi.
+
 ### Antigravity Proje Skill'i
 
 Antigravity veya benzer AI kod editörleriyle bu proje üzerinde çalışırken proje kökündeki **[AGENTS.md](AGENTS.md)** dosyası okunmalıdır. Bu dosya ajanı proje skill'ine yönlendirir:
