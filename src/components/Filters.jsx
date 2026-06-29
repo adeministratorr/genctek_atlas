@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useApp } from "../context/AppContext";
 import { Search, Filter, SlidersHorizontal } from "lucide-react";
 
@@ -11,11 +12,55 @@ const Filters = ({ activeListTab }) => {
     setSelectedDistrict,
     selectedSchool,
     setSelectedSchool,
-    schoolsData,
-    schoolsLoading,
+    loadSchoolsDataForCity,
     filters,
     setFilters,
   } = useApp();
+  const [filterSchoolsData, setFilterSchoolsData] = useState({});
+  const [filterSchoolsLoading, setFilterSchoolsLoading] = useState(false);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    if (!selectedCity) {
+      Promise.resolve().then(() => {
+        if (!isCancelled) {
+          setFilterSchoolsData({});
+          setFilterSchoolsLoading(false);
+        }
+      });
+      return () => {
+        isCancelled = true;
+      };
+    }
+
+    Promise.resolve().then(() => {
+      if (!isCancelled) {
+        setFilterSchoolsLoading(true);
+      }
+    });
+    loadSchoolsDataForCity(selectedCity)
+      .then((citySchoolsData) => {
+        if (!isCancelled) {
+          setFilterSchoolsData(citySchoolsData);
+        }
+      })
+      .catch((error) => {
+        console.error("Filtre ilce verileri yuklenirken hata:", error);
+        if (!isCancelled) {
+          setFilterSchoolsData({});
+        }
+      })
+      .finally(() => {
+        if (!isCancelled) {
+          setFilterSchoolsLoading(false);
+        }
+      });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [selectedCity, loadSchoolsDataForCity]);
 
   const handleSearchChange = (e) => {
     setFilters((prev) => ({ ...prev, search: e.target.value }));
@@ -77,12 +122,12 @@ const Filters = ({ activeListTab }) => {
               className="filter-select"
               value={selectedDistrict}
               onChange={(e) => setSelectedDistrict(e.target.value)}
-              disabled={schoolsLoading}
+              disabled={filterSchoolsLoading}
               id="district-filter"
               style={{ flex: "1 1 150px" }}
             >
-              <option value="">{schoolsLoading ? "Yükleniyor..." : "Tüm İlçeler"}</option>
-              {Object.keys(schoolsData).sort().map((dist) => (
+              <option value="">{filterSchoolsLoading ? "Yükleniyor..." : "Tüm İlçeler"}</option>
+              {Object.keys(filterSchoolsData).sort().map((dist) => (
                 <option key={dist} value={dist}>
                   {dist}
                 </option>
@@ -100,8 +145,8 @@ const Filters = ({ activeListTab }) => {
               style={{ flex: "1 1 200px" }}
             >
               <option value="">Tüm Okullar</option>
-              {schoolsData[selectedDistrict] &&
-                schoolsData[selectedDistrict].map((s) => s.ad).sort().map((school) => (
+              {filterSchoolsData[selectedDistrict] &&
+                filterSchoolsData[selectedDistrict].map((s) => s.ad).sort().map((school) => (
                   <option key={school} value={school}>
                     {school}
                   </option>

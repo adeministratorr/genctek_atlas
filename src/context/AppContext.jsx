@@ -87,100 +87,127 @@ export const AppProvider = ({ children }) => {
     search: "",
   });
 
-  // Fetch schools dynamically for a given city plaka and merge with custom/edited schools
-  const loadSchoolsForCity = useCallback(async (cityAd) => {
+  // Fetch schools dynamically for a given city plaka and merge with custom/edited schools.
+  // This helper returns data without changing shared UI state, so components can avoid
+  // overwriting each other's city-specific school lists.
+  const loadSchoolsDataForCity = useCallback(async (cityAd) => {
     if (!cityAd) {
-      setSchoolsData({});
-      return;
+      return {};
     }
     const matchedCity = citiesData.find(
       (c) => c.ad.toLowerCase() === cityAd.toLowerCase(),
     );
     if (!matchedCity) {
+      return {};
+    }
+
+    // 1. Fetch static schools
+    const response = await fetch(`/data/schools/${matchedCity.plaka}.json`);
+    if (!response.ok) throw new Error("Okul verisi yüklenemedi");
+    const staticData = await response.json();
+
+    // Deep copy staticData to avoid mutating cached responses
+    const mergedData = JSON.parse(JSON.stringify(staticData));
+
+    // 2. Fetch custom/edited schools from Firestore or LocalStorage
+    let customSchoolsList = [];
+    if (!auth.config.apiKey.includes("DummyKey")) {
+      try {
+        const q = query(
+          collection(db, "custom_schools"),
+          where("il", "==", cityAd),
+        );
+        const customSchoolsTimeout = new Promise((_, reject) =>
+          setTimeout(
+            () => reject(new Error("Custom schools fetch timeout")),
+            2500,
+          ),
+        );
+        const querySnapshot = await Promise.race([
+          getDocs(q),
+          customSchoolsTimeout,
+        ]);
+        querySnapshot.forEach((doc) => {
+          customSchoolsList.push({ id: doc.id, ...doc.data() });
+        });
+      } catch (error) {
+        console.warn(
+          "Ozel okul verileri yuklenemedi, statik okul listesi kullaniliyor:",
+          error,
+        );
+      }
+    } else {
+      const localSchools = localStorage.getItem("mock_custom_schools");
+      if (localSchools) {
+        customSchoolsList = JSON.parse(localSchools).filter(
+          (s) => s.il.toLowerCase() === cityAd.toLowerCase(),
+        );
+      }
+    }
+
+    // 3. Merge custom schools into matched districts
+    customSchoolsList.forEach((customSchool) => {
+      const district = customSchool.ilce.toUpperCase(); // Ensure district key is uppercase
+      if (!mergedData[district]) {
+        mergedData[district] = [];
+      }
+
+      // Check if this is an override of a static school
+      if (customSchool.originalId) {
+        const idx = mergedData[district].findIndex(
+          (s) =>
+            s.id === customSchool.originalId ||
+            s.ad === customSchool.originalAd,
+        );
+        if (idx !== -1) {
+          mergedData[district][idx] = {
+            id: customSchool.id,
+            ad: customSchool.ad,
+            website: customSchool.website,
+          };
+          return;
+        }
+      }
+
+      // Otherwise, add it if it doesn't exist already
+      const exists = mergedData[district].some(
+        (s) => s.ad === customSchool.ad,
+      );
+      if (!exists) {
+        mergedData[district].push({
+          id: customSchool.id,
+          ad: customSchool.ad,
+          website: customSchool.website,
+        });
+      }
+    });
+
+    // Ensure every school has a stable ID for editing reference
+    Object.keys(mergedData).forEach((dist) => {
+      mergedData[dist] = mergedData[dist].map((school, index) => {
+        if (!school.id) {
+          return {
+            ...school,
+            id: `static-${matchedCity.plaka}-${dist.toLowerCase()}-${index}`,
+          };
+        }
+        return school;
+      });
+    });
+
+    return mergedData;
+  }, []);
+
+  // Fetch schools into the shared context state for forms and dashboards.
+  const loadSchoolsForCity = useCallback(async (cityAd) => {
+    if (!cityAd) {
       setSchoolsData({});
       return;
     }
 
     setSchoolsLoading(true);
     try {
-      // 1. Fetch static schools
-      const response = await fetch(`/data/schools/${matchedCity.plaka}.json`);
-      if (!response.ok) throw new Error("Okul verisi yüklenemedi");
-      const staticData = await response.json();
-
-      // Deep copy staticData to avoid mutating cached responses
-      const mergedData = JSON.parse(JSON.stringify(staticData));
-
-      // 2. Fetch custom/edited schools from Firestore or LocalStorage
-      let customSchoolsList = [];
-      if (!auth.config.apiKey.includes("DummyKey")) {
-        const q = query(
-          collection(db, "custom_schools"),
-          where("il", "==", cityAd),
-        );
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((doc) => {
-          customSchoolsList.push({ id: doc.id, ...doc.data() });
-        });
-      } else {
-        const localSchools = localStorage.getItem("mock_custom_schools");
-        if (localSchools) {
-          customSchoolsList = JSON.parse(localSchools).filter(
-            (s) => s.il.toLowerCase() === cityAd.toLowerCase(),
-          );
-        }
-      }
-
-      // 3. Merge custom schools into matched districts
-      customSchoolsList.forEach((customSchool) => {
-        const district = customSchool.ilce.toUpperCase(); // Ensure district key is uppercase
-        if (!mergedData[district]) {
-          mergedData[district] = [];
-        }
-
-        // Check if this is an override of a static school
-        if (customSchool.originalId) {
-          const idx = mergedData[district].findIndex(
-            (s) =>
-              s.id === customSchool.originalId ||
-              s.ad === customSchool.originalAd,
-          );
-          if (idx !== -1) {
-            mergedData[district][idx] = {
-              id: customSchool.id,
-              ad: customSchool.ad,
-              website: customSchool.website,
-            };
-            return;
-          }
-        }
-
-        // Otherwise, add it if it doesn't exist already
-        const exists = mergedData[district].some(
-          (s) => s.ad === customSchool.ad,
-        );
-        if (!exists) {
-          mergedData[district].push({
-            id: customSchool.id,
-            ad: customSchool.ad,
-            website: customSchool.website,
-          });
-        }
-      });
-
-      // Ensure every school has a stable ID for editing reference
-      Object.keys(mergedData).forEach((dist) => {
-        mergedData[dist] = mergedData[dist].map((school, index) => {
-          if (!school.id) {
-            return {
-              ...school,
-              id: `static-${matchedCity.plaka}-${dist.toLowerCase()}-${index}`,
-            };
-          }
-          return school;
-        });
-      });
-
+      const mergedData = await loadSchoolsDataForCity(cityAd);
       setSchoolsData(mergedData);
     } catch (error) {
       console.error("Okul verileri yuklenirken hata:", error);
@@ -188,7 +215,7 @@ export const AppProvider = ({ children }) => {
     } finally {
       setSchoolsLoading(false);
     }
-  }, []);
+  }, [loadSchoolsDataForCity]);
 
   // Add Custom School
   const addCustomSchool = useCallback(
@@ -3367,6 +3394,7 @@ export const AppProvider = ({ children }) => {
         schoolsData,
         schoolsLoading,
         loadSchoolsForCity,
+        loadSchoolsDataForCity,
         addCustomSchool,
         updateCustomSchool,
         addCoordinator,

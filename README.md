@@ -2,6 +2,8 @@
 
 > Türkiye genelindeki GençTek etkinliklerini, öğrenci projelerini ve okul çalışmalarını güvenli, harita tabanlı bir platformda görünür kılar.
 
+![GençTek Atlas Harita ve Etkinlikler](docs/genctekatlas_screenshot.png)
+
 **GençTek Atlas**, GençTek ekosisteminde Türkiye genelinde yapılan etkinlikleri, projeleri ve öğrenci çalışmalarını interaktif Türkiye haritası üzerinde gösteren web tabanlı bir platformdur.
 
 Bu proje, **Vibe Coding** kış kampı kapsamında sıfırdan istemci taraflı (client-side) olarak ve tamamen **Firebase** serverless mimarisiyle geliştirilmiştir.
@@ -232,6 +234,9 @@ Güvenlik ve etik takip belgeleri:
 ---
 
 ### 🤖 Antigravity / AI Studio Kurulum Promptu (Tam Otomatik - Önerilen)
+
+> **🤖 Google AI Studio Web Şablonu:**
+> Projenin web sürümünü Google AI Studio üzerinden doğrudan düzenlemek, prompt yapılandırmasını incelemek ve bilgisayarınıza indirmek için **[GençTek Atlas Web Google AI Studio Uygulaması](https://ai.studio/apps/00d5d17a-f0b0-4ebd-bc0e-7ff84bd0eb2e)** bağlantısını da kullanabilirsiniz.
 
 Eğer **Antigravity** veya **Google AI Studio** kullanıyorsanız, projeyi indirir indirmez Firebase paneline bile girmeden tüm işlemleri (API anahtarlarını çekme, ayarlama, yayınlama) **Firebase MCP** yetenekleriyle yapay zekaya yaptırabilirsiniz! Aşağıdaki prompt'u kopyalayıp kullanın:
 
